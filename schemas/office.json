@@ -1,0 +1,350 @@
+{
+    "__type": {
+        "name": "Office",
+        "fields": [
+            {
+                "name": "address_detail",
+                "type": {
+                    "name": "AddressInfo",
+                    "kind": "OBJECT"
+                }
+            },
+            {
+                "name": "allow_online_payments",
+                "type": {
+                    "name": "String",
+                    "kind": "SCALAR"
+                }
+            },
+            {
+                "name": "campaigns",
+                "type": {
+                    "name": "undefined",
+                    "kind": "LIST"
+                }
+            },
+            {
+                "name": "checklist_survey",
+                "type": {
+                    "name": "Survey",
+                    "kind": "OBJECT"
+                }
+            },
+            {
+                "name": "cities",
+                "type": {
+                    "name": "undefined",
+                    "kind": "LIST"
+                }
+            },
+            {
+                "name": "color_code",
+                "type": {
+                    "name": "String",
+                    "kind": "SCALAR"
+                }
+            },
+            {
+                "name": "comments",
+                "type": {
+                    "name": "CommentConnection",
+                    "kind": "OBJECT"
+                }
+            },
+            {
+                "name": "committee_aggregations",
+                "type": {
+                    "name": "CommitteeAggregationConnection",
+                    "kind": "OBJECT"
+                }
+            },
+            {
+                "name": "committee_targets",
+                "type": {
+                    "name": "CommitteeTargetConnection",
+                    "kind": "OBJECT"
+                }
+            },
+            {
+                "name": "companies",
+                "type": {
+                    "name": "undefined",
+                    "kind": "LIST"
+                }
+            },
+            {
+                "name": "contact_detail",
+                "type": {
+                    "name": "ContactInfo",
+                    "kind": "OBJECT"
+                }
+            },
+            {
+                "name": "country_code",
+                "type": {
+                    "name": "String",
+                    "kind": "SCALAR"
+                }
+            },
+            {
+                "name": "cover_photo",
+                "type": {
+                    "name": "String",
+                    "kind": "SCALAR"
+                }
+            },
+            {
+                "name": "custom_payment_url",
+                "type": {
+                    "name": "String",
+                    "kind": "SCALAR"
+                }
+            },
+            {
+                "name": "default_currency",
+                "type": {
+                    "name": "Currency",
+                    "kind": "OBJECT"
+                }
+            },
+            {
+                "name": "default_project_fee",
+                "type": {
+                    "name": "Int",
+                    "kind": "SCALAR"
+                }
+            },
+            {
+                "name": "default_project_fee_cents",
+                "type": {
+                    "name": "Int",
+                    "kind": "SCALAR"
+                }
+            },
+            {
+                "name": "eligible_for_online_payment",
+                "type": {
+                    "name": "String",
+                    "kind": "SCALAR"
+                }
+            },
+            {
+                "name": "email",
+                "type": {
+                    "name": "String",
+                    "kind": "SCALAR"
+                }
+            },
+            {
+                "name": "full_name",
+                "type": {
+                    "name": "String",
+                    "kind": "SCALAR"
+                }
+            },
+            {
+                "name": "hdi",
+                "type": {
+                    "name": "undefined",
+                    "kind": "LIST"
+                }
+            },
+            {
+                "name": "id",
+                "type": {
+                    "name": "undefined",
+                    "kind": "NON_NULL"
+                }
+            },
+            {
+                "name": "igv_fee_ep_percentage",
+                "type": {
+                    "name": "Float",
+                    "kind": "SCALAR"
+                }
+            },
+            {
+                "name": "igv_fee_partner_percentage",
+                "type": {
+                    "name": "Float",
+                    "kind": "SCALAR"
+                }
+            },
+            {
+                "name": "is_expansion",
+                "type": {
+                    "name": "String",
+                    "kind": "SCALAR"
+                }
+            },
+            {
+                "name": "is_frozen",
+                "type": {
+                    "name": "Boolean",
+                    "kind": "SCALAR"
+                }
+            },
+            {
+                "name": "is_od_model_eligible",
+                "type": {
+                    "name": "String",
+                    "kind": "SCALAR"
+                }
+            },
+            {
+                "name": "member_position",
+                "type": {
+                    "name": "MemberPosition",
+                    "kind": "OBJECT"
+                }
+            },
+            {
+                "name": "name",
+                "type": {
+                    "name": "String",
+                    "kind": "SCALAR"
+                }
+            },
+            {
+                "name": "name_sort",
+                "type": {
+                    "name": "String",
+                    "kind": "SCALAR"
+                }
+            },
+            {
+                "name": "od_data",
+                "type": {
+                    "name": "JSON",
+                    "kind": "SCALAR"
+                }
+            },
+            {
+                "name": "parent",
+                "type": {
+                    "name": "Office",
+                    "kind": "OBJECT"
+                }
+            },
+            {
+                "name": "payments",
+                "type": {
+                    "name": "CommitteePayment",
+                    "kind": "OBJECT"
+                }
+            },
+            {
+                "name": "pdi",
+                "type": {
+                    "name": "undefined",
+                    "kind": "LIST"
+                }
+            },
+            {
+                "name": "permissions",
+                "type": {
+                    "name": "OfficePermissionType",
+                    "kind": "OBJECT"
+                }
+            },
+            {
+                "name": "profile_photo",
+                "type": {
+                    "name": "String",
+                    "kind": "SCALAR"
+                }
+            },
+            {
+                "name": "programme_fees",
+                "type": {
+                    "name": "ProgrammeFeeConnection",
+                    "kind": "OBJECT"
+                }
+            },
+            {
+                "name": "programme_managers",
+                "type": {
+                    "name": "undefined",
+                    "kind": "LIST"
+                }
+            },
+            {
+                "name": "project_fee_limit",
+                "type": {
+                    "name": "Int",
+                    "kind": "SCALAR"
+                }
+            },
+            {
+                "name": "project_fee_limit_cents",
+                "type": {
+                    "name": "Int",
+                    "kind": "SCALAR"
+                }
+            },
+            {
+                "name": "short_code",
+                "type": {
+                    "name": "String",
+                    "kind": "SCALAR"
+                }
+            },
+            {
+                "name": "signup_link",
+                "type": {
+                    "name": "String",
+                    "kind": "SCALAR"
+                }
+            },
+            {
+                "name": "signup_questions",
+                "type": {
+                    "name": "String",
+                    "kind": "SCALAR"
+                }
+            },
+            {
+                "name": "sub_office_count",
+                "type": {
+                    "name": "Int",
+                    "kind": "SCALAR"
+                }
+            },
+            {
+                "name": "suboffices",
+                "type": {
+                    "name": "undefined",
+                    "kind": "LIST"
+                }
+            },
+            {
+                "name": "tag",
+                "type": {
+                    "name": "String",
+                    "kind": "SCALAR"
+                }
+            },
+            {
+                "name": "tag_lists",
+                "type": {
+                    "name": "undefined",
+                    "kind": "LIST"
+                }
+            },
+            {
+                "name": "todo_type",
+                "type": {
+                    "name": "TodoType",
+                    "kind": "OBJECT"
+                }
+            },
+            {
+                "name": "visa_requirements",
+                "type": {
+                    "name": "JSON",
+                    "kind": "SCALAR"
+                }
+            }
+        ]
+    }
+}
