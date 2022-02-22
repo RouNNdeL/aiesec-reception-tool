@@ -4,7 +4,7 @@ from __future__ import annotations
 from typing import Dict
 
 from gql import gql, Client
-from gql.transport.aiohttp import AIOHTTPTransport
+from gql.transport.requests import RequestsHTTPTransport
 
 import base64
 import requests
@@ -64,7 +64,7 @@ class ExpaQuery:
         self.__init_client(token)
 
     def __init_client(self, token: str):
-        transport = AIOHTTPTransport(
+        transport = RequestsHTTPTransport(
             url=EXPA_GRAPHQL_URL, headers={"Authorization": token}
         )
         self.__client = Client(transport=transport)

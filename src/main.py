@@ -4,7 +4,7 @@ from __future__ import annotations
 from os import getenv
 
 from expaql.api import ExpaQuery
-from gql.transport.aiohttp import log as requests_logger
+from gql.transport.requests import log as requests_logger
 
 import logging
 import atexit
@@ -23,7 +23,7 @@ expaql: ExpaQuery | None = None
 
 def main():
     global expaql
-    # load token from token file, or throw an error if not exists
+
     with open(REFRESH_TOKEN_FILE, "r") as f:
         refresh_token = f.read().strip()
 
@@ -36,7 +36,6 @@ def main():
             "EXPA_OAUTH_CLIENT_SECRET env variables"
         )
 
-    # use token to get access token
     expaql = ExpaQuery(client_id, client_secret, refresh_token)
     person = expaql.get_current_person()
     logging.info("Logged in as %s", person)
