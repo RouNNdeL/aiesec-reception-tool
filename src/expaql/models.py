@@ -2,7 +2,7 @@ from __future__ import annotations
 from typing import Dict
 from abc import ABC
 
-import datetime
+from datetime import datetime
 from enum import Enum
 
 
