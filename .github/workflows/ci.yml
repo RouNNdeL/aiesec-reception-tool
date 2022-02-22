@@ -3,7 +3,7 @@ name: CI
 on: [push]
 
 env:
-  DEFAULT_PYTHON: 3.10
+  DEFAULT_PYTHON: "3.10"
 
 jobs:
   lint-flake8:
