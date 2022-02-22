@@ -105,8 +105,8 @@ class ExpaQuery:
             )
         elif response.status_code != 200:
             raise ExpaUnknwonException(
-                "Invalid status code "
-                f"{response.status_code}: {response.content}"
+                f"Invalid status code {response.status_code}:"
+                f"{response.content.decode()}"
             )
 
         self.__refresh_token = json["refresh_token"]
