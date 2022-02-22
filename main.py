@@ -32,7 +32,8 @@ def main():
 
     if client_id is None or client_secret is None:
         raise Exception(
-            "Please set EXPA_OUTH_CLIENT_ID and EXPA_OAUTH_CLIENT_SECRET env variables"
+            "Please set EXPA_OUTH_CLIENT_ID and "
+            "EXPA_OAUTH_CLIENT_SECRET env variables"
         )
 
     # use token to get access token

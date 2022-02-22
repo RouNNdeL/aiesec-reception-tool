@@ -3,10 +3,8 @@
 from __future__ import annotations
 from typing import Dict
 
-from gql import client, gql, Client
+from gql import gql, Client
 from gql.transport.aiohttp import AIOHTTPTransport
-from gql.transport.async_transport import AsyncTransport
-from gql.transport.transport import Transport
 
 import base64
 import requests
@@ -36,10 +34,14 @@ class ExpaQuery:
     __client_id: str
     __client_secret: str
 
-    def __init__(self, client_id: str, client_secret: str, initial_refresh_token: str):
+    def __init__(
+        self, client_id: str, client_secret: str, initial_refresh_token: str
+    ):
         token_len = len(initial_refresh_token)
         if token_len != 64:
-            raise ValueError(f"Invalid token length, expected 64 got {token_len}")
+            raise ValueError(
+                f"Invalid token length, expected 64 got {token_len}"
+            )
 
         client_id_len = len(client_id)
         if client_id_len != 64:
@@ -50,7 +52,8 @@ class ExpaQuery:
         client_secret_len = len(client_secret)
         if client_secret_len != 64:
             raise ValueError(
-                f"Invalid client_secret length, expected 64 got {client_secret_len}"
+                "Invalid client_secret length, "
+                f"expected 64 got {client_secret_len}"
             )
 
         self.__refresh_token = initial_refresh_token
@@ -80,7 +83,10 @@ class ExpaQuery:
             "Content-Type": "application/x-www-form-urlencoded",
         }
 
-        data = {"refresh_token": self.__refresh_token, "grant_type": "refresh_token"}
+        data = {
+            "refresh_token": self.__refresh_token,
+            "grant_type": "refresh_token",
+        }
 
         response = requests.post(
             "https://auth.aiesec.org/oauth/token", headers=headers, data=data
@@ -94,10 +100,13 @@ class ExpaQuery:
             response.status_code == HTTPStatus.UNAUTHORIZED
             and "error_description" in json
         ):
-            raise ExpaAuthException(f"Unauthorized: {json['error_description']}")
+            raise ExpaAuthException(
+                f"Unauthorized: {json['error_description']}"
+            )
         elif response.status_code != 200:
             raise ExpaUnknwonException(
-                f"Invalid status code {response.status_code}: {response.content}"
+                "Invalid status code "
+                f"{response.status_code}: {response.content}"
             )
 
         self.__refresh_token = json["refresh_token"]
@@ -125,7 +134,9 @@ class ExpaQuery:
         """
         )
 
-        return CurrentPerson.from_dict(self.__client.execute(query)["currentPerson"])
+        return CurrentPerson.from_dict(
+            self.__client.execute(query)["currentPerson"]
+        )
 
     def get_schema(self, typename: str) -> Dict[str, Dict[str, str]]:
         self.__check_token()

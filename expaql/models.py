@@ -1,6 +1,6 @@
 from __future__ import annotations
 from typing import Dict
-from abc import ABC, abstractmethod
+from abc import ABC
 
 import datetime
 from enum import Enum
@@ -96,7 +96,9 @@ class Office(ExpaModel):
     full_name: str
     parent: Office | None
 
-    def __init__(self, id: int, name: str, full_name: str, parent: Office | None):
+    def __init__(
+        self, id: int, name: str, full_name: str, parent: Office | None
+    ):
         super().__init__()
         self.id = id
         self.name = name
