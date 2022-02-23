@@ -48,8 +48,10 @@ class OportunityApplicationFormatter:
         c_instagram = ""
         if person.contact_detail.instagram is not None:
             handle = person.contact_detail.instagram
-            c_instagram = f"Instagram: [{handle}]"\
-                          f"(https://www.instagram.com/{handle})"
+            c_instagram = (
+                f"Instagram: [{handle}]"
+                f"(https://www.instagram.com/{handle})"
+            )
 
         c_email = ""
         if person.email is not None:
@@ -70,9 +72,6 @@ class OportunityApplicationFormatter:
 {about}
 
 {nationalities}
-
-### Questionare
-{app.questionnaire_answers}
 
 ## Application detail
 ### CV

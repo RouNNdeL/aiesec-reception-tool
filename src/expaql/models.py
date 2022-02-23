@@ -1,5 +1,5 @@
 from __future__ import annotations
-from typing import Dict, List, Optional
+from typing import Dict, List, Optional, Set
 from abc import ABC
 
 from datetime import datetime
@@ -296,7 +296,7 @@ class Oportunity(ExpaModel):
     city: Optional[City]
     description: str
     google_place_id: str
-    languages: List[str]
+    languages: Set[str]
     lat: str
     lng: str
     location: str
@@ -315,7 +315,6 @@ class Oportunity(ExpaModel):
         city: Optional[City],
         description: str,
         google_place_id: str,
-        languages: List[str],
         lat: str,
         lng: str,
         location: str,
@@ -333,7 +332,6 @@ class Oportunity(ExpaModel):
         self.city = city
         self.description = description
         self.google_place_id = google_place_id
-        self.languages = languages
         self.lat = lat
         self.lng = lng
         self.location = location
@@ -361,7 +359,6 @@ class Oportunity(ExpaModel):
             city,
             d["description"],
             d["google_place_id"],
-            d["languages"],
             d["lat"],
             d["lng"],
             d["location"],
@@ -387,9 +384,6 @@ class Oportunity(ExpaModel):
             }
             description
             google_place_id
-            languages {
-                constant_name
-            }
             lat
             lng
             location
@@ -537,10 +531,10 @@ class Person(ExpaModel):
     home_mc: str
     profile_photo: str
     status: str
-    nationalities: List[str]
-    backgrounds: List[str]
-    skills: List[str]
-    languages: List[str]
+    nationalities: Set[str]
+    backgrounds: Set[str]
+    skills: Set[str]
+    languages: Set[str]
 
     def __init__(
         self,
@@ -554,10 +548,10 @@ class Person(ExpaModel):
         home_mc: str,
         profile_photo: str,
         status: str,
-        nationalities: List[str],
-        backgrounds: List[str],
-        skills: List[str],
-        languages: List[str],
+        nationalities: Set[str],
+        backgrounds: Set[str],
+        skills: Set[str],
+        languages: Set[str],
     ):
         super().__init__()
         self.id = id
@@ -628,14 +622,14 @@ class Person(ExpaModel):
         else:
             contact_detail = None
 
-        nationalities = [
+        nationalities = {
             it["name"] for it in d["person_profile"]["nationalities"]
-        ]
-        backgrounds = [it["name"] for it in d["person_profile"]["backgrounds"]]
-        skills = [it["constant_name"] for it in d["person_profile"]["skills"]]
-        languages = [
+        }
+        backgrounds = {it["name"] for it in d["person_profile"]["backgrounds"]}
+        skills = {it["constant_name"] for it in d["person_profile"]["skills"]}
+        languages = {
             it["constant_name"] for it in d["person_profile"]["languages"]
-        ]
+        }
 
         return Person(
             d["id"],
