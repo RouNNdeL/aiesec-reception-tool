@@ -1,0 +1,131 @@
+{
+    "name": "PersonProfile",
+    "fields": [
+        {
+            "name": "backgrounds",
+            "type": {
+                "name": null,
+                "kind": "LIST"
+            }
+        },
+        {
+            "name": "duration_max",
+            "type": {
+                "name": "Int",
+                "kind": "SCALAR"
+            }
+        },
+        {
+            "name": "duration_min",
+            "type": {
+                "name": "Int",
+                "kind": "SCALAR"
+            }
+        },
+        {
+            "name": "earliest_start_date",
+            "type": {
+                "name": "DateTime",
+                "kind": "SCALAR"
+            }
+        },
+        {
+            "name": "ef_test_details",
+            "type": {
+                "name": "JSON",
+                "kind": "SCALAR"
+            }
+        },
+        {
+            "name": "id",
+            "type": {
+                "name": null,
+                "kind": "NON_NULL"
+            }
+        },
+        {
+            "name": "interested_in",
+            "type": {
+                "name": "String",
+                "kind": "SCALAR"
+            }
+        },
+        {
+            "name": "issues",
+            "type": {
+                "name": null,
+                "kind": "LIST"
+            }
+        },
+        {
+            "name": "languages",
+            "type": {
+                "name": null,
+                "kind": "LIST"
+            }
+        },
+        {
+            "name": "latest_end_date",
+            "type": {
+                "name": "DateTime",
+                "kind": "SCALAR"
+            }
+        },
+        {
+            "name": "nationalities",
+            "type": {
+                "name": null,
+                "kind": "LIST"
+            }
+        },
+        {
+            "name": "next_ef_test_date",
+            "type": {
+                "name": "DateTime",
+                "kind": "SCALAR"
+            }
+        },
+        {
+            "name": "preferred_locations",
+            "type": {
+                "name": null,
+                "kind": "LIST"
+            }
+        },
+        {
+            "name": "preferred_organisations",
+            "type": {
+                "name": null,
+                "kind": "LIST"
+            }
+        },
+        {
+            "name": "selected_programmes",
+            "type": {
+                "name": null,
+                "kind": "LIST"
+            }
+        },
+        {
+            "name": "skills",
+            "type": {
+                "name": null,
+                "kind": "LIST"
+            }
+        },
+        {
+            "name": "visible_profile",
+            "type": {
+                "name": "Boolean",
+                "kind": "SCALAR"
+            }
+        },
+        {
+            "name": "work_fields",
+            "type": {
+                "name": null,
+                "kind": "LIST"
+            }
+        }
+    ]
+}

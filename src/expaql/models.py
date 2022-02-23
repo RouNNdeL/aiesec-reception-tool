@@ -5,10 +5,18 @@ from abc import ABC
 from datetime import datetime
 from enum import Enum
 
+import re
+
 
 class Gender(str, Enum):
     MALE = "male"
     FEMALE = "female"
+
+    def get_pronoun(self):
+        if self == Gender.MALE:
+            return "he"
+        elif self == Gender.FEMALE:
+            return "she"
 
 
 class ApplicationStatus(str, Enum):
@@ -54,12 +62,21 @@ class ContactInfo(ExpaModel):
     ):
         super().__init__()
         self.country_code = country_code
-        self.phone = phone
+        if phone is not None:
+            self.phone = re.sub(re.compile(r"[^\d]"), "", phone)
+        else:
+            self.phone = None
         self.email = email
         self.facebook = facebook
         self.instagram = instagram
         self.linkedin = linkedin
         self.twitter = twitter
+
+    def format_phone_number(self) -> str:
+        return f"{self.country_code} {self.phone}"
+
+    def whatsapp_url(self) -> str:
+        return f"https://wa.me/{self.country_code}{self.phone}"
 
     @staticmethod
     def from_dict(d: Dict) -> ContactInfo:
@@ -401,9 +418,11 @@ class OportunityApplication(ExpaModel):
     experience_start_date: datetime
     opportunity: Oportunity
     person: Person
+    cv: Optional[str]
     questionnaire_answers: str
     standards: List[str]
     status: ApplicationStatus
+    gip_answer: Optional[str]
 
     def __init__(
         self,
@@ -414,9 +433,11 @@ class OportunityApplication(ExpaModel):
         experience_start_date: datetime,
         opportunity: Oportunity,
         person: Person,
+        cv: Optional[str],
         questionnaire_answers: str,
         standards: List[str],
         status: ApplicationStatus,
+        gip_answer: Optional[str],
     ):
         super().__init__()
         self.id = id
@@ -426,9 +447,16 @@ class OportunityApplication(ExpaModel):
         self.experience_start_date = experience_start_date
         self.opportunity = opportunity
         self.person = person
+        self.cv = cv
         self.questionnaire_answers = questionnaire_answers
         self.standards = standards
         self.status = status
+        self.gip_answer = gip_answer
+
+    def get_cv(self):
+        if self.cv is not None:
+            return self.cv
+        return self.person.cv_url
 
     def __str__(self) -> str:
         return f"{self.person} from {self.opportunity} ({self.status})"
@@ -438,6 +466,16 @@ class OportunityApplication(ExpaModel):
 
     @staticmethod
     def from_dict(d: Dict) -> OportunityApplication:
+        if "cv" in d and d["cv"] is not None:
+            cv = d["cv"]["url"]
+        else:
+            cv = None
+
+        if "meta" in d and d["meta"] is not None:
+            gip_answer = d["meta"]["gip_answer"]
+        else:
+            gip_answer = None
+
         return OportunityApplication(
             d["id"],
             d["created_at"],
@@ -446,9 +484,11 @@ class OportunityApplication(ExpaModel):
             d["experience_start_date"],
             Oportunity.from_dict(d["opportunity"]),
             Person.from_dict(d["person"]),
+            cv,
             d["questionnaire_answers"],
             [it["constant_name"] for it in d["standards"]],
             ApplicationStatus(d["status"]),
+            gip_answer,
         )
 
     @staticmethod
@@ -470,7 +510,13 @@ class OportunityApplication(ExpaModel):
             + Person.get_query()
             + """
             }
+            cv {
+                url
+            }
             questionnaire_answers
+            meta {
+                gip_answer
+            }
             standards {
                 constant_name
             }

@@ -4,11 +4,11 @@ from __future__ import annotations
 from os import getenv
 
 from expaql.api import ExpaQuery
+from expaql.formaters import OportunityApplicationFormatter
 from gql.transport.requests import log as requests_logger
 
 import logging
 import atexit
-
 
 logging.basicConfig(
     format="[%(asctime)s][%(levelname)s]: %(message)s",
@@ -45,7 +45,8 @@ def main():
 
     expaql = ExpaQuery(client_id, client_secret, refresh_token)
     for x in expaql.get_applications():
-        print(x.opportunity.city)
+        formatter = OportunityApplicationFormatter(x)
+        print(formatter.format_markdown())
 
 
 def exit_handler():

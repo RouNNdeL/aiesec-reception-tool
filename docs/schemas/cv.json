@@ -1,0 +1,19 @@
+{
+    "name": "CV",
+    "fields": [
+        {
+            "name": "id",
+            "type": {
+                "name": null,
+                "kind": "NON_NULL"
+            }
+        },
+        {
+            "name": "url",
+            "type": {
+                "name": "String",
+                "kind": "SCALAR"
+            }
+        }
+    ]
+}
