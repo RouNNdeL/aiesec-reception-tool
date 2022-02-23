@@ -1,448 +1,446 @@
 {
-    "__type": {
-        "name": "CurrentPerson",
-        "fields": [
-            {
-                "name": "academic_experiences",
-                "type": {
-                    "name": "undefined",
-                    "kind": "LIST"
-                }
-            },
-            {
-                "name": "accepted_reason",
-                "type": {
-                    "name": "String",
-                    "kind": "SCALAR"
-                }
-            },
-            {
-                "name": "account_manager",
-                "type": {
-                    "name": "String",
-                    "kind": "SCALAR"
-                }
-            },
-            {
-                "name": "aiesec_email",
-                "type": {
-                    "name": "String",
-                    "kind": "SCALAR"
-                }
-            },
-            {
-                "name": "client_datas",
-                "type": {
-                    "name": "ClientDataConnection",
-                    "kind": "OBJECT"
-                }
-            },
-            {
-                "name": "contact_detail",
-                "type": {
-                    "name": "ContactInfo",
-                    "kind": "OBJECT"
-                }
-            },
-            {
-                "name": "conversations",
-                "type": {
-                    "name": "ConversationConnection",
-                    "kind": "OBJECT"
-                }
-            },
-            {
-                "name": "cover_photo",
-                "type": {
-                    "name": "String",
-                    "kind": "SCALAR"
-                }
-            },
-            {
-                "name": "creatable_offices_for_opportunities",
-                "type": {
-                    "name": "OfficeConnection",
-                    "kind": "OBJECT"
-                }
-            },
-            {
-                "name": "creatable_offices_for_pages",
-                "type": {
-                    "name": "undefined",
-                    "kind": "LIST"
-                }
-            },
-            {
-                "name": "created_at",
-                "type": {
-                    "name": "DateTime",
-                    "kind": "SCALAR"
-                }
-            },
-            {
-                "name": "current_office",
-                "type": {
-                    "name": "Office",
-                    "kind": "OBJECT"
-                }
-            },
-            {
-                "name": "current_offices",
-                "type": {
-                    "name": "undefined",
-                    "kind": "LIST"
-                }
-            },
-            {
-                "name": "current_positions",
-                "type": {
-                    "name": "undefined",
-                    "kind": "LIST"
-                }
-            },
-            {
-                "name": "current_status",
-                "type": {
-                    "name": "String",
-                    "kind": "SCALAR"
-                }
-            },
-            {
-                "name": "current_teams",
-                "type": {
-                    "name": "undefined",
-                    "kind": "LIST"
-                }
-            },
-            {
-                "name": "cv_url",
-                "type": {
-                    "name": "String",
-                    "kind": "SCALAR"
-                }
-            },
-            {
-                "name": "cvs",
-                "type": {
-                    "name": "undefined",
-                    "kind": "LIST"
-                }
-            },
-            {
-                "name": "dob",
-                "type": {
-                    "name": "String",
-                    "kind": "SCALAR"
-                }
-            },
-            {
-                "name": "email",
-                "type": {
-                    "name": "String",
-                    "kind": "SCALAR"
-                }
-            },
-            {
-                "name": "expa_registered_device_id",
-                "type": {
-                    "name": "String",
-                    "kind": "SCALAR"
-                }
-            },
-            {
-                "name": "expa_settings",
-                "type": {
-                    "name": "ExpaSettings",
-                    "kind": "OBJECT"
-                }
-            },
-            {
-                "name": "favourite_events",
-                "type": {
-                    "name": "undefined",
-                    "kind": "LIST"
-                }
-            },
-            {
-                "name": "favourite_events_count",
-                "type": {
-                    "name": "Int",
-                    "kind": "SCALAR"
-                }
-            },
-            {
-                "name": "first_name",
-                "type": {
-                    "name": "String",
-                    "kind": "SCALAR"
-                }
-            },
-            {
-                "name": "full_name",
-                "type": {
-                    "name": "String",
-                    "kind": "SCALAR"
-                }
-            },
-            {
-                "name": "gender",
-                "type": {
-                    "name": "String",
-                    "kind": "SCALAR"
-                }
-            },
-            {
-                "name": "has_completed_onboarding",
-                "type": {
-                    "name": "Boolean",
-                    "kind": "SCALAR"
-                }
-            },
-            {
-                "name": "has_current_position",
-                "type": {
-                    "name": "Boolean",
-                    "kind": "SCALAR"
-                }
-            },
-            {
-                "name": "home_lc",
-                "type": {
-                    "name": "Office",
-                    "kind": "OBJECT"
-                }
-            },
-            {
-                "name": "id",
-                "type": {
-                    "name": "undefined",
-                    "kind": "NON_NULL"
-                }
-            },
-            {
-                "name": "instant_message_unread_count",
-                "type": {
-                    "name": "Int",
-                    "kind": "SCALAR"
-                }
-            },
-            {
-                "name": "interviewed",
-                "type": {
-                    "name": "Boolean",
-                    "kind": "SCALAR"
-                }
-            },
-            {
-                "name": "is_ai_eb_member",
-                "type": {
-                    "name": "Boolean",
-                    "kind": "SCALAR"
-                }
-            },
-            {
-                "name": "is_ai_member",
-                "type": {
-                    "name": "Boolean",
-                    "kind": "SCALAR"
-                }
-            },
-            {
-                "name": "is_pop_user",
-                "type": {
-                    "name": "Boolean",
-                    "kind": "SCALAR"
-                }
-            },
-            {
-                "name": "last_name",
-                "type": {
-                    "name": "String",
-                    "kind": "SCALAR"
-                }
-            },
-            {
-                "name": "linkedin_url",
-                "type": {
-                    "name": "String",
-                    "kind": "SCALAR"
-                }
-            },
-            {
-                "name": "managed_branches",
-                "type": {
-                    "name": "undefined",
-                    "kind": "LIST"
-                }
-            },
-            {
-                "name": "managed_companies",
-                "type": {
-                    "name": "undefined",
-                    "kind": "LIST"
-                }
-            },
-            {
-                "name": "managed_sub_branch_ids",
-                "type": {
-                    "name": "undefined",
-                    "kind": "LIST"
-                }
-            },
-            {
-                "name": "managers",
-                "type": {
-                    "name": "undefined",
-                    "kind": "LIST"
-                }
-            },
-            {
-                "name": "member_positions",
-                "type": {
-                    "name": "undefined",
-                    "kind": "LIST"
-                }
-            },
-            {
-                "name": "meta",
-                "type": {
-                    "name": "PersonMetaType",
-                    "kind": "OBJECT"
-                }
-            },
-            {
-                "name": "middle_names",
-                "type": {
-                    "name": "String",
-                    "kind": "SCALAR"
-                }
-            },
-            {
-                "name": "node",
-                "type": {
-                    "name": "Node",
-                    "kind": "INTERFACE"
-                }
-            },
-            {
-                "name": "notification_settings",
-                "type": {
-                    "name": "JSON",
-                    "kind": "SCALAR"
-                }
-            },
-            {
-                "name": "notifications",
-                "type": {
-                    "name": "undefined",
-                    "kind": "LIST"
-                }
-            },
-            {
-                "name": "nps_score",
-                "type": {
-                    "name": "String",
-                    "kind": "SCALAR"
-                }
-            },
-            {
-                "name": "opportunity_applications_count",
-                "type": {
-                    "name": "Int",
-                    "kind": "SCALAR"
-                }
-            },
-            {
-                "name": "organisation_type_id",
-                "type": {
-                    "name": "Int",
-                    "kind": "SCALAR"
-                }
-            },
-            {
-                "name": "pending_tasks",
-                "type": {
-                    "name": "TodoType",
-                    "kind": "OBJECT"
-                }
-            },
-            {
-                "name": "permissions",
-                "type": {
-                    "name": "PersonPermissionType",
-                    "kind": "OBJECT"
-                }
-            },
-            {
-                "name": "permissions_for",
-                "type": {
-                    "name": "String",
-                    "kind": "SCALAR"
-                }
-            },
-            {
-                "name": "person_profile",
-                "type": {
-                    "name": "PersonProfile",
-                    "kind": "OBJECT"
-                }
-            },
-            {
-                "name": "professional_experiences",
-                "type": {
-                    "name": "undefined",
-                    "kind": "LIST"
-                }
-            },
-            {
-                "name": "profile_completeness",
-                "type": {
-                    "name": "JSON",
-                    "kind": "SCALAR"
-                }
-            },
-            {
-                "name": "profile_photo",
-                "type": {
-                    "name": "String",
-                    "kind": "SCALAR"
-                }
-            },
-            {
-                "name": "recommended_incoming_programme",
-                "type": {
-                    "name": "Int",
-                    "kind": "SCALAR"
-                }
-            },
-            {
-                "name": "referral_type",
-                "type": {
-                    "name": "String",
-                    "kind": "SCALAR"
-                }
-            },
-            {
-                "name": "saved_filters",
-                "type": {
-                    "name": "SavedFilterConnection",
-                    "kind": "OBJECT"
-                }
-            },
-            {
-                "name": "secure_identity",
-                "type": {
-                    "name": "String",
-                    "kind": "SCALAR"
-                }
-            },
-            {
-                "name": "status",
-                "type": {
-                    "name": "String",
-                    "kind": "SCALAR"
-                }
+    "name": "CurrentPerson",
+    "fields": [
+        {
+            "name": "academic_experiences",
+            "type": {
+                "name": null,
+                "kind": "LIST"
             }
-        ]
-    }
+        },
+        {
+            "name": "accepted_reason",
+            "type": {
+                "name": "String",
+                "kind": "SCALAR"
+            }
+        },
+        {
+            "name": "account_manager",
+            "type": {
+                "name": "String",
+                "kind": "SCALAR"
+            }
+        },
+        {
+            "name": "aiesec_email",
+            "type": {
+                "name": "String",
+                "kind": "SCALAR"
+            }
+        },
+        {
+            "name": "client_datas",
+            "type": {
+                "name": "ClientDataConnection",
+                "kind": "OBJECT"
+            }
+        },
+        {
+            "name": "contact_detail",
+            "type": {
+                "name": "ContactInfo",
+                "kind": "OBJECT"
+            }
+        },
+        {
+            "name": "conversations",
+            "type": {
+                "name": "ConversationConnection",
+                "kind": "OBJECT"
+            }
+        },
+        {
+            "name": "cover_photo",
+            "type": {
+                "name": "String",
+                "kind": "SCALAR"
+            }
+        },
+        {
+            "name": "creatable_offices_for_opportunities",
+            "type": {
+                "name": "OfficeConnection",
+                "kind": "OBJECT"
+            }
+        },
+        {
+            "name": "creatable_offices_for_pages",
+            "type": {
+                "name": null,
+                "kind": "LIST"
+            }
+        },
+        {
+            "name": "created_at",
+            "type": {
+                "name": "DateTime",
+                "kind": "SCALAR"
+            }
+        },
+        {
+            "name": "current_office",
+            "type": {
+                "name": "Office",
+                "kind": "OBJECT"
+            }
+        },
+        {
+            "name": "current_offices",
+            "type": {
+                "name": null,
+                "kind": "LIST"
+            }
+        },
+        {
+            "name": "current_positions",
+            "type": {
+                "name": null,
+                "kind": "LIST"
+            }
+        },
+        {
+            "name": "current_status",
+            "type": {
+                "name": "String",
+                "kind": "SCALAR"
+            }
+        },
+        {
+            "name": "current_teams",
+            "type": {
+                "name": null,
+                "kind": "LIST"
+            }
+        },
+        {
+            "name": "cv_url",
+            "type": {
+                "name": "String",
+                "kind": "SCALAR"
+            }
+        },
+        {
+            "name": "cvs",
+            "type": {
+                "name": null,
+                "kind": "LIST"
+            }
+        },
+        {
+            "name": "dob",
+            "type": {
+                "name": "String",
+                "kind": "SCALAR"
+            }
+        },
+        {
+            "name": "email",
+            "type": {
+                "name": "String",
+                "kind": "SCALAR"
+            }
+        },
+        {
+            "name": "expa_registered_device_id",
+            "type": {
+                "name": "String",
+                "kind": "SCALAR"
+            }
+        },
+        {
+            "name": "expa_settings",
+            "type": {
+                "name": "ExpaSettings",
+                "kind": "OBJECT"
+            }
+        },
+        {
+            "name": "favourite_events",
+            "type": {
+                "name": null,
+                "kind": "LIST"
+            }
+        },
+        {
+            "name": "favourite_events_count",
+            "type": {
+                "name": "Int",
+                "kind": "SCALAR"
+            }
+        },
+        {
+            "name": "first_name",
+            "type": {
+                "name": "String",
+                "kind": "SCALAR"
+            }
+        },
+        {
+            "name": "full_name",
+            "type": {
+                "name": "String",
+                "kind": "SCALAR"
+            }
+        },
+        {
+            "name": "gender",
+            "type": {
+                "name": "String",
+                "kind": "SCALAR"
+            }
+        },
+        {
+            "name": "has_completed_onboarding",
+            "type": {
+                "name": "Boolean",
+                "kind": "SCALAR"
+            }
+        },
+        {
+            "name": "has_current_position",
+            "type": {
+                "name": "Boolean",
+                "kind": "SCALAR"
+            }
+        },
+        {
+            "name": "home_lc",
+            "type": {
+                "name": "Office",
+                "kind": "OBJECT"
+            }
+        },
+        {
+            "name": "id",
+            "type": {
+                "name": null,
+                "kind": "NON_NULL"
+            }
+        },
+        {
+            "name": "instant_message_unread_count",
+            "type": {
+                "name": "Int",
+                "kind": "SCALAR"
+            }
+        },
+        {
+            "name": "interviewed",
+            "type": {
+                "name": "Boolean",
+                "kind": "SCALAR"
+            }
+        },
+        {
+            "name": "is_ai_eb_member",
+            "type": {
+                "name": "Boolean",
+                "kind": "SCALAR"
+            }
+        },
+        {
+            "name": "is_ai_member",
+            "type": {
+                "name": "Boolean",
+                "kind": "SCALAR"
+            }
+        },
+        {
+            "name": "is_pop_user",
+            "type": {
+                "name": "Boolean",
+                "kind": "SCALAR"
+            }
+        },
+        {
+            "name": "last_name",
+            "type": {
+                "name": "String",
+                "kind": "SCALAR"
+            }
+        },
+        {
+            "name": "linkedin_url",
+            "type": {
+                "name": "String",
+                "kind": "SCALAR"
+            }
+        },
+        {
+            "name": "managed_branches",
+            "type": {
+                "name": null,
+                "kind": "LIST"
+            }
+        },
+        {
+            "name": "managed_companies",
+            "type": {
+                "name": null,
+                "kind": "LIST"
+            }
+        },
+        {
+            "name": "managed_sub_branch_ids",
+            "type": {
+                "name": null,
+                "kind": "LIST"
+            }
+        },
+        {
+            "name": "managers",
+            "type": {
+                "name": null,
+                "kind": "LIST"
+            }
+        },
+        {
+            "name": "member_positions",
+            "type": {
+                "name": null,
+                "kind": "LIST"
+            }
+        },
+        {
+            "name": "meta",
+            "type": {
+                "name": "PersonMetaType",
+                "kind": "OBJECT"
+            }
+        },
+        {
+            "name": "middle_names",
+            "type": {
+                "name": "String",
+                "kind": "SCALAR"
+            }
+        },
+        {
+            "name": "node",
+            "type": {
+                "name": "Node",
+                "kind": "INTERFACE"
+            }
+        },
+        {
+            "name": "notification_settings",
+            "type": {
+                "name": "JSON",
+                "kind": "SCALAR"
+            }
+        },
+        {
+            "name": "notifications",
+            "type": {
+                "name": null,
+                "kind": "LIST"
+            }
+        },
+        {
+            "name": "nps_score",
+            "type": {
+                "name": "String",
+                "kind": "SCALAR"
+            }
+        },
+        {
+            "name": "opportunity_applications_count",
+            "type": {
+                "name": "Int",
+                "kind": "SCALAR"
+            }
+        },
+        {
+            "name": "organisation_type_id",
+            "type": {
+                "name": "Int",
+                "kind": "SCALAR"
+            }
+        },
+        {
+            "name": "pending_tasks",
+            "type": {
+                "name": "TodoType",
+                "kind": "OBJECT"
+            }
+        },
+        {
+            "name": "permissions",
+            "type": {
+                "name": "PersonPermissionType",
+                "kind": "OBJECT"
+            }
+        },
+        {
+            "name": "permissions_for",
+            "type": {
+                "name": "String",
+                "kind": "SCALAR"
+            }
+        },
+        {
+            "name": "person_profile",
+            "type": {
+                "name": "PersonProfile",
+                "kind": "OBJECT"
+            }
+        },
+        {
+            "name": "professional_experiences",
+            "type": {
+                "name": null,
+                "kind": "LIST"
+            }
+        },
+        {
+            "name": "profile_completeness",
+            "type": {
+                "name": "JSON",
+                "kind": "SCALAR"
+            }
+        },
+        {
+            "name": "profile_photo",
+            "type": {
+                "name": "String",
+                "kind": "SCALAR"
+            }
+        },
+        {
+            "name": "recommended_incoming_programme",
+            "type": {
+                "name": "Int",
+                "kind": "SCALAR"
+            }
+        },
+        {
+            "name": "referral_type",
+            "type": {
+                "name": "String",
+                "kind": "SCALAR"
+            }
+        },
+        {
+            "name": "saved_filters",
+            "type": {
+                "name": "SavedFilterConnection",
+                "kind": "OBJECT"
+            }
+        },
+        {
+            "name": "secure_identity",
+            "type": {
+                "name": "String",
+                "kind": "SCALAR"
+            }
+        },
+        {
+            "name": "status",
+            "type": {
+                "name": "String",
+                "kind": "SCALAR"
+            }
+        }
+    ]
 }

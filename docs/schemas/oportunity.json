@@ -1,0 +1,740 @@
+{
+    "name": "Opportunity",
+    "fields": [
+        {
+            "name": "accepted_count",
+            "type": {
+                "name": "Int",
+                "kind": "SCALAR"
+            }
+        },
+        {
+            "name": "all_slots",
+            "type": {
+                "name": "SlotConnection",
+                "kind": "OBJECT"
+            }
+        },
+        {
+            "name": "applicants_count",
+            "type": {
+                "name": "Int",
+                "kind": "SCALAR"
+            }
+        },
+        {
+            "name": "application_processing_time",
+            "type": {
+                "name": "Int",
+                "kind": "SCALAR"
+            }
+        },
+        {
+            "name": "applications_close_date",
+            "type": {
+                "name": "DateTime",
+                "kind": "SCALAR"
+            }
+        },
+        {
+            "name": "applications_status_facets",
+            "type": {
+                "name": "JSON",
+                "kind": "SCALAR"
+            }
+        },
+        {
+            "name": "applied_to",
+            "type": {
+                "name": "Boolean",
+                "kind": "SCALAR"
+            }
+        },
+        {
+            "name": "applied_to_with",
+            "type": {
+                "name": "Int",
+                "kind": "SCALAR"
+            }
+        },
+        {
+            "name": "available_openings",
+            "type": {
+                "name": "Int",
+                "kind": "SCALAR"
+            }
+        },
+        {
+            "name": "available_slots",
+            "type": {
+                "name": null,
+                "kind": "LIST"
+            }
+        },
+        {
+            "name": "average_nps_score",
+            "type": {
+                "name": "Int",
+                "kind": "SCALAR"
+            }
+        },
+        {
+            "name": "backgrounds",
+            "type": {
+                "name": null,
+                "kind": "LIST"
+            }
+        },
+        {
+            "name": "branch",
+            "type": {
+                "name": "Branch",
+                "kind": "OBJECT"
+            }
+        },
+        {
+            "name": "city",
+            "type": {
+                "name": "City",
+                "kind": "OBJECT"
+            }
+        },
+        {
+            "name": "comments",
+            "type": {
+                "name": "CommentConnection",
+                "kind": "OBJECT"
+            }
+        },
+        {
+            "name": "company_description",
+            "type": {
+                "name": "String",
+                "kind": "SCALAR"
+            }
+        },
+        {
+            "name": "completeness",
+            "type": {
+                "name": "JSON",
+                "kind": "SCALAR"
+            }
+        },
+        {
+            "name": "cover_photo",
+            "type": {
+                "name": "JSON",
+                "kind": "SCALAR"
+            }
+        },
+        {
+            "name": "created_at",
+            "type": {
+                "name": "DateTime",
+                "kind": "SCALAR"
+            }
+        },
+        {
+            "name": "currency",
+            "type": {
+                "name": "Currency",
+                "kind": "OBJECT"
+            }
+        },
+        {
+            "name": "current_status",
+            "type": {
+                "name": "String",
+                "kind": "SCALAR"
+            }
+        },
+        {
+            "name": "custom_statuses",
+            "type": {
+                "name": "CustomStatusTypeConnection",
+                "kind": "OBJECT"
+            }
+        },
+        {
+            "name": "date_opened",
+            "type": {
+                "name": "DateTime",
+                "kind": "SCALAR"
+            }
+        },
+        {
+            "name": "description",
+            "type": {
+                "name": "String",
+                "kind": "SCALAR"
+            }
+        },
+        {
+            "name": "duration",
+            "type": {
+                "name": "Int",
+                "kind": "SCALAR"
+            }
+        },
+        {
+            "name": "earliest_start_date",
+            "type": {
+                "name": "DateTime",
+                "kind": "SCALAR"
+            }
+        },
+        {
+            "name": "external_opportunity_id",
+            "type": {
+                "name": "String",
+                "kind": "SCALAR"
+            }
+        },
+        {
+            "name": "external_opportunity_link",
+            "type": {
+                "name": "String",
+                "kind": "SCALAR"
+            }
+        },
+        {
+            "name": "fee_and_health_insurance",
+            "type": {
+                "name": "JSON",
+                "kind": "SCALAR"
+            }
+        },
+        {
+            "name": "google_place_id",
+            "type": {
+                "name": "String",
+                "kind": "SCALAR"
+            }
+        },
+        {
+            "name": "has_opportunity_applications",
+            "type": {
+                "name": "Boolean",
+                "kind": "SCALAR"
+            }
+        },
+        {
+            "name": "has_opportunity_questions",
+            "type": {
+                "name": "Boolean",
+                "kind": "SCALAR"
+            }
+        },
+        {
+            "name": "home_lc",
+            "type": {
+                "name": "Office",
+                "kind": "OBJECT"
+            }
+        },
+        {
+            "name": "home_mc",
+            "type": {
+                "name": "Office",
+                "kind": "OBJECT"
+            }
+        },
+        {
+            "name": "host_lc",
+            "type": {
+                "name": "Office",
+                "kind": "OBJECT"
+            }
+        },
+        {
+            "name": "id",
+            "type": {
+                "name": null,
+                "kind": "NON_NULL"
+            }
+        },
+        {
+            "name": "is_favourited",
+            "type": {
+                "name": "Boolean",
+                "kind": "SCALAR"
+            }
+        },
+        {
+            "name": "is_global_project",
+            "type": {
+                "name": "String",
+                "kind": "SCALAR"
+            }
+        },
+        {
+            "name": "is_project_enabled",
+            "type": {
+                "name": "Boolean",
+                "kind": "SCALAR"
+            }
+        },
+        {
+            "name": "languages",
+            "type": {
+                "name": null,
+                "kind": "LIST"
+            }
+        },
+        {
+            "name": "lat",
+            "type": {
+                "name": "String",
+                "kind": "SCALAR"
+            }
+        },
+        {
+            "name": "latest_end_date",
+            "type": {
+                "name": "DateTime",
+                "kind": "SCALAR"
+            }
+        },
+        {
+            "name": "latest_reviews",
+            "type": {
+                "name": "NpsResponseType",
+                "kind": "OBJECT"
+            }
+        },
+        {
+            "name": "legal_info",
+            "type": {
+                "name": "LegalInfoType",
+                "kind": "OBJECT"
+            }
+        },
+        {
+            "name": "lng",
+            "type": {
+                "name": "String",
+                "kind": "SCALAR"
+            }
+        },
+        {
+            "name": "location",
+            "type": {
+                "name": "String",
+                "kind": "SCALAR"
+            }
+        },
+        {
+            "name": "logistics_info",
+            "type": {
+                "name": "LogisticInfoType",
+                "kind": "OBJECT"
+            }
+        },
+        {
+            "name": "managers",
+            "type": {
+                "name": null,
+                "kind": "LIST"
+            }
+        },
+        {
+            "name": "mandatory_fields_check",
+            "type": {
+                "name": "JSON",
+                "kind": "SCALAR"
+            }
+        },
+        {
+            "name": "measure_of_impacts",
+            "type": {
+                "name": null,
+                "kind": "LIST"
+            }
+        },
+        {
+            "name": "meta",
+            "type": {
+                "name": "OpportunityMetaType",
+                "kind": "OBJECT"
+            }
+        },
+        {
+            "name": "nationalities",
+            "type": {
+                "name": null,
+                "kind": "LIST"
+            }
+        },
+        {
+            "name": "office_footfall_for_exchange",
+            "type": {
+                "name": "String",
+                "kind": "SCALAR"
+            }
+        },
+        {
+            "name": "offline_assessments",
+            "type": {
+                "name": null,
+                "kind": "LIST"
+            }
+        },
+        {
+            "name": "openings",
+            "type": {
+                "name": "Int",
+                "kind": "SCALAR"
+            }
+        },
+        {
+            "name": "opportunity_cost",
+            "type": {
+                "name": "JSON",
+                "kind": "SCALAR"
+            }
+        },
+        {
+            "name": "opportunity_duration_type",
+            "type": {
+                "name": "OpportunityDurationType",
+                "kind": "OBJECT"
+            }
+        },
+        {
+            "name": "opportunity_questions",
+            "type": {
+                "name": "OpportunityQuestionConnection",
+                "kind": "OBJECT"
+            }
+        },
+        {
+            "name": "organisation",
+            "type": {
+                "name": "Organisation",
+                "kind": "OBJECT"
+            }
+        },
+        {
+            "name": "parent_opportunity",
+            "type": {
+                "name": "Opportunity",
+                "kind": "OBJECT"
+            }
+        },
+        {
+            "name": "partner_type",
+            "type": {
+                "name": "PartnerTypes",
+                "kind": "ENUM"
+            }
+        },
+        {
+            "name": "percentage_of_fulfillment",
+            "type": {
+                "name": "Float",
+                "kind": "SCALAR"
+            }
+        },
+        {
+            "name": "permissions",
+            "type": {
+                "name": "OpportunityPermissionType",
+                "kind": "OBJECT"
+            }
+        },
+        {
+            "name": "person",
+            "type": {
+                "name": "Person",
+                "kind": "OBJECT"
+            }
+        },
+        {
+            "name": "preferred_locations_info",
+            "type": {
+                "name": "Office",
+                "kind": "OBJECT"
+            }
+        },
+        {
+            "name": "profile_photo",
+            "type": {
+                "name": "String",
+                "kind": "SCALAR"
+            }
+        },
+        {
+            "name": "programme",
+            "type": {
+                "name": "Programme",
+                "kind": "OBJECT"
+            }
+        },
+        {
+            "name": "programme_fees",
+            "type": {
+                "name": "Int",
+                "kind": "SCALAR"
+            }
+        },
+        {
+            "name": "programmes",
+            "type": {
+                "name": null,
+                "kind": "LIST"
+            }
+        },
+        {
+            "name": "progress_percentage_for_standards",
+            "type": {
+                "name": "JSON",
+                "kind": "SCALAR"
+            }
+        },
+        {
+            "name": "project",
+            "type": {
+                "name": "Opportunity",
+                "kind": "OBJECT"
+            }
+        },
+        {
+            "name": "project_description",
+            "type": {
+                "name": "String",
+                "kind": "SCALAR"
+            }
+        },
+        {
+            "name": "project_duration",
+            "type": {
+                "name": "Int",
+                "kind": "SCALAR"
+            }
+        },
+        {
+            "name": "project_fee",
+            "type": {
+                "name": "JSON",
+                "kind": "SCALAR"
+            }
+        },
+        {
+            "name": "project_id",
+            "type": {
+                "name": "Int",
+                "kind": "SCALAR"
+            }
+        },
+        {
+            "name": "project_name",
+            "type": {
+                "name": "String",
+                "kind": "SCALAR"
+            }
+        },
+        {
+            "name": "questionnaire",
+            "type": {
+                "name": "Questionnaire",
+                "kind": "OBJECT"
+            }
+        },
+        {
+            "name": "redirect_to_external_opportunity",
+            "type": {
+                "name": "Boolean",
+                "kind": "SCALAR"
+            }
+        },
+        {
+            "name": "rejected_count",
+            "type": {
+                "name": "Int",
+                "kind": "SCALAR"
+            }
+        },
+        {
+            "name": "remark",
+            "type": {
+                "name": "String",
+                "kind": "SCALAR"
+            }
+        },
+        {
+            "name": "remote_experience_additional_details",
+            "type": {
+                "name": "String",
+                "kind": "SCALAR"
+            }
+        },
+        {
+            "name": "remote_experience_duration",
+            "type": {
+                "name": "String",
+                "kind": "SCALAR"
+            }
+        },
+        {
+            "name": "remote_experience_salary",
+            "type": {
+                "name": "String",
+                "kind": "SCALAR"
+            }
+        },
+        {
+            "name": "remote_opportunity",
+            "type": {
+                "name": "String",
+                "kind": "SCALAR"
+            }
+        },
+        {
+            "name": "reviews",
+            "type": {
+                "name": "JSON",
+                "kind": "SCALAR"
+            }
+        },
+        {
+            "name": "role_info",
+            "type": {
+                "name": "RoleInfoType",
+                "kind": "OBJECT"
+            }
+        },
+        {
+            "name": "scorecard",
+            "type": {
+                "name": "Scorecard",
+                "kind": "OBJECT"
+            }
+        },
+        {
+            "name": "sdg_info",
+            "type": {
+                "name": "Sdg",
+                "kind": "OBJECT"
+            }
+        },
+        {
+            "name": "selection_processes",
+            "type": {
+                "name": "SelectionProcessConnection",
+                "kind": "OBJECT"
+            }
+        },
+        {
+            "name": "skills",
+            "type": {
+                "name": null,
+                "kind": "LIST"
+            }
+        },
+        {
+            "name": "specifics_info",
+            "type": {
+                "name": "SpecificInfoType",
+                "kind": "OBJECT"
+            }
+        },
+        {
+            "name": "status",
+            "type": {
+                "name": "String",
+                "kind": "SCALAR"
+            }
+        },
+        {
+            "name": "study_levels",
+            "type": {
+                "name": null,
+                "kind": "LIST"
+            }
+        },
+        {
+            "name": "sub_product",
+            "type": {
+                "name": "SubProduct",
+                "kind": "OBJECT"
+            }
+        },
+        {
+            "name": "tag_lists",
+            "type": {
+                "name": null,
+                "kind": "LIST"
+            }
+        },
+        {
+            "name": "template_opportunities_locations",
+            "type": {
+                "name": null,
+                "kind": "LIST"
+            }
+        },
+        {
+            "name": "title",
+            "type": {
+                "name": "String",
+                "kind": "SCALAR"
+            }
+        },
+        {
+            "name": "tm_details",
+            "type": {
+                "name": "TmDetailType",
+                "kind": "OBJECT"
+            }
+        },
+        {
+            "name": "todo_type",
+            "type": {
+                "name": "TodoType",
+                "kind": "OBJECT"
+            }
+        },
+        {
+            "name": "transparent_fee_details",
+            "type": {
+                "name": "OpportunityTransparentFeeDetailsType",
+                "kind": "OBJECT"
+            }
+        },
+        {
+            "name": "updated_at",
+            "type": {
+                "name": "DateTime",
+                "kind": "SCALAR"
+            }
+        },
+        {
+            "name": "video_url",
+            "type": {
+                "name": "String",
+                "kind": "SCALAR"
+            }
+        },
+        {
+            "name": "view_count",
+            "type": {
+                "name": "Int",
+                "kind": "SCALAR"
+            }
+        },
+        {
+            "name": "weekly_activities",
+            "type": {
+                "name": null,
+                "kind": "LIST"
+            }
+        },
+        {
+            "name": "work_hours",
+            "type": {
+                "name": "JSON",
+                "kind": "SCALAR"
+            }
+        }
+    ]
+}

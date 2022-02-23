@@ -1,0 +1,614 @@
+{
+    "name": "OpportunityApplication",
+    "fields": [
+        {
+            "name": "acceptance_note_pdf_url",
+            "type": {
+                "name": "String",
+                "kind": "SCALAR"
+            }
+        },
+        {
+            "name": "accommodation_assignments",
+            "type": {
+                "name": "AccommodationAssignmentConnection",
+                "kind": "OBJECT"
+            }
+        },
+        {
+            "name": "aiesec_contribution",
+            "type": {
+                "name": "Int",
+                "kind": "SCALAR"
+            }
+        },
+        {
+            "name": "allow_online_payments",
+            "type": {
+                "name": "Boolean",
+                "kind": "SCALAR"
+            }
+        },
+        {
+            "name": "an_signed_at",
+            "type": {
+                "name": "DateTime",
+                "kind": "SCALAR"
+            }
+        },
+        {
+            "name": "an_status",
+            "type": {
+                "name": "String",
+                "kind": "SCALAR"
+            }
+        },
+        {
+            "name": "application_flight_token",
+            "type": {
+                "name": "String",
+                "kind": "SCALAR"
+            }
+        },
+        {
+            "name": "application_questionnaires",
+            "type": {
+                "name": "ApplicationQuestionnaireConnection",
+                "kind": "OBJECT"
+            }
+        },
+        {
+            "name": "application_scorecard",
+            "type": {
+                "name": "ApplicationScorecard",
+                "kind": "OBJECT"
+            }
+        },
+        {
+            "name": "attendees",
+            "type": {
+                "name": null,
+                "kind": "LIST"
+            }
+        },
+        {
+            "name": "average_score",
+            "type": {
+                "name": "Float",
+                "kind": "SCALAR"
+            }
+        },
+        {
+            "name": "branch",
+            "type": {
+                "name": "Branch",
+                "kind": "OBJECT"
+            }
+        },
+        {
+            "name": "client_datas",
+            "type": {
+                "name": "ClientDataConnection",
+                "kind": "OBJECT"
+            }
+        },
+        {
+            "name": "comments",
+            "type": {
+                "name": "CommentConnection",
+                "kind": "OBJECT"
+            }
+        },
+        {
+            "name": "conversation",
+            "type": {
+                "name": "Conversation",
+                "kind": "OBJECT"
+            }
+        },
+        {
+            "name": "created_at",
+            "type": {
+                "name": "DateTime",
+                "kind": "SCALAR"
+            }
+        },
+        {
+            "name": "current_status",
+            "type": {
+                "name": "String",
+                "kind": "SCALAR"
+            }
+        },
+        {
+            "name": "custom_status",
+            "type": {
+                "name": "CustomStatusType",
+                "kind": "OBJECT"
+            }
+        },
+        {
+            "name": "cv",
+            "type": {
+                "name": "CV",
+                "kind": "OBJECT"
+            }
+        },
+        {
+            "name": "date_approval_broken",
+            "type": {
+                "name": "DateTime",
+                "kind": "SCALAR"
+            }
+        },
+        {
+            "name": "date_approved",
+            "type": {
+                "name": "DateTime",
+                "kind": "SCALAR"
+            }
+        },
+        {
+            "name": "date_matched",
+            "type": {
+                "name": "DateTime",
+                "kind": "SCALAR"
+            }
+        },
+        {
+            "name": "date_pay_by_cash",
+            "type": {
+                "name": "DateTime",
+                "kind": "SCALAR"
+            }
+        },
+        {
+            "name": "date_realized",
+            "type": {
+                "name": "DateTime",
+                "kind": "SCALAR"
+            }
+        },
+        {
+            "name": "experience_end_date",
+            "type": {
+                "name": "DateTime",
+                "kind": "SCALAR"
+            }
+        },
+        {
+            "name": "experience_start_date",
+            "type": {
+                "name": "DateTime",
+                "kind": "SCALAR"
+            }
+        },
+        {
+            "name": "favourite",
+            "type": {
+                "name": "Boolean",
+                "kind": "SCALAR"
+            }
+        },
+        {
+            "name": "first_followed_up_date",
+            "type": {
+                "name": "DateTime",
+                "kind": "SCALAR"
+            }
+        },
+        {
+            "name": "flight_booking_reminder_date",
+            "type": {
+                "name": "DateTime",
+                "kind": "SCALAR"
+            }
+        },
+        {
+            "name": "follow_up",
+            "type": {
+                "name": "Constant",
+                "kind": "OBJECT"
+            }
+        },
+        {
+            "name": "followed_up_by",
+            "type": {
+                "name": "Person",
+                "kind": "OBJECT"
+            }
+        },
+        {
+            "name": "followed_up_date",
+            "type": {
+                "name": "DateTime",
+                "kind": "SCALAR"
+            }
+        },
+        {
+            "name": "gt_answer",
+            "type": {
+                "name": "String",
+                "kind": "SCALAR"
+            }
+        },
+        {
+            "name": "has_started_standards_survey",
+            "type": {
+                "name": "Boolean",
+                "kind": "SCALAR"
+            }
+        },
+        {
+            "name": "home_mc",
+            "type": {
+                "name": "Office",
+                "kind": "OBJECT"
+            }
+        },
+        {
+            "name": "host_lc",
+            "type": {
+                "name": "Office",
+                "kind": "OBJECT"
+            }
+        },
+        {
+            "name": "host_lc_name",
+            "type": {
+                "name": "String",
+                "kind": "SCALAR"
+            }
+        },
+        {
+            "name": "id",
+            "type": {
+                "name": "ID",
+                "kind": "SCALAR"
+            }
+        },
+        {
+            "name": "inbound_emails",
+            "type": {
+                "name": null,
+                "kind": "LIST"
+            }
+        },
+        {
+            "name": "interview_details",
+            "type": {
+                "name": "InterviewDetailsType",
+                "kind": "OBJECT"
+            }
+        },
+        {
+            "name": "interview_slots",
+            "type": {
+                "name": null,
+                "kind": "LIST"
+            }
+        },
+        {
+            "name": "interviewed",
+            "type": {
+                "name": "Boolean",
+                "kind": "SCALAR"
+            }
+        },
+        {
+            "name": "lda_links",
+            "type": {
+                "name": "JSON",
+                "kind": "SCALAR"
+            }
+        },
+        {
+            "name": "ldm_grade",
+            "type": {
+                "name": "Int",
+                "kind": "SCALAR"
+            }
+        },
+        {
+            "name": "ldm_report",
+            "type": {
+                "name": "JSON",
+                "kind": "SCALAR"
+            }
+        },
+        {
+            "name": "managers",
+            "type": {
+                "name": null,
+                "kind": "LIST"
+            }
+        },
+        {
+            "name": "matchability",
+            "type": {
+                "name": "String",
+                "kind": "SCALAR"
+            }
+        },
+        {
+            "name": "matched_or_rejected_at",
+            "type": {
+                "name": "DateTime",
+                "kind": "SCALAR"
+            }
+        },
+        {
+            "name": "measure_of_impacts",
+            "type": {
+                "name": null,
+                "kind": "LIST"
+            }
+        },
+        {
+            "name": "meta",
+            "type": {
+                "name": "ApplicationMetaType",
+                "kind": "OBJECT"
+            }
+        },
+        {
+            "name": "mos_certificate",
+            "type": {
+                "name": "Attachment",
+                "kind": "OBJECT"
+            }
+        },
+        {
+            "name": "nps_grade",
+            "type": {
+                "name": "Int",
+                "kind": "SCALAR"
+            }
+        },
+        {
+            "name": "nps_response",
+            "type": {
+                "name": "SurveyResponse",
+                "kind": "OBJECT"
+            }
+        },
+        {
+            "name": "nps_response_completed_at",
+            "type": {
+                "name": "DateTime",
+                "kind": "SCALAR"
+            }
+        },
+        {
+            "name": "offline_assessments",
+            "type": {
+                "name": null,
+                "kind": "LIST"
+            }
+        },
+        {
+            "name": "onward_arrival_airport",
+            "type": {
+                "name": "String",
+                "kind": "SCALAR"
+            }
+        },
+        {
+            "name": "onward_time",
+            "type": {
+                "name": "DateTime",
+                "kind": "SCALAR"
+            }
+        },
+        {
+            "name": "opportunity",
+            "type": {
+                "name": "Opportunity",
+                "kind": "OBJECT"
+            }
+        },
+        {
+            "name": "paid",
+            "type": {
+                "name": "Boolean",
+                "kind": "SCALAR"
+            }
+        },
+        {
+            "name": "paid_at",
+            "type": {
+                "name": "DateTime",
+                "kind": "SCALAR"
+            }
+        },
+        {
+            "name": "paid_by",
+            "type": {
+                "name": "Person",
+                "kind": "OBJECT"
+            }
+        },
+        {
+            "name": "partner_standards",
+            "type": {
+                "name": null,
+                "kind": "LIST"
+            }
+        },
+        {
+            "name": "payments",
+            "type": {
+                "name": "ProgrammeFee",
+                "kind": "OBJECT"
+            }
+        },
+        {
+            "name": "permissions",
+            "type": {
+                "name": "OpportunityApplicationPermissionType",
+                "kind": "OBJECT"
+            }
+        },
+        {
+            "name": "person",
+            "type": {
+                "name": "Person",
+                "kind": "OBJECT"
+            }
+        },
+        {
+            "name": "questionnaire_answers",
+            "type": {
+                "name": "JSON",
+                "kind": "SCALAR"
+            }
+        },
+        {
+            "name": "questionnaire_attachment",
+            "type": {
+                "name": "ImageType",
+                "kind": "OBJECT"
+            }
+        },
+        {
+            "name": "rejection_reason",
+            "type": {
+                "name": "Constant",
+                "kind": "OBJECT"
+            }
+        },
+        {
+            "name": "required_backgrounds_percentage",
+            "type": {
+                "name": "Int",
+                "kind": "SCALAR"
+            }
+        },
+        {
+            "name": "required_languages_percentage",
+            "type": {
+                "name": "Int",
+                "kind": "SCALAR"
+            }
+        },
+        {
+            "name": "required_skills_percentage",
+            "type": {
+                "name": "Int",
+                "kind": "SCALAR"
+            }
+        },
+        {
+            "name": "return_departure_airport",
+            "type": {
+                "name": "String",
+                "kind": "SCALAR"
+            }
+        },
+        {
+            "name": "return_time",
+            "type": {
+                "name": "DateTime",
+                "kind": "SCALAR"
+            }
+        },
+        {
+            "name": "scheduled_interview",
+            "type": {
+                "name": "DateTime",
+                "kind": "SCALAR"
+            }
+        },
+        {
+            "name": "signed_contract_pdf_url",
+            "type": {
+                "name": "String",
+                "kind": "SCALAR"
+            }
+        },
+        {
+            "name": "slot",
+            "type": {
+                "name": "Slot",
+                "kind": "OBJECT"
+            }
+        },
+        {
+            "name": "standard_survey_id",
+            "type": {
+                "name": "String",
+                "kind": "SCALAR"
+            }
+        },
+        {
+            "name": "standards",
+            "type": {
+                "name": null,
+                "kind": "LIST"
+            }
+        },
+        {
+            "name": "status",
+            "type": {
+                "name": "String",
+                "kind": "SCALAR"
+            }
+        },
+        {
+            "name": "tag_lists",
+            "type": {
+                "name": null,
+                "kind": "LIST"
+            }
+        },
+        {
+            "name": "testimonial",
+            "type": {
+                "name": "String",
+                "kind": "SCALAR"
+            }
+        },
+        {
+            "name": "testimonial_filled_at",
+            "type": {
+                "name": "DateTime",
+                "kind": "SCALAR"
+            }
+        },
+        {
+            "name": "tn_manager",
+            "type": {
+                "name": "Person",
+                "kind": "OBJECT"
+            }
+        },
+        {
+            "name": "todo_type",
+            "type": {
+                "name": "TodoType",
+                "kind": "OBJECT"
+            }
+        },
+        {
+            "name": "transactions",
+            "type": {
+                "name": null,
+                "kind": "LIST"
+            }
+        },
+        {
+            "name": "unsigned_contract_pdf_url",
+            "type": {
+                "name": "String",
+                "kind": "SCALAR"
+            }
+        },
+        {
+            "name": "updated_at",
+            "type": {
+                "name": "DateTime",
+                "kind": "SCALAR"
+            }
+        }
+    ]
+}

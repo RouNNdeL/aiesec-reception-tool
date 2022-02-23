@@ -1,7 +1,5 @@
-# create a class that will wrap graphql queries for AIESEC EXPA platform
-
 from __future__ import annotations
-from typing import Dict
+from typing import Dict, List
 
 from gql import gql, Client
 from gql.transport.requests import RequestsHTTPTransport
@@ -13,7 +11,7 @@ from datetime import datetime
 from requests.exceptions import JSONDecodeError
 from http import HTTPStatus
 
-from .models import CurrentPerson
+from .models import CurrentPerson, OportunityApplication
 
 
 EXPA_GRAPHQL_URL = "https://gis-api.aiesec.org/graphql"
@@ -28,7 +26,7 @@ class ExpaUnknwonException(Exception):
 
 
 class ExpaQuery:
-    __client: Client
+    __gql_client: Client
     __refresh_token: str
     __token_expire: datetime
     __client_id: str
@@ -67,7 +65,7 @@ class ExpaQuery:
         transport = RequestsHTTPTransport(
             url=EXPA_GRAPHQL_URL, headers={"Authorization": token}
         )
-        self.__client = Client(transport=transport)
+        self.__gql_client = Client(transport=transport)
 
     def __check_token(self):
         if datetime.now() >= self.__token_expire:
@@ -119,7 +117,7 @@ class ExpaQuery:
     def get_refresh_token(self) -> str:
         return self.__refresh_token
 
-    def get_current_person(self):
+    def get_current_person(self) -> CurrentPerson:
         self.__check_token()
 
         query = gql(
@@ -135,8 +133,37 @@ class ExpaQuery:
         )
 
         return CurrentPerson.from_dict(
-            self.__client.execute(query)["currentPerson"]
+            self.__gql_client.execute(query)["currentPerson"]
         )
+
+    def get_applications(self) -> List[OportunityApplication]:
+        self.__check_token()
+
+        query = gql(
+            """
+            query ApplicationsQuery {
+              allOpportunityApplication {
+                ...ApplicationList
+                __typename
+              }
+            }
+
+            fragment ApplicationList on OpportunityApplicationList {
+                data {
+                      """
+            + OportunityApplication.get_query()
+            + """
+                }
+            }
+        """
+        )
+
+        return [
+            OportunityApplication.from_dict(it)
+            for it in self.__gql_client.execute(query)[
+                "allOpportunityApplication"
+            ]["data"]
+        ]
 
     def get_schema(self, typename: str) -> Dict[str, Dict[str, str]]:
         self.__check_token()
@@ -160,4 +187,26 @@ class ExpaQuery:
         """
         )
 
-        return self.__client.execute(query)["__type"]
+        return self.__gql_client.execute(query)["__type"]
+
+    def get_enum_values(self, typename: str) -> List[str]:
+        self.__check_token()
+
+        query = gql(
+            """
+            {
+              __type(name: """
+            + f'"{typename}"'
+            + """) {
+                    enumValues {
+                          name
+                    }
+                }
+            }
+            """
+        )
+
+        return [
+            it["name"]
+            for it in self.__gql_client.execute(query)["__type"]["enumValues"]
+        ]

@@ -9,7 +9,6 @@ from gql.transport.requests import log as requests_logger
 import logging
 import atexit
 
-REFRESH_TOKEN_FILE = ".token"
 
 logging.basicConfig(
     format="[%(asctime)s][%(levelname)s]: %(message)s",
@@ -21,10 +20,18 @@ requests_logger.setLevel(logging.WARNING)
 expaql: ExpaQuery | None = None
 
 
+def get_token_file():
+    token_file = getenv("REFRESH_TOKEN_FILE")
+    if token_file is None:
+        token_file = ".token"
+
+    return token_file
+
+
 def main():
     global expaql
 
-    with open(REFRESH_TOKEN_FILE, "r") as f:
+    with open(get_token_file(), "r") as f:
         refresh_token = f.read().strip()
 
     client_id = getenv("EXPA_OAUTH_CLIENT_ID")
@@ -37,15 +44,15 @@ def main():
         )
 
     expaql = ExpaQuery(client_id, client_secret, refresh_token)
-    person = expaql.get_current_person()
-    logging.info("Logged in as %s", person)
+    for x in expaql.get_applications():
+        print(x.opportunity.city)
 
 
 def exit_handler():
     global expaql
 
     if expaql is not None:
-        with open(REFRESH_TOKEN_FILE, "w") as f:
+        with open(get_token_file(), "w") as f:
             f.write(expaql.get_refresh_token())
 
 
