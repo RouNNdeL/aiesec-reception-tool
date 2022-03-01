@@ -40,23 +40,25 @@ class OportunityApplicationFormatter:
             about = app.gip_answer
 
         c_phone = ""
-        if person.contact_detail.phone is not None:
-            formated_nr = person.contact_detail.format_phone_number()
-            whatsapp_url = person.contact_detail.whatsapp_url()
-            c_phone = f"Phone number: [{formated_nr}]({whatsapp_url})"
-
         c_instagram = ""
-        if person.contact_detail.instagram is not None:
-            handle = person.contact_detail.instagram
-            c_instagram = (
-                f"Instagram: [{handle}]"
-                f"(https://www.instagram.com/{handle})"
-            )
-
         c_email = ""
-        if person.email is not None:
-            email = person.email
-            c_email = f"Email: [{email}](mailto:{email})"
+
+        if person.contact_detail is not None:
+            if person.contact_detail.phone is not None:
+                formated_nr = person.contact_detail.format_phone_number()
+                whatsapp_url = person.contact_detail.whatsapp_url()
+                c_phone = f"Phone number: [{formated_nr}]({whatsapp_url})"
+
+            if person.contact_detail.instagram is not None:
+                handle = person.contact_detail.instagram
+                c_instagram = (
+                    f"Instagram: [{handle}]"
+                    f"(https://www.instagram.com/{handle})"
+                )
+
+            if person.email is not None:
+                email = person.email
+                c_email = f"Email: [{email}](mailto:{email})"
 
         return f"""
 # {person.full_name}
