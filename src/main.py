@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 
 from __future__ import annotations
-from os import getenv
 
 from expaql.api import ExpaQuery
 from expaql.formaters import OportunityApplicationFormatter
@@ -15,11 +14,12 @@ config = IgvToolConfig()
 logging.basicConfig(
     format="[%(asctime)s][%(levelname)s]: %(message)s",
     datefmt="%Y-%m-%dT%I:%M:%S",
-    level=config.log_level
+    level=config.log_level,
 )
 gql_logger.setLevel(logging.WARNING)
 
 expaql: ExpaQuery | None = None
+
 
 def main():
     global expaql
@@ -27,7 +27,9 @@ def main():
     with open(config.token_file, "r") as f:
         refresh_token = f.read().strip()
 
-    expaql = ExpaQuery(config.expa_client_id, config.expa_client_secret, refresh_token)
+    expaql = ExpaQuery(
+        config.expa_client_id, config.expa_client_secret, refresh_token
+    )
     for x in expaql.get_applications():
         formatter = OportunityApplicationFormatter(x)
         print(formatter.format_markdown())

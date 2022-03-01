@@ -1,5 +1,6 @@
 from pydantic import BaseSettings
 
+
 class IgvToolConfig(BaseSettings):
     expa_client_id: str
     expa_client_secret: str

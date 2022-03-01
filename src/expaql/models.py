@@ -1,6 +1,5 @@
 from __future__ import annotations
 from typing import Dict, List, Optional, Set
-from abc import ABC
 from pydantic import BaseModel, Extra, Field, validator
 
 from datetime import datetime
@@ -63,7 +62,6 @@ class ContactInfo(BaseModel, extra=Extra.forbid):
         assert cls == v
 
         return v
-
 
     def format_phone_number(self) -> str:
         return f"{self.country_code} {self.phone}"
@@ -237,6 +235,7 @@ class Oportunity(BaseModel, extra=Extra.forbid):
         """
         )
 
+
 class PersonProfile(BaseModel, extra=Extra.forbid):
     nationalities: Set[str]
     backgrounds: Set[str]
@@ -246,7 +245,7 @@ class PersonProfile(BaseModel, extra=Extra.forbid):
     @validator("nationalities", "backgrounds", "skills", "languages", pre=True)
     def extract_profile(cls, v):
         return {flatten_name(it) for it in v}
-    
+
     @staticmethod
     def get_query():
         return """
@@ -263,6 +262,7 @@ class PersonProfile(BaseModel, extra=Extra.forbid):
                 constant_name
             }
     """
+
 
 class Person(BaseModel, extra=Extra.forbid):
     id: int
@@ -315,10 +315,13 @@ class Person(BaseModel, extra=Extra.forbid):
             profile_photo
             status
             person_profile {
-            """ + PersonProfile.get_query() + """
+            """
+            + PersonProfile.get_query()
+            + """
             }
         """
         )
+
 
 class ApplicationMetaType(BaseModel, extra=Extra.forbid):
     gip_answer: Optional[str]
@@ -330,6 +333,7 @@ class ApplicationMetaType(BaseModel, extra=Extra.forbid):
             gip_answer
             vd_blog_url
         """
+
 
 class OportunityApplication(BaseModel, extra=Extra.forbid):
     id: int
@@ -343,7 +347,6 @@ class OportunityApplication(BaseModel, extra=Extra.forbid):
     standards: List[str]
     status: ApplicationStatus
     meta: ApplicationMetaType
-
 
     @validator("cv", pre=True)
     def extract_cv_url(cls, v):
@@ -392,4 +395,3 @@ class OportunityApplication(BaseModel, extra=Extra.forbid):
             status
         """
         )
-
