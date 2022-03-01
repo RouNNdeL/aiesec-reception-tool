@@ -132,8 +132,8 @@ class ExpaQuery:
         """
         )
 
-        return CurrentPerson.from_dict(
-            self.__gql_client.execute(query)["currentPerson"]
+        return CurrentPerson(
+            **self.__gql_client.execute(query)["currentPerson"]
         )
 
     def get_applications(self) -> List[OportunityApplication]:
@@ -159,7 +159,7 @@ class ExpaQuery:
         )
 
         return [
-            OportunityApplication.from_dict(it)
+            OportunityApplication(**it)
             for it in self.__gql_client.execute(query)[
                 "allOpportunityApplication"
             ]["data"]

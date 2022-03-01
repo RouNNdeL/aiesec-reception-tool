@@ -12,32 +12,32 @@ class OportunityApplicationFormatter:
         person = app.person
 
         languages = ""
-        if len(person.languages) > 0:
+        if len(person.profile.languages) > 0:
             languages = "### Languages\n"
-            for language in person.languages:
+            for language in person.profile.languages:
                 languages += f" - {language}\n"
 
         nationalities = ""
-        if len(person.nationalities) > 0:
+        if len(person.profile.nationalities) > 0:
             nationalities = "### Nationalities\n"
-            for nationality in person.nationalities:
+            for nationality in person.profile.nationalities:
                 nationalities += f" - {nationality}\n"
 
         backgrounds = ""
-        if len(person.backgrounds) > 0:
+        if len(person.profile.backgrounds) > 0:
             backgrounds = "### Backgrounds\n"
-            for background in person.backgrounds:
+            for background in person.profile.backgrounds:
                 backgrounds += f" - {background}\n"
 
         skills = ""
-        if len(person.skills) > 0:
+        if len(person.profile.skills) > 0:
             skills = "### Skills\n"
-            for skill in person.skills:
+            for skill in person.profile.skills:
                 skills += f" - {skill}\n"
 
         about = ""
-        if app.gip_answer is not None:
-            about = app.gip_answer
+        if app.meta.gip_answer is not None:
+            about = app.meta.gip_answer
 
         c_phone = ""
         c_instagram = ""
