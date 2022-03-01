@@ -1,6 +1,13 @@
 {
-    "name": "Office",
+    "name": "Organisation",
     "fields": [
+        {
+            "name": "active_opportunities_count",
+            "type": {
+                "name": "Int",
+                "kind": "SCALAR"
+            }
+        },
         {
             "name": "address_detail",
             "type": {
@@ -9,37 +16,23 @@
             }
         },
         {
-            "name": "allow_online_payments",
-            "type": {
-                "name": "String",
-                "kind": "SCALAR"
-            }
-        },
-        {
-            "name": "campaigns",
+            "name": "backgrounds",
             "type": {
                 "name": null,
                 "kind": "LIST"
             }
         },
         {
-            "name": "checklist_survey",
+            "name": "branches",
             "type": {
-                "name": "Survey",
+                "name": "BranchConnection",
                 "kind": "OBJECT"
             }
         },
         {
-            "name": "cities",
+            "name": "branches_count",
             "type": {
-                "name": null,
-                "kind": "LIST"
-            }
-        },
-        {
-            "name": "color_code",
-            "type": {
-                "name": "String",
+                "name": "Int",
                 "kind": "SCALAR"
             }
         },
@@ -51,24 +44,17 @@
             }
         },
         {
-            "name": "committee_aggregations",
+            "name": "company_stats",
             "type": {
-                "name": "CommitteeAggregationConnection",
-                "kind": "OBJECT"
+                "name": "JSON",
+                "kind": "SCALAR"
             }
         },
         {
-            "name": "committee_targets",
+            "name": "completeness",
             "type": {
-                "name": "CommitteeTargetConnection",
-                "kind": "OBJECT"
-            }
-        },
-        {
-            "name": "companies",
-            "type": {
-                "name": null,
-                "kind": "LIST"
+                "name": "JSON",
+                "kind": "SCALAR"
             }
         },
         {
@@ -79,7 +65,7 @@
             }
         },
         {
-            "name": "country_code",
+            "name": "contact_people",
             "type": {
                 "name": "String",
                 "kind": "SCALAR"
@@ -93,59 +79,52 @@
             }
         },
         {
-            "name": "custom_payment_url",
+            "name": "employees_count",
+            "type": {
+                "name": "Int",
+                "kind": "SCALAR"
+            }
+        },
+        {
+            "name": "experience_count",
             "type": {
                 "name": "String",
                 "kind": "SCALAR"
             }
         },
         {
-            "name": "default_currency",
+            "name": "follow_up",
             "type": {
-                "name": "Currency",
+                "name": "Constant",
                 "kind": "OBJECT"
             }
         },
         {
-            "name": "default_project_fee",
+            "name": "has_employee",
             "type": {
-                "name": "Int",
+                "name": "Boolean",
                 "kind": "SCALAR"
             }
         },
         {
-            "name": "default_project_fee_cents",
+            "name": "has_employees",
             "type": {
-                "name": "Int",
+                "name": "Boolean",
                 "kind": "SCALAR"
             }
         },
         {
-            "name": "eligible_for_online_payment",
+            "name": "has_opportunities",
             "type": {
-                "name": "String",
+                "name": "Boolean",
                 "kind": "SCALAR"
             }
         },
         {
-            "name": "email",
+            "name": "home_lc",
             "type": {
-                "name": "String",
-                "kind": "SCALAR"
-            }
-        },
-        {
-            "name": "full_name",
-            "type": {
-                "name": "String",
-                "kind": "SCALAR"
-            }
-        },
-        {
-            "name": "hdi",
-            "type": {
-                "name": null,
-                "kind": "LIST"
+                "name": "Office",
+                "kind": "OBJECT"
             }
         },
         {
@@ -156,44 +135,23 @@
             }
         },
         {
-            "name": "igv_fee_ep_percentage",
+            "name": "industries",
             "type": {
-                "name": "Float",
-                "kind": "SCALAR"
+                "name": null,
+                "kind": "LIST"
             }
         },
         {
-            "name": "igv_fee_partner_percentage",
+            "name": "managers",
             "type": {
-                "name": "Float",
-                "kind": "SCALAR"
+                "name": null,
+                "kind": "LIST"
             }
         },
         {
-            "name": "is_expansion",
+            "name": "meta",
             "type": {
-                "name": "String",
-                "kind": "SCALAR"
-            }
-        },
-        {
-            "name": "is_frozen",
-            "type": {
-                "name": "Boolean",
-                "kind": "SCALAR"
-            }
-        },
-        {
-            "name": "is_od_model_eligible",
-            "type": {
-                "name": "String",
-                "kind": "SCALAR"
-            }
-        },
-        {
-            "name": "member_position",
-            "type": {
-                "name": "MemberPosition",
+                "name": "CompanyMetaType",
                 "kind": "OBJECT"
             }
         },
@@ -205,45 +163,59 @@
             }
         },
         {
-            "name": "name_sort",
+            "name": "open_opportunities_count",
             "type": {
-                "name": "String",
+                "name": "Int",
                 "kind": "SCALAR"
             }
         },
         {
-            "name": "od_data",
+            "name": "open_positions",
             "type": {
-                "name": "JSON",
+                "name": "Int",
                 "kind": "SCALAR"
             }
         },
         {
-            "name": "parent",
+            "name": "opportunity_count",
             "type": {
-                "name": "Office",
+                "name": "Int",
+                "kind": "SCALAR"
+            }
+        },
+        {
+            "name": "organisation_size",
+            "type": {
+                "name": "Constant",
                 "kind": "OBJECT"
             }
         },
         {
-            "name": "payments",
+            "name": "organisation_type",
             "type": {
-                "name": "CommitteePayment",
+                "name": "Constant",
                 "kind": "OBJECT"
             }
         },
         {
-            "name": "pdi",
+            "name": "partner_type",
             "type": {
-                "name": null,
-                "kind": "LIST"
+                "name": "PartnerTypes",
+                "kind": "ENUM"
             }
         },
         {
             "name": "permissions",
             "type": {
-                "name": "OfficePermissionType",
+                "name": "OrganisationPermissionType",
                 "kind": "OBJECT"
+            }
+        },
+        {
+            "name": "pop_first_sign_up",
+            "type": {
+                "name": "DateTime",
+                "kind": "SCALAR"
             }
         },
         {
@@ -254,70 +226,49 @@
             }
         },
         {
-            "name": "programme_fees",
+            "name": "programmes",
             "type": {
-                "name": "ProgrammeFeeConnection",
+                "name": "Programme",
                 "kind": "OBJECT"
             }
         },
         {
-            "name": "programme_managers",
+            "name": "questionnaires",
             "type": {
-                "name": null,
-                "kind": "LIST"
+                "name": "QuestionnaireConnection",
+                "kind": "OBJECT"
             }
         },
         {
-            "name": "project_fee_limit",
-            "type": {
-                "name": "Int",
-                "kind": "SCALAR"
-            }
-        },
-        {
-            "name": "project_fee_limit_cents",
-            "type": {
-                "name": "Int",
-                "kind": "SCALAR"
-            }
-        },
-        {
-            "name": "short_code",
+            "name": "registration_no",
             "type": {
                 "name": "String",
                 "kind": "SCALAR"
             }
         },
         {
-            "name": "signup_link",
+            "name": "scorecards",
+            "type": {
+                "name": "ScorecardConnection",
+                "kind": "OBJECT"
+            }
+        },
+        {
+            "name": "stats",
+            "type": {
+                "name": "JSON",
+                "kind": "SCALAR"
+            }
+        },
+        {
+            "name": "status",
             "type": {
                 "name": "String",
                 "kind": "SCALAR"
             }
         },
         {
-            "name": "signup_questions",
-            "type": {
-                "name": "String",
-                "kind": "SCALAR"
-            }
-        },
-        {
-            "name": "sub_office_count",
-            "type": {
-                "name": "Int",
-                "kind": "SCALAR"
-            }
-        },
-        {
-            "name": "suboffices",
-            "type": {
-                "name": null,
-                "kind": "LIST"
-            }
-        },
-        {
-            "name": "tag",
+            "name": "summary",
             "type": {
                 "name": "String",
                 "kind": "SCALAR"
@@ -331,6 +282,13 @@
             }
         },
         {
+            "name": "testimonials",
+            "type": {
+                "name": null,
+                "kind": "LIST"
+            }
+        },
+        {
             "name": "todo_type",
             "type": {
                 "name": "TodoType",
@@ -338,9 +296,16 @@
             }
         },
         {
-            "name": "visa_requirements",
+            "name": "website",
             "type": {
-                "name": "JSON",
+                "name": "String",
+                "kind": "SCALAR"
+            }
+        },
+        {
+            "name": "year_of_creation",
+            "type": {
+                "name": "Int",
                 "kind": "SCALAR"
             }
         }

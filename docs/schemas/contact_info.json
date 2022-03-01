@@ -1,43 +1,57 @@
 {
-    "name": "CommitteePayment",
+    "name": "ContactInfo",
     "fields": [
         {
-            "name": "allow_online_payments",
-            "type": {
-                "name": "Boolean",
-                "kind": "SCALAR"
-            }
-        },
-        {
-            "name": "apply",
+            "name": "country_code",
             "type": {
                 "name": "String",
                 "kind": "SCALAR"
             }
         },
         {
-            "name": "match",
+            "name": "email",
             "type": {
                 "name": "String",
                 "kind": "SCALAR"
             }
         },
         {
-            "name": "other_payment_option",
+            "name": "facebook",
             "type": {
                 "name": "String",
                 "kind": "SCALAR"
             }
         },
         {
-            "name": "realize",
+            "name": "instagram",
             "type": {
                 "name": "String",
                 "kind": "SCALAR"
             }
         },
         {
-            "name": "url",
+            "name": "linkedin",
+            "type": {
+                "name": "String",
+                "kind": "SCALAR"
+            }
+        },
+        {
+            "name": "phone",
+            "type": {
+                "name": "String",
+                "kind": "SCALAR"
+            }
+        },
+        {
+            "name": "twitter",
+            "type": {
+                "name": "String",
+                "kind": "SCALAR"
+            }
+        },
+        {
+            "name": "website",
             "type": {
                 "name": "String",
                 "kind": "SCALAR"

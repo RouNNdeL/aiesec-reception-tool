@@ -1,14 +1,33 @@
 from __future__ import annotations
-from typing import Dict
+from typing import Dict, List, Optional, Set
 from abc import ABC
 
 from datetime import datetime
 from enum import Enum
 
+import re
+
 
 class Gender(str, Enum):
     MALE = "male"
     FEMALE = "female"
+
+    def get_pronoun(self):
+        if self == Gender.MALE:
+            return "he"
+        elif self == Gender.FEMALE:
+            return "she"
+
+
+class ApplicationStatus(str, Enum):
+    OPEN = "open"
+    ACCEPTED = "accepted"
+    REJECTED = "rejected"
+    APPROVED = "approved"
+    WITHDRAWN = "withdrawn"
+    REALIZED = "realized"
+    FINISHED = "finished"
+    COMPLETED = "completed"
 
 
 class ExpaModel(ABC):
@@ -20,6 +39,69 @@ class ExpaModel(ABC):
             return Office.from_dict(d)
         else:
             return None
+
+
+class ContactInfo(ExpaModel):
+    country_code: Optional[str]
+    phone: Optional[str]
+    email: Optional[str]
+    facebook: Optional[str]
+    instagram: Optional[str]
+    linkedin: Optional[str]
+    twitter: Optional[str]
+
+    def __init__(
+        self,
+        country_code: Optional[str],
+        phone: Optional[str],
+        email: Optional[str],
+        facebook: Optional[str],
+        instagram: Optional[str],
+        linkedin: Optional[str],
+        twitter: Optional[str],
+    ):
+        super().__init__()
+        self.country_code = country_code
+        if phone is not None:
+            self.phone = re.sub(re.compile(r"[^\d]"), "", phone)
+        else:
+            self.phone = None
+        self.email = email
+        self.facebook = facebook
+        self.instagram = instagram
+        self.linkedin = linkedin
+        self.twitter = twitter
+
+    def format_phone_number(self) -> str:
+        return f"{self.country_code} {self.phone}"
+
+    def whatsapp_url(self) -> str:
+        return f"https://wa.me/{self.country_code}{self.phone}"
+
+    @staticmethod
+    def from_dict(d: Dict) -> ContactInfo:
+        return ContactInfo(
+            d["country_code"],
+            d["phone"],
+            d["email"],
+            d["facebook"],
+            d["instagram"],
+            d["linkedin"],
+            d["twitter"],
+        )
+
+    @staticmethod
+    def get_query() -> str:
+        return """
+            country_code
+            phone
+            email
+            facebook
+            instagram
+            linkedin
+            twitter
+            __typename
+        """
 
 
 class CurrentPerson(ExpaModel):
@@ -94,10 +176,10 @@ class Office(ExpaModel):
     id: int
     name: str
     full_name: str
-    parent: Office | None
+    parent: Optional[Office]
 
     def __init__(
-        self, id: int, name: str, full_name: str, parent: Office | None
+        self, id: int, name: str, full_name: str, parent: Optional[Office]
     ):
         super().__init__()
         self.id = id
@@ -132,3 +214,436 @@ class Office(ExpaModel):
             }
             __typename
         """
+
+
+class City(ExpaModel):
+    id: int
+    city_details: str
+    country: str
+    google_place_id: str
+
+    def __init__(
+        self, id: int, city_details: str, country: str, google_place_id: str
+    ):
+        super().__init__()
+        self.id = id
+        self.city_details = city_details
+        self.country = country
+        self.google_place_id = google_place_id
+
+    @staticmethod
+    def from_dict(d: Dict) -> City:
+        return City(
+            d["id"], d["city_details"], d["country"], d["google_place_id"]
+        )
+
+    @staticmethod
+    def get_query() -> str:
+        return """
+            id
+            city_details
+            country
+            google_place_id
+            __typename
+        """
+
+
+class Organisation(ExpaModel):
+    id: int
+    name: str
+    website: str
+    contact_detail: ContactInfo
+
+    def __init__(
+        self, id: int, name: str, website: str, contact_detail: ContactInfo
+    ):
+        super().__init__()
+        self.id = id
+        self.name = name
+        self.website = website
+        self.contact_detail = contact_detail
+
+    @staticmethod
+    def from_dict(d: Dict) -> Organisation:
+        return Organisation(
+            d["id"],
+            d["name"],
+            d["website"],
+            ContactInfo.from_dict(d["contact_detail"]),
+        )
+
+    @staticmethod
+    def get_query() -> str:
+        return (
+            """
+            id
+            name
+            website
+            contact_detail {
+                """
+            + ContactInfo.get_query()
+            + """
+            }
+            __typename
+        """
+        )
+
+
+class Oportunity(ExpaModel):
+    id: int
+    accepted_count: int
+    applicants_count: int
+    city: Optional[City]
+    description: str
+    google_place_id: str
+    languages: Set[str]
+    lat: str
+    lng: str
+    location: str
+    openings: int
+    organisation: Organisation
+    percentage_of_fulfillment: float
+    profile_photo: str
+    skills: List[str]
+    title: str
+
+    def __init__(
+        self,
+        id: int,
+        accepted_count: int,
+        applicants_count: int,
+        city: Optional[City],
+        description: str,
+        google_place_id: str,
+        lat: str,
+        lng: str,
+        location: str,
+        openings: int,
+        organisation: Organisation,
+        percentage_of_fulfillment: float,
+        profile_photo: str,
+        skills: List[str],
+        title: str,
+    ):
+        super().__init__()
+        self.id = id
+        self.accepted_count = accepted_count
+        self.applicants_count = applicants_count
+        self.city = city
+        self.description = description
+        self.google_place_id = google_place_id
+        self.lat = lat
+        self.lng = lng
+        self.location = location
+        self.openings = openings
+        self.organisation = organisation
+        self.percentage_of_fulfillment = percentage_of_fulfillment
+        self.profile_photo = profile_photo
+        self.skills = skills
+        self.title = title
+
+    def __str__(self) -> str:
+        return f"#{self.id} {self.title}"
+
+    @staticmethod
+    def from_dict(d: Dict) -> Oportunity:
+        if "city" in d and d["city"] is not None:
+            city = City.from_dict(d["city"])
+        else:
+            city = None
+
+        return Oportunity(
+            d["id"],
+            d["accepted_count"],
+            d["applicants_count"],
+            city,
+            d["description"],
+            d["google_place_id"],
+            d["lat"],
+            d["lng"],
+            d["location"],
+            d["openings"],
+            Organisation.from_dict(d["organisation"]),
+            d["percentage_of_fulfillment"],
+            d["profile_photo"],
+            d["skills"],
+            d["title"],
+        )
+
+    @staticmethod
+    def get_query() -> str:
+        return (
+            """
+            id
+            accepted_count
+            applicants_count
+            city {
+                """
+            + City.get_query()
+            + """
+            }
+            description
+            google_place_id
+            lat
+            lng
+            location
+            openings
+            organisation {
+                """
+            + Organisation.get_query()
+            + """
+            }
+            percentage_of_fulfillment
+            profile_photo
+            skills {
+                constant_name
+            }
+            title
+            __typename
+        """
+        )
+
+
+class OportunityApplication(ExpaModel):
+    id: int
+    created_at: datetime
+    current_status: ApplicationStatus
+    experience_end_date: datetime
+    experience_start_date: datetime
+    opportunity: Oportunity
+    person: Person
+    cv: Optional[str]
+    questionnaire_answers: str
+    standards: List[str]
+    status: ApplicationStatus
+    gip_answer: Optional[str]
+
+    def __init__(
+        self,
+        id: int,
+        created_at: datetime,
+        current_status: ApplicationStatus,
+        experience_end_date: datetime,
+        experience_start_date: datetime,
+        opportunity: Oportunity,
+        person: Person,
+        cv: Optional[str],
+        questionnaire_answers: str,
+        standards: List[str],
+        status: ApplicationStatus,
+        gip_answer: Optional[str],
+    ):
+        super().__init__()
+        self.id = id
+        self.created_at = created_at
+        self.current_status = current_status
+        self.experience_end_date = experience_end_date
+        self.experience_start_date = experience_start_date
+        self.opportunity = opportunity
+        self.person = person
+        self.cv = cv
+        self.questionnaire_answers = questionnaire_answers
+        self.standards = standards
+        self.status = status
+        self.gip_answer = gip_answer
+
+    def get_cv(self):
+        if self.cv is not None:
+            return self.cv
+        return self.person.cv_url
+
+    def __str__(self) -> str:
+        return f"{self.person} from {self.opportunity} ({self.status})"
+
+    def __repr__(self) -> str:
+        return self.__str__()
+
+    @staticmethod
+    def from_dict(d: Dict) -> OportunityApplication:
+        if "cv" in d and d["cv"] is not None:
+            cv = d["cv"]["url"]
+        else:
+            cv = None
+
+        if "meta" in d and d["meta"] is not None:
+            gip_answer = d["meta"]["gip_answer"]
+        else:
+            gip_answer = None
+
+        return OportunityApplication(
+            d["id"],
+            d["created_at"],
+            ApplicationStatus(d["current_status"]),
+            d["experience_end_date"],
+            d["experience_start_date"],
+            Oportunity.from_dict(d["opportunity"]),
+            Person.from_dict(d["person"]),
+            cv,
+            d["questionnaire_answers"],
+            [it["constant_name"] for it in d["standards"]],
+            ApplicationStatus(d["status"]),
+            gip_answer,
+        )
+
+    @staticmethod
+    def get_query() -> str:
+        return (
+            """
+            id
+            created_at
+            current_status
+            experience_end_date
+            experience_start_date
+            opportunity {
+                """
+            + Oportunity.get_query()
+            + """
+            }
+            person {
+                """
+            + Person.get_query()
+            + """
+            }
+            cv {
+                url
+            }
+            questionnaire_answers
+            meta {
+                gip_answer
+            }
+            standards {
+                constant_name
+            }
+            status
+            __typename
+        """
+        )
+
+
+class Person(ExpaModel):
+    id: int
+    full_name: str
+    contact_detail: Optional[ContactInfo]
+    email: str
+    cv_url: str
+    gender: Gender
+    home_lc: str
+    home_mc: str
+    profile_photo: str
+    status: str
+    nationalities: Set[str]
+    backgrounds: Set[str]
+    skills: Set[str]
+    languages: Set[str]
+
+    def __init__(
+        self,
+        id: int,
+        full_name: str,
+        contact_detail: Optional[ContactInfo],
+        email: str,
+        cv_url: str,
+        gender: Gender,
+        home_lc: str,
+        home_mc: str,
+        profile_photo: str,
+        status: str,
+        nationalities: Set[str],
+        backgrounds: Set[str],
+        skills: Set[str],
+        languages: Set[str],
+    ):
+        super().__init__()
+        self.id = id
+        self.full_name = full_name
+        self.contact_detail = contact_detail
+        self.email = email
+        self.cv_url = cv_url
+        self.gender = gender
+        self.home_lc = home_lc
+        self.home_mc = home_mc
+        self.profile_photo = profile_photo
+        self.status = status
+        self.nationalities = nationalities
+        self.backgrounds = backgrounds
+        self.skills = skills
+        self.languages = languages
+
+    def __str__(self) -> str:
+        return f"{self.full_name}"
+
+    def __repr__(self) -> str:
+        return self.__str__()
+
+    @staticmethod
+    def get_query() -> str:
+        return (
+            """
+            id
+            full_name
+            contact_detail {
+                """
+            + ContactInfo.get_query()
+            + """
+            }
+            email
+            cv_url
+            gender
+            home_lc {
+                name
+            }
+            home_mc {
+                name
+            }
+            profile_photo
+            status
+            person_profile {
+                nationalities {
+                    name
+                }
+                backgrounds {
+                    name
+                }
+                skills {
+                    constant_name
+                }
+                languages {
+                    constant_name
+                }
+            }
+            __typename
+        """
+        )
+
+    @staticmethod
+    def from_dict(d: Dict) -> Person:
+        if "contact_detail" in d:
+            contact_detail = ContactInfo.from_dict(d["contact_detail"])
+        else:
+            contact_detail = None
+
+        nationalities = {
+            it["name"] for it in d["person_profile"]["nationalities"]
+        }
+        backgrounds = {it["name"] for it in d["person_profile"]["backgrounds"]}
+        skills = {it["constant_name"] for it in d["person_profile"]["skills"]}
+        languages = {
+            it["constant_name"] for it in d["person_profile"]["languages"]
+        }
+
+        return Person(
+            d["id"],
+            d["full_name"],
+            contact_detail,
+            d["email"],
+            d["cv_url"],
+            Gender(d["gender"].lower()),
+            d["home_lc"]["name"],
+            d["home_mc"]["name"],
+            d["profile_photo"],
+            d["status"],
+            nationalities,
+            backgrounds,
+            skills,
+            languages,
+        )

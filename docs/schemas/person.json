@@ -1,0 +1,803 @@
+{
+    "name": "Person",
+    "fields": [
+        {
+            "name": "academic_experiences",
+            "type": {
+                "name": null,
+                "kind": "LIST"
+            }
+        },
+        {
+            "name": "accepted",
+            "type": {
+                "name": "Boolean",
+                "kind": "SCALAR"
+            }
+        },
+        {
+            "name": "accepted_count",
+            "type": {
+                "name": "Int",
+                "kind": "SCALAR"
+            }
+        },
+        {
+            "name": "accepted_reason",
+            "type": {
+                "name": "String",
+                "kind": "SCALAR"
+            }
+        },
+        {
+            "name": "account_manager",
+            "type": {
+                "name": "String",
+                "kind": "SCALAR"
+            }
+        },
+        {
+            "name": "active_favourite_events",
+            "type": {
+                "name": null,
+                "kind": "LIST"
+            }
+        },
+        {
+            "name": "active_favourite_opportunities",
+            "type": {
+                "name": null,
+                "kind": "LIST"
+            }
+        },
+        {
+            "name": "address_detail",
+            "type": {
+                "name": "AddressInfo",
+                "kind": "OBJECT"
+            }
+        },
+        {
+            "name": "aiesec_email",
+            "type": {
+                "name": "String",
+                "kind": "SCALAR"
+            }
+        },
+        {
+            "name": "axp_settings",
+            "type": {
+                "name": "JSON",
+                "kind": "SCALAR"
+            }
+        },
+        {
+            "name": "branch_employees",
+            "type": {
+                "name": "BranchEmployeeConnection",
+                "kind": "OBJECT"
+            }
+        },
+        {
+            "name": "campaign",
+            "type": {
+                "name": "Campaign",
+                "kind": "OBJECT"
+            }
+        },
+        {
+            "name": "city_id",
+            "type": {
+                "name": "Int",
+                "kind": "SCALAR"
+            }
+        },
+        {
+            "name": "client_datas",
+            "type": {
+                "name": "ClientDataConnection",
+                "kind": "OBJECT"
+            }
+        },
+        {
+            "name": "comments",
+            "type": {
+                "name": "CommentConnection",
+                "kind": "OBJECT"
+            }
+        },
+        {
+            "name": "contact_detail",
+            "type": {
+                "name": "ContactInfo",
+                "kind": "OBJECT"
+            }
+        },
+        {
+            "name": "contacted_at",
+            "type": {
+                "name": "DateTime",
+                "kind": "SCALAR"
+            }
+        },
+        {
+            "name": "contacted_by",
+            "type": {
+                "name": "Person",
+                "kind": "OBJECT"
+            }
+        },
+        {
+            "name": "conversations",
+            "type": {
+                "name": "ConversationConnection",
+                "kind": "OBJECT"
+            }
+        },
+        {
+            "name": "cover_photo",
+            "type": {
+                "name": "String",
+                "kind": "SCALAR"
+            }
+        },
+        {
+            "name": "created_at",
+            "type": {
+                "name": "DateTime",
+                "kind": "SCALAR"
+            }
+        },
+        {
+            "name": "creator",
+            "type": {
+                "name": "Person",
+                "kind": "OBJECT"
+            }
+        },
+        {
+            "name": "current_experiences",
+            "type": {
+                "name": null,
+                "kind": "LIST"
+            }
+        },
+        {
+            "name": "current_office",
+            "type": {
+                "name": "Office",
+                "kind": "OBJECT"
+            }
+        },
+        {
+            "name": "current_positions",
+            "type": {
+                "name": null,
+                "kind": "LIST"
+            }
+        },
+        {
+            "name": "cv",
+            "type": {
+                "name": "Attachment",
+                "kind": "OBJECT"
+            }
+        },
+        {
+            "name": "cv_url",
+            "type": {
+                "name": "String",
+                "kind": "SCALAR"
+            }
+        },
+        {
+            "name": "cvs",
+            "type": {
+                "name": null,
+                "kind": "LIST"
+            }
+        },
+        {
+            "name": "deleted_branch_employees",
+            "type": {
+                "name": "BranchEmployeeConnection",
+                "kind": "OBJECT"
+            }
+        },
+        {
+            "name": "dob",
+            "type": {
+                "name": "Date",
+                "kind": "SCALAR"
+            }
+        },
+        {
+            "name": "email",
+            "type": {
+                "name": "String",
+                "kind": "SCALAR"
+            }
+        },
+        {
+            "name": "employee_created_via",
+            "type": {
+                "name": "String",
+                "kind": "SCALAR"
+            }
+        },
+        {
+            "name": "employee_details",
+            "type": {
+                "name": "EmployeeDetailsType",
+                "kind": "OBJECT"
+            }
+        },
+        {
+            "name": "expa_settings",
+            "type": {
+                "name": "ExpaSettings",
+                "kind": "OBJECT"
+            }
+        },
+        {
+            "name": "expired_favourite_events",
+            "type": {
+                "name": null,
+                "kind": "LIST"
+            }
+        },
+        {
+            "name": "expired_favourite_opportunities",
+            "type": {
+                "name": null,
+                "kind": "LIST"
+            }
+        },
+        {
+            "name": "first_name",
+            "type": {
+                "name": "String",
+                "kind": "SCALAR"
+            }
+        },
+        {
+            "name": "follow_up",
+            "type": {
+                "name": "Constant",
+                "kind": "OBJECT"
+            }
+        },
+        {
+            "name": "followed_up_at",
+            "type": {
+                "name": "DateTime",
+                "kind": "SCALAR"
+            }
+        },
+        {
+            "name": "followed_up_by",
+            "type": {
+                "name": "Person",
+                "kind": "OBJECT"
+            }
+        },
+        {
+            "name": "full_name",
+            "type": {
+                "name": "String",
+                "kind": "SCALAR"
+            }
+        },
+        {
+            "name": "gender",
+            "type": {
+                "name": "String",
+                "kind": "SCALAR"
+            }
+        },
+        {
+            "name": "has_opportunity_applications",
+            "type": {
+                "name": "Boolean",
+                "kind": "SCALAR"
+            }
+        },
+        {
+            "name": "home_lc",
+            "type": {
+                "name": "Office",
+                "kind": "OBJECT"
+            }
+        },
+        {
+            "name": "home_mc",
+            "type": {
+                "name": "Office",
+                "kind": "OBJECT"
+            }
+        },
+        {
+            "name": "id",
+            "type": {
+                "name": null,
+                "kind": "NON_NULL"
+            }
+        },
+        {
+            "name": "interviewed",
+            "type": {
+                "name": "Boolean",
+                "kind": "SCALAR"
+            }
+        },
+        {
+            "name": "introduction",
+            "type": {
+                "name": "String",
+                "kind": "SCALAR"
+            }
+        },
+        {
+            "name": "invitation_accepted_at",
+            "type": {
+                "name": "DateTime",
+                "kind": "SCALAR"
+            }
+        },
+        {
+            "name": "is_ai_member",
+            "type": {
+                "name": "Boolean",
+                "kind": "SCALAR"
+            }
+        },
+        {
+            "name": "is_aiesecer",
+            "type": {
+                "name": "Boolean",
+                "kind": "SCALAR"
+            }
+        },
+        {
+            "name": "is_pop_user",
+            "type": {
+                "name": "Boolean",
+                "kind": "SCALAR"
+            }
+        },
+        {
+            "name": "is_super_user",
+            "type": {
+                "name": "Boolean",
+                "kind": "SCALAR"
+            }
+        },
+        {
+            "name": "is_watchlisted",
+            "type": {
+                "name": "Boolean",
+                "kind": "SCALAR"
+            }
+        },
+        {
+            "name": "last_active_at",
+            "type": {
+                "name": "DateTime",
+                "kind": "SCALAR"
+            }
+        },
+        {
+            "name": "last_name",
+            "type": {
+                "name": "String",
+                "kind": "SCALAR"
+            }
+        },
+        {
+            "name": "latest_academic",
+            "type": {
+                "name": "PreviousExperience",
+                "kind": "OBJECT"
+            }
+        },
+        {
+            "name": "latest_academic_experience_backgrounds",
+            "type": {
+                "name": null,
+                "kind": "LIST"
+            }
+        },
+        {
+            "name": "latest_academic_level",
+            "type": {
+                "name": "Constant",
+                "kind": "OBJECT"
+            }
+        },
+        {
+            "name": "latest_graduation_date",
+            "type": {
+                "name": "DateTime",
+                "kind": "SCALAR"
+            }
+        },
+        {
+            "name": "lc_alignment",
+            "type": {
+                "name": "LcAlignment",
+                "kind": "OBJECT"
+            }
+        },
+        {
+            "name": "linkedin_url",
+            "type": {
+                "name": "String",
+                "kind": "SCALAR"
+            }
+        },
+        {
+            "name": "location",
+            "type": {
+                "name": "String",
+                "kind": "SCALAR"
+            }
+        },
+        {
+            "name": "managed_branches",
+            "type": {
+                "name": null,
+                "kind": "LIST"
+            }
+        },
+        {
+            "name": "managed_companies",
+            "type": {
+                "name": null,
+                "kind": "LIST"
+            }
+        },
+        {
+            "name": "managed_opportunities",
+            "type": {
+                "name": "OpportunityConnection",
+                "kind": "OBJECT"
+            }
+        },
+        {
+            "name": "managed_opportunities_count",
+            "type": {
+                "name": "Int",
+                "kind": "SCALAR"
+            }
+        },
+        {
+            "name": "managed_sub_branch_ids",
+            "type": {
+                "name": null,
+                "kind": "LIST"
+            }
+        },
+        {
+            "name": "managers",
+            "type": {
+                "name": null,
+                "kind": "LIST"
+            }
+        },
+        {
+            "name": "member_positions",
+            "type": {
+                "name": null,
+                "kind": "LIST"
+            }
+        },
+        {
+            "name": "meta",
+            "type": {
+                "name": "PersonMetaType",
+                "kind": "OBJECT"
+            }
+        },
+        {
+            "name": "middle_names",
+            "type": {
+                "name": "String",
+                "kind": "SCALAR"
+            }
+        },
+        {
+            "name": "nationalities_ids",
+            "type": {
+                "name": null,
+                "kind": "LIST"
+            }
+        },
+        {
+            "name": "notification_settings",
+            "type": {
+                "name": "JSON",
+                "kind": "SCALAR"
+            }
+        },
+        {
+            "name": "nps_score",
+            "type": {
+                "name": "String",
+                "kind": "SCALAR"
+            }
+        },
+        {
+            "name": "opportunity_applications",
+            "type": {
+                "name": "OpportunityApplicationConnection",
+                "kind": "OBJECT"
+            }
+        },
+        {
+            "name": "opportunity_applications_count",
+            "type": {
+                "name": "Int",
+                "kind": "SCALAR"
+            }
+        },
+        {
+            "name": "organisation_type",
+            "type": {
+                "name": "Constant",
+                "kind": "OBJECT"
+            }
+        },
+        {
+            "name": "password",
+            "type": {
+                "name": "String",
+                "kind": "SCALAR"
+            }
+        },
+        {
+            "name": "payments",
+            "type": {
+                "name": null,
+                "kind": "LIST"
+            }
+        },
+        {
+            "name": "percentage_of_fulfillment",
+            "type": {
+                "name": "Float",
+                "kind": "SCALAR"
+            }
+        },
+        {
+            "name": "permissions",
+            "type": {
+                "name": "PersonPermissionType",
+                "kind": "OBJECT"
+            }
+        },
+        {
+            "name": "person_profile",
+            "type": {
+                "name": "PersonProfile",
+                "kind": "OBJECT"
+            }
+        },
+        {
+            "name": "positions",
+            "type": {
+                "name": null,
+                "kind": "LIST"
+            }
+        },
+        {
+            "name": "professional_experience_in_years",
+            "type": {
+                "name": "Int",
+                "kind": "SCALAR"
+            }
+        },
+        {
+            "name": "professional_experiences",
+            "type": {
+                "name": null,
+                "kind": "LIST"
+            }
+        },
+        {
+            "name": "profile_completeness",
+            "type": {
+                "name": "ProfileCompleteness",
+                "kind": "OBJECT"
+            }
+        },
+        {
+            "name": "profile_photo",
+            "type": {
+                "name": "String",
+                "kind": "SCALAR"
+            }
+        },
+        {
+            "name": "programme_fees",
+            "type": {
+                "name": null,
+                "kind": "LIST"
+            }
+        },
+        {
+            "name": "programmes",
+            "type": {
+                "name": null,
+                "kind": "LIST"
+            }
+        },
+        {
+            "name": "recommended_incoming_programme",
+            "type": {
+                "name": "Int",
+                "kind": "SCALAR"
+            }
+        },
+        {
+            "name": "referral_type",
+            "type": {
+                "name": "String",
+                "kind": "SCALAR"
+            }
+        },
+        {
+            "name": "rejected_count",
+            "type": {
+                "name": "Int",
+                "kind": "SCALAR"
+            }
+        },
+        {
+            "name": "required_backgrounds_percentage",
+            "type": {
+                "name": "Float",
+                "kind": "SCALAR"
+            }
+        },
+        {
+            "name": "required_languages_percentage",
+            "type": {
+                "name": "Float",
+                "kind": "SCALAR"
+            }
+        },
+        {
+            "name": "required_skills_percentage",
+            "type": {
+                "name": "Float",
+                "kind": "SCALAR"
+            }
+        },
+        {
+            "name": "saved_filters",
+            "type": {
+                "name": "SavedFilterConnection",
+                "kind": "OBJECT"
+            }
+        },
+        {
+            "name": "secure_identity",
+            "type": {
+                "name": "String",
+                "kind": "SCALAR"
+            }
+        },
+        {
+            "name": "secure_identity_email",
+            "type": {
+                "name": "String",
+                "kind": "SCALAR"
+            }
+        },
+        {
+            "name": "status",
+            "type": {
+                "name": "String",
+                "kind": "SCALAR"
+            }
+        },
+        {
+            "name": "status_string",
+            "type": {
+                "name": "String",
+                "kind": "SCALAR"
+            }
+        },
+        {
+            "name": "summary",
+            "type": {
+                "name": "String",
+                "kind": "SCALAR"
+            }
+        },
+        {
+            "name": "support_conversation",
+            "type": {
+                "name": "Conversation",
+                "kind": "OBJECT"
+            }
+        },
+        {
+            "name": "tag_lists",
+            "type": {
+                "name": null,
+                "kind": "LIST"
+            }
+        },
+        {
+            "name": "teams",
+            "type": {
+                "name": null,
+                "kind": "LIST"
+            }
+        },
+        {
+            "name": "todo_type",
+            "type": {
+                "name": "TodoType",
+                "kind": "OBJECT"
+            }
+        },
+        {
+            "name": "top_languages",
+            "type": {
+                "name": null,
+                "kind": "LIST"
+            }
+        },
+        {
+            "name": "updated_at",
+            "type": {
+                "name": "DateTime",
+                "kind": "SCALAR"
+            }
+        },
+        {
+            "name": "utm_campaign",
+            "type": {
+                "name": "String",
+                "kind": "SCALAR"
+            }
+        },
+        {
+            "name": "utm_content",
+            "type": {
+                "name": "String",
+                "kind": "SCALAR"
+            }
+        },
+        {
+            "name": "utm_medium",
+            "type": {
+                "name": "String",
+                "kind": "SCALAR"
+            }
+        },
+        {
+            "name": "utm_source",
+            "type": {
+                "name": "String",
+                "kind": "SCALAR"
+            }
+        },
+        {
+            "name": "utm_term",
+            "type": {
+                "name": "String",
+                "kind": "SCALAR"
+            }
+        },
+        {
+            "name": "watchlist_for_opportunity",
+            "type": {
+                "name": "OpportunityPotentialCandidateType",
+                "kind": "OBJECT"
+            }
+        }
+    ]
+}

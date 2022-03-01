@@ -1,0 +1,75 @@
+{
+    "name": "City",
+    "fields": [
+        {
+            "name": "city_details",
+            "type": {
+                "name": "String",
+                "kind": "SCALAR"
+            }
+        },
+        {
+            "name": "city_lcs",
+            "type": {
+                "name": null,
+                "kind": "LIST"
+            }
+        },
+        {
+            "name": "country",
+            "type": {
+                "name": "String",
+                "kind": "SCALAR"
+            }
+        },
+        {
+            "name": "google_place_id",
+            "type": {
+                "name": "String",
+                "kind": "SCALAR"
+            }
+        },
+        {
+            "name": "id",
+            "type": {
+                "name": null,
+                "kind": "NON_NULL"
+            }
+        },
+        {
+            "name": "lat",
+            "type": {
+                "name": "Float",
+                "kind": "SCALAR"
+            }
+        },
+        {
+            "name": "lcs",
+            "type": {
+                "name": null,
+                "kind": "LIST"
+            }
+        },
+        {
+            "name": "lng",
+            "type": {
+                "name": "Float",
+                "kind": "SCALAR"
+            }
+        },
+        {
+            "name": "mc",
+            "type": {
+                "name": "Office",
+                "kind": "OBJECT"
+            }
+        },
+        {
+            "name": "name",
+            "type": {
+                "name": "String",
+                "kind": "SCALAR"
+            }
+        }
+    ]
+}
