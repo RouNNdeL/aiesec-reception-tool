@@ -1,5 +1,5 @@
 from __future__ import annotations
-from typing import Dict, List, Optional, Set, Type, Any
+from typing import Dict, List, Optional, Set, Any
 from pydantic import BaseModel, Extra, Field, validator
 
 from datetime import datetime
@@ -77,6 +77,7 @@ class ContactInfo(BaseModel, extra=Extra.forbid):
             twitter
         """
 
+
 class GqlSchemaField(BaseModel, extra=Extra.forbid):
     name: str
     type: str
@@ -93,7 +94,6 @@ class GqlSchemaField(BaseModel, extra=Extra.forbid):
         assert isinstance(v["kind"], str)
 
         return v["kind"]
-
 
 
 class GqlSchema(BaseModel, extra=Extra.forbid):

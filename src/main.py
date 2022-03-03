@@ -30,10 +30,9 @@ def main() -> None:
     expaql = ExpaQuery(
         config.expa_client_id, config.expa_client_secret, refresh_token
     )
-    print(expaql.get_schema("Person").json())
     for x in expaql.get_applications():
         formatter = OpportunityApplicationFormatter(x)
-        # print(formatter.format_markdown())
+        print(formatter.format_markdown())
 
 
 def exit_handler() -> None:

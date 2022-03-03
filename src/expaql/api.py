@@ -1,5 +1,5 @@
 from __future__ import annotations
-from typing import Dict, List, Optional, Type, Any
+from typing import List, Any
 
 from gql import gql, Client
 from gql.transport.requests import RequestsHTTPTransport
@@ -26,6 +26,7 @@ class ExpaAuthException(Exception):
 
 class ExpaUnknwonException(Exception):
     pass
+
 
 class TokenRefreshResponse(BaseModel):
     access_token: str
