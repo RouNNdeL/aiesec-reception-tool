@@ -1,5 +1,5 @@
 from __future__ import annotations
-from typing import Dict, List, Optional, Set
+from typing import Dict, List, Optional, Set, Type, Any
 from pydantic import BaseModel, Extra, Field, validator
 
 from datetime import datetime
@@ -8,7 +8,7 @@ from enum import Enum
 import re
 
 
-def flatten_name(d: Dict):
+def flatten_name(d: Dict[str, str]) -> str:
     if "constant_name" in d:
         return d["constant_name"]
 
@@ -23,7 +23,7 @@ class Gender(str, Enum):
     FEMALE = "female"
     OTHER = "other"
 
-    def get_pronoun(self):
+    def get_pronoun(self) -> str:
         if self == Gender.MALE:
             return "he"
         if self == Gender.FEMALE:
@@ -53,15 +53,11 @@ class ContactInfo(BaseModel, extra=Extra.forbid):
     twitter: Optional[str]
 
     @validator("phone", pre=True)
-    def normalize_phone(cls, v):
-        if v is not None:
+    def normalize_phone(cls: Any, v: Any) -> Optional[str]:
+        if isinstance(v, str):
             return re.sub(re.compile(r"[^\d]"), "", v)
 
-    @validator("__typename", check_fields=False)
-    def check_typename(cls, v):
-        assert cls == v
-
-        return v
+        return None
 
     def format_phone_number(self) -> str:
         return f"{self.country_code} {self.phone}"
@@ -80,6 +76,29 @@ class ContactInfo(BaseModel, extra=Extra.forbid):
             linkedin
             twitter
         """
+
+class GqlSchemaField(BaseModel, extra=Extra.forbid):
+    name: str
+    type: str
+
+    @validator("type", pre=True)
+    def get_type(cls: Any, v: Any) -> str:
+        assert isinstance(v, dict)
+
+        if v["name"] is not None:
+            assert isinstance(v["name"], str)
+
+            return v["name"]
+
+        assert isinstance(v["kind"], str)
+
+        return v["kind"]
+
+
+
+class GqlSchema(BaseModel, extra=Extra.forbid):
+    name: str
+    fields: List[GqlSchemaField]
 
 
 class CurrentPerson(BaseModel, extra=Extra.forbid):
@@ -197,7 +216,7 @@ class Opportunity(BaseModel, extra=Extra.forbid):
     title: str
 
     @validator("skills", pre=True, each_item=True)
-    def flatten_constant(cls, v):
+    def flatten_constant(cls: Opportunity, v: Any) -> str:
         return flatten_name(v)
 
     def expa_url(self) -> str:
@@ -243,11 +262,11 @@ class PersonProfile(BaseModel, extra=Extra.forbid):
     languages: Set[str]
 
     @validator("nationalities", "backgrounds", "skills", "languages", pre=True)
-    def extract_profile(cls, v):
+    def extract_profile(cls: Any, v: Any) -> Set[str]:
         return {flatten_name(it) for it in v}
 
     @staticmethod
-    def get_query():
+    def get_query() -> str:
         return """
             nationalities {
                 name
@@ -278,13 +297,18 @@ class Person(BaseModel, extra=Extra.forbid):
     profile: PersonProfile = Field(alias="person_profile")
 
     @validator("home_mc", "home_lc", pre=True)
-    def office_name(cls, v):
+    def office_name(cls: Any, v: Any) -> Optional[str]:
+        assert isinstance(v, dict)
+        assert "name" in v
+        assert isinstance(v["name"], str)
+
         return v["name"]
 
     @validator("gender", pre=True)
-    def fix_gender_case(cls, v):
-        if v is not None:
-            return v.lower()
+    def fix_gender_case(cls: Any, v: Any) -> Optional[str]:
+        assert isinstance(v, str)
+
+        return v.lower()
 
     def __str__(self) -> str:
         return f"{self.full_name}"
@@ -349,11 +373,17 @@ class OpportunityApplication(BaseModel, extra=Extra.forbid):
     meta: ApplicationMetaType
 
     @validator("cv", pre=True)
-    def extract_cv_url(cls, v):
-        if v is not None:
-            return v["url"]
+    def extract_cv_url(cls: Any, v: Any) -> Optional[str]:
+        if v is None:
+            return None
 
-    def get_cv(self):
+        assert isinstance(v, dict)
+        assert "url" in v
+        assert isinstance(v["url"], str)
+
+        return v["url"]
+
+    def get_cv(self) -> Optional[str]:
         if self.cv is not None:
             return self.cv
         return self.person.cv_url
