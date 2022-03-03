@@ -21,7 +21,7 @@ gql_logger.setLevel(logging.WARNING)
 expaql: ExpaQuery | None = None
 
 
-def main():
+def main() -> None:
     global expaql
 
     with open(config.token_file, "r") as f:
@@ -35,7 +35,7 @@ def main():
         print(formatter.format_markdown())
 
 
-def exit_handler():
+def exit_handler() -> None:
     global expaql
 
     if expaql is not None:

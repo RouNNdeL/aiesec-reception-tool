@@ -1,17 +1,20 @@
 from __future__ import annotations
-from typing import Dict, List
+from typing import List, Any
 
 from gql import gql, Client
 from gql.transport.requests import RequestsHTTPTransport
 
 import base64
+from pydantic.class_validators import validator
 import requests
 
-from datetime import datetime
+from datetime import datetime, timedelta
 from requests.exceptions import JSONDecodeError
 from http import HTTPStatus
 
-from .models import CurrentPerson, OpportunityApplication
+from pydantic import BaseModel
+
+from .models import CurrentPerson, GqlSchema, OpportunityApplication
 
 
 EXPA_GRAPHQL_URL = "https://gis-api.aiesec.org/graphql"
@@ -23,6 +26,22 @@ class ExpaAuthException(Exception):
 
 class ExpaUnknwonException(Exception):
     pass
+
+
+class TokenRefreshResponse(BaseModel):
+    access_token: str
+    refresh_token: str
+    expires_in: int
+    created_at: datetime
+
+    @validator("created_at", pre=True)
+    def parse_created_at(cls: Any, v: Any) -> datetime:
+        assert isinstance(v, int)
+
+        return datetime.fromtimestamp(v)
+
+    def expires_at(self) -> datetime:
+        return self.created_at + timedelta(self.expires_in)
 
 
 class ExpaQuery:
@@ -61,13 +80,13 @@ class ExpaQuery:
         token = self.__do_refresh_token()
         self.__init_client(token)
 
-    def __init_client(self, token: str):
+    def __init_client(self, token: str) -> None:
         transport = RequestsHTTPTransport(
             url=EXPA_GRAPHQL_URL, headers={"Authorization": token}
         )
         self.__gql_client = Client(transport=transport)
 
-    def __check_token(self):
+    def __check_token(self) -> None:
         if datetime.now() >= self.__token_expire:
             token = self.__do_refresh_token()
             self.__init_client(token)
@@ -107,12 +126,11 @@ class ExpaQuery:
                 f"{response.content.decode()}"
             )
 
-        self.__refresh_token = json["refresh_token"]
-        self.__token_expire = datetime.fromtimestamp(
-            json["created_at"] + json["expires_in"]
-        )
+        token_response = TokenRefreshResponse(**json)
+        self.__refresh_token = token_response.refresh_token
+        self.__token_expire = token_response.expires_at()
 
-        return json["access_token"]
+        return token_response.access_token
 
     def get_refresh_token(self) -> str:
         return self.__refresh_token
@@ -165,7 +183,7 @@ class ExpaQuery:
             ]["data"]
         ]
 
-    def get_schema(self, typename: str) -> Dict[str, Dict[str, str]]:
+    def get_schema(self, typename: str) -> GqlSchema:
         self.__check_token()
 
         query = gql(
@@ -187,7 +205,8 @@ class ExpaQuery:
         """
         )
 
-        return self.__gql_client.execute(query)["__type"]
+        d = self.__gql_client.execute(query)["__type"]
+        return GqlSchema(**d)
 
     def get_enum_values(self, typename: str) -> List[str]:
         self.__check_token()
