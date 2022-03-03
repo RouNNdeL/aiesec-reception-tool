@@ -89,3 +89,6 @@ class OpportunityApplicationFormatter:
 [Application]({app.expa_url()})
 [Oportunity]({opportunity.expa_url()})
         """
+    def name_and_id(self):
+        app = self.__oportunity_application
+        person = app.person
