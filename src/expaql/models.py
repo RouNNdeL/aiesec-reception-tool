@@ -179,7 +179,7 @@ class Organisation(BaseModel, extra=Extra.forbid):
         )
 
 
-class Oportunity(BaseModel, extra=Extra.forbid):
+class Opportunity(BaseModel, extra=Extra.forbid):
     id: int
     accepted_count: int
     applicants_count: int
@@ -200,8 +200,8 @@ class Oportunity(BaseModel, extra=Extra.forbid):
     def flatten_constant(cls, v):
         return flatten_name(v)
 
-    def __str__(self) -> str:
-        return f"#{self.id} {self.title}"
+    def expa_url(self) -> str:
+        return f"https://expa.aiesec.org/opportunities/{self.id}"
 
     @staticmethod
     def get_query() -> str:
@@ -261,7 +261,7 @@ class PersonProfile(BaseModel, extra=Extra.forbid):
             languages {
                 constant_name
             }
-    """
+        """
 
 
 class Person(BaseModel, extra=Extra.forbid):
@@ -335,13 +335,13 @@ class ApplicationMetaType(BaseModel, extra=Extra.forbid):
         """
 
 
-class OportunityApplication(BaseModel, extra=Extra.forbid):
+class OpportunityApplication(BaseModel, extra=Extra.forbid):
     id: int
     created_at: datetime
     current_status: ApplicationStatus
     experience_end_date: Optional[datetime]
     experience_start_date: Optional[datetime]
-    opportunity: Oportunity
+    opportunity: Opportunity
     person: Person
     cv: Optional[str]
     standards: List[str]
@@ -358,11 +358,8 @@ class OportunityApplication(BaseModel, extra=Extra.forbid):
             return self.cv
         return self.person.cv_url
 
-    def __str__(self) -> str:
-        return f"{self.person} from {self.opportunity} ({self.status})"
-
-    def __repr__(self) -> str:
-        return self.__str__()
+    def expa_url(self) -> str:
+        return f"https://expa.aiesec.org/applications/{self.id}"
 
     @staticmethod
     def get_query() -> str:
@@ -375,7 +372,7 @@ class OportunityApplication(BaseModel, extra=Extra.forbid):
             experience_start_date
             opportunity {
                 """
-            + Oportunity.get_query()
+            + Opportunity.get_query()
             + """
             }
             person {

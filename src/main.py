@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 from expaql.api import ExpaQuery
-from expaql.formaters import OportunityApplicationFormatter
+from expaql.formaters import OpportunityApplicationFormatter
 from config import IgvToolConfig
 from gql.transport.requests import log as gql_logger
 
@@ -31,7 +31,7 @@ def main():
         config.expa_client_id, config.expa_client_secret, refresh_token
     )
     for x in expaql.get_applications():
-        formatter = OportunityApplicationFormatter(x)
+        formatter = OpportunityApplicationFormatter(x)
         print(formatter.format_markdown())
 
 
