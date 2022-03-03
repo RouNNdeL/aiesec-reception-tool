@@ -1,6 +1,10 @@
 name: CI
 
-on: [push]
+on:
+  push:
+    branches:
+    - master
+  pull_request: ~
 
 env:
   DEFAULT_PYTHON: "3.10"
