@@ -36,8 +36,8 @@ def main() -> None:
     i = 0
     for x in expaql.get_applications():
         formatter = OpportunityApplicationFormatter(x)
-        print(formatter.format_markdown())
-        trello.add_new_card(f"Card {i}", formatter.format_markdown())
+        # print(formatter.format_markdown())
+        trello.add_new_card(formatter)
         i += 1
 
 

@@ -7,6 +7,12 @@ class OpportunityApplicationFormatter:
     def __init__(self, oportunity_application: OpportunityApplication):
         self.__opportunity_application = oportunity_application
 
+    def name_and_id(self):
+        app = self.__opportunity_application
+        person = app.person
+        opportunity = app.opportunity
+        return [person.full_name, opportunity.id]
+
     def format_markdown(self) -> str:
         app = self.__opportunity_application
         person = app.person
@@ -89,6 +95,3 @@ class OpportunityApplicationFormatter:
 [Application]({app.expa_url()})
 [Oportunity]({opportunity.expa_url()})
         """
-    def name_and_id(self):
-        app = self.__oportunity_application
-        person = app.person
