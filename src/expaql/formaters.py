@@ -1,15 +1,16 @@
-from .models import OportunityApplication
+from .models import OpportunityApplication
 
 
-class OportunityApplicationFormatter:
-    __oportunity_application: OportunityApplication
+class OpportunityApplicationFormatter:
+    __opportunity_application: OpportunityApplication
 
-    def __init__(self, oportunity_application: OportunityApplication):
-        self.__oportunity_application = oportunity_application
+    def __init__(self, oportunity_application: OpportunityApplication):
+        self.__opportunity_application = oportunity_application
 
     def format_markdown(self) -> str:
-        app = self.__oportunity_application
+        app = self.__opportunity_application
         person = app.person
+        opportunity = app.opportunity
 
         languages = ""
         if len(person.profile.languages) > 0:
@@ -83,4 +84,8 @@ class OportunityApplicationFormatter:
 {languages}
 {backgrounds}
 {skills}
+
+## Expa
+[Application]({app.expa_url()})
+[Oportunity]({opportunity.expa_url()})
         """

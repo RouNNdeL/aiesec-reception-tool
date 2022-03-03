@@ -11,7 +11,7 @@ from datetime import datetime
 from requests.exceptions import JSONDecodeError
 from http import HTTPStatus
 
-from .models import CurrentPerson, OportunityApplication
+from .models import CurrentPerson, OpportunityApplication
 
 
 EXPA_GRAPHQL_URL = "https://gis-api.aiesec.org/graphql"
@@ -136,7 +136,7 @@ class ExpaQuery:
             **self.__gql_client.execute(query)["currentPerson"]
         )
 
-    def get_applications(self) -> List[OportunityApplication]:
+    def get_applications(self) -> List[OpportunityApplication]:
         self.__check_token()
 
         query = gql(
@@ -151,7 +151,7 @@ class ExpaQuery:
             fragment ApplicationList on OpportunityApplicationList {
                 data {
                       """
-            + OportunityApplication.get_query()
+            + OpportunityApplication.get_query()
             + """
                 }
             }
@@ -159,7 +159,7 @@ class ExpaQuery:
         )
 
         return [
-            OportunityApplication(**it)
+            OpportunityApplication(**it)
             for it in self.__gql_client.execute(query)[
                 "allOpportunityApplication"
             ]["data"]
