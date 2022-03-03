@@ -10,8 +10,7 @@ class OpportunityApplicationFormatter:
     def name_and_id(self):
         app = self.__opportunity_application
         person = app.person
-        opportunity = app.opportunity
-        return [person.full_name, opportunity.id]
+        return [person.full_name, app.id]
 
     def format_markdown(self) -> str:
         app = self.__opportunity_application
