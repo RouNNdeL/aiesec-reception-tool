@@ -1,4 +1,4 @@
-from .models import ApplicationStatus, OpportunityApplication
+from .models import OpportunityApplication
 
 
 class OpportunityApplicationFormatter:
