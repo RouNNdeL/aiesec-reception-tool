@@ -7,6 +7,11 @@ class OpportunityApplicationFormatter:
     def __init__(self, oportunity_application: OpportunityApplication):
         self.__opportunity_application = oportunity_application
 
+    def name_and_id(self):
+        app = self.__opportunity_application
+        person = app.person
+        return [person.full_name, app.id]
+
     def format_markdown(self) -> str:
         app = self.__opportunity_application
         person = app.person
