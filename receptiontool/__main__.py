@@ -6,6 +6,7 @@ from receptiontool.expaql.api import ExpaQuery
 from receptiontool.expaql.formaters import OpportunityApplicationFormatter
 from receptiontool.config import IgvToolConfig
 from gql.transport.requests import log as gql_logger
+from trello_conn import TrelloConn
 
 import logging
 import atexit
@@ -30,9 +31,12 @@ def check_for_updates() -> None:
     expaql = ExpaQuery(
         config.expa.client_id, config.expa.client_secret, refresh_token
     )
+
+    trello = TrelloConn(config.trello_api_key, config.trello_token, config.trello_board_id)
     for x in expaql.get_applications():
         formatter = OpportunityApplicationFormatter(x)
-        print(formatter.format_markdown())
+        # print(formatter.format_markdown())
+        trello.add_new_card(formatter)
 
 
 def exit_handler() -> None:
