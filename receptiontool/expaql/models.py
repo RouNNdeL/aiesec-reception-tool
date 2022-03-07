@@ -1,11 +1,11 @@
 from __future__ import annotations
-from typing import Dict, List, Optional, Set, Any
-from pydantic import BaseModel, Extra, Field, validator
 
 from datetime import datetime
 from enum import Enum
-
 import re
+from typing import Any, Dict, List, Optional, Set
+
+from pydantic import BaseModel, Extra, Field, validator
 
 
 def flatten_name(d: Dict[str, str]) -> str:

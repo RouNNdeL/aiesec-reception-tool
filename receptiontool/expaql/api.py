@@ -1,21 +1,18 @@
 from __future__ import annotations
-from typing import List, Any
-
-from gql import gql, Client
-from gql.transport.requests import RequestsHTTPTransport
 
 import base64
+from datetime import datetime, timedelta
+from http import HTTPStatus
+from typing import Any, List
+
+from gql import Client, gql
+from gql.transport.requests import RequestsHTTPTransport
+from pydantic import BaseModel
 from pydantic.class_validators import validator
 import requests
-
-from datetime import datetime, timedelta
 from requests.exceptions import JSONDecodeError
-from http import HTTPStatus
-
-from pydantic import BaseModel
 
 from .models import CurrentPerson, GqlSchema, OpportunityApplication
-
 
 EXPA_GRAPHQL_URL = "https://gis-api.aiesec.org/graphql"
 
@@ -51,14 +48,10 @@ class ExpaQuery:
     __client_id: str
     __client_secret: str
 
-    def __init__(
-        self, client_id: str, client_secret: str, initial_refresh_token: str
-    ):
+    def __init__(self, client_id: str, client_secret: str, initial_refresh_token: str):
         token_len = len(initial_refresh_token)
         if token_len != 64:
-            raise ValueError(
-                f"Invalid token length, expected 64 got {token_len}"
-            )
+            raise ValueError(f"Invalid token length, expected 64 got {token_len}")
 
         client_id_len = len(client_id)
         if client_id_len != 64:
@@ -69,8 +62,7 @@ class ExpaQuery:
         client_secret_len = len(client_secret)
         if client_secret_len != 64:
             raise ValueError(
-                "Invalid client_secret length, "
-                f"expected 64 got {client_secret_len}"
+                "Invalid client_secret length, " f"expected 64 got {client_secret_len}"
             )
 
         self.__refresh_token = initial_refresh_token
@@ -117,9 +109,7 @@ class ExpaQuery:
             response.status_code == HTTPStatus.UNAUTHORIZED
             and "error_description" in json
         ):
-            raise ExpaAuthException(
-                f"Unauthorized: {json['error_description']}"
-            )
+            raise ExpaAuthException(f"Unauthorized: {json['error_description']}")
         elif response.status_code != 200:
             raise ExpaUnknwonException(
                 f"Invalid status code {response.status_code}:"
@@ -150,9 +140,7 @@ class ExpaQuery:
         """
         )
 
-        return CurrentPerson(
-            **self.__gql_client.execute(query)["currentPerson"]
-        )
+        return CurrentPerson(**self.__gql_client.execute(query)["currentPerson"])
 
     def get_applications(self) -> List[OpportunityApplication]:
         self.__check_token()
@@ -178,9 +166,9 @@ class ExpaQuery:
 
         return [
             OpportunityApplication(**it)
-            for it in self.__gql_client.execute(query)[
-                "allOpportunityApplication"
-            ]["data"]
+            for it in self.__gql_client.execute(query)["allOpportunityApplication"][
+                "data"
+            ]
         ]
 
     def get_schema(self, typename: str) -> GqlSchema:
