@@ -7,7 +7,8 @@ RUN pip install --no-cache-dir -r requirements.txt
 
 COPY ./receptiontool /app/receptiontool
 COPY ./bin /app/bin
-COPY ./setup.py /app
+COPY ./setup.* /app/
+
 RUN pip install .
 
 CMD [ "python", "/app/bin/receptiontool" ]
