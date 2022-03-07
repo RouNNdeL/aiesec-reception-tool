@@ -1,7 +1,12 @@
-from trello import TrelloClient
+from __future__ import annotations
+
+from typing import List
+
+from trello import TrelloClient, List as TrelloList
 import logging
 
 from receptiontool.expaql.formaters import OpportunityApplicationFormatter
+from receptiontool.expaql.models import OpportunityApplication
 
 
 def load_already_added_ids() -> list:
@@ -15,22 +20,20 @@ def load_already_added_ids() -> list:
 
 
 class TrelloConn:
-    def __init__(self, api_key, token, board_id):
+    def __init__(self, api_key: str, token: str, board_id: str):
         self.api_key = api_key
         self.token = token
         self.board_id = board_id
         self.list_of_ids = load_already_added_ids()
 
-    def add_new_card(self, info, card_description, selected_list) -> None:
-        card_name = info[0]
-        card_id = info[1]
-
+    def add_new_card(self, card_name: str, card_id: int, card_description: str,
+                     selected_list: TrelloList) -> None:
         if self.card_already_in_trello(card_id):
             return
 
         selected_list.add_card(card_name, card_description)
 
-    def add_list_of_cards(self, applications, list_name=None) -> None:
+    def add_list_of_cards(self, applications: List[OpportunityApplication], list_name: str | None = None) -> None:
         client = TrelloClient(self.api_key, self.token)
         board = client.get_board(self.board_id)
         lists = board.all_lists()
@@ -47,9 +50,9 @@ class TrelloConn:
 
         for application in applications:
             formatter = OpportunityApplicationFormatter(application)
-            self.add_new_card(formatter.name_and_id(), formatter.format_markdown(), selected_list)
+            self.add_new_card(application.person.full_name, application.id, formatter.format_markdown(), selected_list)
 
-    def card_already_in_trello(self, card_id) -> bool:
+    def card_already_in_trello(self, card_id: int) -> bool:
         if f"{card_id}\n" in self.list_of_ids:
             return True
         else:
