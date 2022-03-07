@@ -6,7 +6,7 @@ setup(
     author="Krzysztof Zdulski",
     author_email="krzys.zdulski@gmail.com",
     description="Tool for importing EP applications from AIESEC EXPA to Trello",
-    url="https://github.com/RouNNdeL/igv-reception-tool",
+    url="https://github.com/RouNNdeL/aiesec-reception-tool",
     packages=find_packages(exclude=['tests']),
     python_requires='>=3.9',
     scripts=['bin/receptiontool'],
