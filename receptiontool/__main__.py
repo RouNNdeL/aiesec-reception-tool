@@ -28,7 +28,7 @@ def check_for_updates() -> None:
         refresh_token = f.read().strip()
 
     expaql = ExpaQuery(
-        config.expa_client_id, config.expa_client_secret, refresh_token
+        config.expa.client_id, config.expa.client_secret, refresh_token
     )
     for x in expaql.get_applications():
         formatter = OpportunityApplicationFormatter(x)
@@ -44,6 +44,7 @@ def exit_handler() -> None:
 
 
 def entrypoint():
+    logging.info("Starting receptiontool")
     atexit.register(exit_handler)
     try:
         check_for_updates()
