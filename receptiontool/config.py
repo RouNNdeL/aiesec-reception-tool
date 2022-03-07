@@ -45,10 +45,10 @@ class IgvToolConfig(BaseSettings):
 
         @classmethod
         def customise_sources(
-                cls,
-                init_settings: SettingsSourceCallable,
-                env_settings: SettingsSourceCallable,
-                file_secret_settings: SettingsSourceCallable,
+            cls,
+            init_settings: SettingsSourceCallable,
+            env_settings: SettingsSourceCallable,
+            file_secret_settings: SettingsSourceCallable,
         ) -> tuple[SettingsSourceCallable, ...]:
             return (
                 init_settings,
