@@ -1,10 +1,10 @@
 import os
-from pydantic.main import BaseModel
-import yaml
-
 from typing import Any, Dict, Final
+
 from pydantic import BaseSettings
 from pydantic.env_settings import SettingsSourceCallable
+from pydantic.main import BaseModel
+import yaml
 
 ENV_PREFIX: Final = "IGV_"
 

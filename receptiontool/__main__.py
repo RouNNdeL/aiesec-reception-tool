@@ -4,11 +4,14 @@ from __future__ import annotations
 
 from receptiontool.expaql.api import ExpaQuery
 from receptiontool.config import IgvToolConfig
+import atexit
+import logging
 from gql.transport.requests import log as gql_logger
 from receptiontool.trello_conn import TrelloConn
 
-import logging
-import atexit
+from receptiontool.config import IgvToolConfig
+from receptiontool.expaql.api import ExpaQuery
+from receptiontool.expaql.formaters import OpportunityApplicationFormatter
 
 config = IgvToolConfig()
 logging.basicConfig(
@@ -33,6 +36,7 @@ def check_for_updates() -> None:
 
     trello = TrelloConn(config.trello.api_key, config.trello.token, config.trello.board_id)
     trello.add_list_of_cards(applications=expaql.get_applications())
+
 
 
 def exit_handler() -> None:
