@@ -4,7 +4,7 @@ import logging
 from receptiontool.expaql.formaters import OpportunityApplicationFormatter
 
 
-def load_already_added_ids():
+def load_already_added_ids() -> list:
     try:
         with open("trello_cards") as file:
             lines = file.readlines()
@@ -21,7 +21,7 @@ class TrelloConn:
         self.board_id = board_id
         self.list_of_ids = load_already_added_ids()
 
-    def add_new_card(self, info, card_description, selected_list):
+    def add_new_card(self, info, card_description, selected_list) -> None:
         card_name = info[0]
         card_id = info[1]
 
@@ -30,7 +30,7 @@ class TrelloConn:
 
         selected_list.add_card(card_name, card_description)
 
-    def add_list_of_cards(self, applications, list_name=None):
+    def add_list_of_cards(self, applications, list_name=None) -> None:
         client = TrelloClient(self.api_key, self.token)
         board = client.get_board(self.board_id)
         lists = board.all_lists()
@@ -49,7 +49,7 @@ class TrelloConn:
             formatter = OpportunityApplicationFormatter(application)
             self.add_new_card(formatter.name_and_id(), formatter.format_markdown(), selected_list)
 
-    def card_already_in_trello(self, card_id):
+    def card_already_in_trello(self, card_id) -> bool:
         if f"{card_id}\n" in self.list_of_ids:
             return True
         else:

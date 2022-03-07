@@ -3,7 +3,6 @@
 from __future__ import annotations
 
 from receptiontool.expaql.api import ExpaQuery
-from receptiontool.expaql.formaters import OpportunityApplicationFormatter
 from receptiontool.config import IgvToolConfig
 from gql.transport.requests import log as gql_logger
 from receptiontool.trello_conn import TrelloConn
