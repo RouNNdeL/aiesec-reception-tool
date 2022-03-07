@@ -58,8 +58,7 @@ class OpportunityApplicationFormatter:
             if person.contact_detail.instagram is not None:
                 handle = person.contact_detail.instagram
                 c_instagram = (
-                    f"Instagram: [{handle}]"
-                    f"(https://www.instagram.com/{handle})"
+                    f"Instagram: [{handle}](https://www.instagram.com/{handle})"
                 )
 
             if person.email is not None:
