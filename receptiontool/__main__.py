@@ -43,7 +43,7 @@ def exit_handler() -> None:
             f.write(expaql.get_refresh_token())
 
 
-def entrypoint():
+def entrypoint() -> None:
     logging.info("Starting receptiontool")
     atexit.register(exit_handler)
     try:

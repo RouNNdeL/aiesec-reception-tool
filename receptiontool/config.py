@@ -18,11 +18,13 @@ def yml_config_setting(settings: BaseSettings) -> Dict[str, Any]:
         return {}
 
     with open(config_file) as f:
-        return yaml.safe_load(f)
+        return yaml.safe_load(f)  # type: ignore
+
 
 class ExpaConfig(BaseModel):
     client_id: str
     client_secret: str
+
 
 class IgvToolConfig(BaseSettings):
     expa: ExpaConfig
