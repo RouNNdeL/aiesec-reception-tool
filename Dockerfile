@@ -5,6 +5,9 @@ WORKDIR /app
 COPY requirements.txt ./
 RUN pip install --no-cache-dir -r requirements.txt
 
-COPY ./src .
+COPY ./receptiontool /app/receptiontool
+COPY ./bin /app/bin
+COPY ./setup.py /app
+RUN pip install .
 
-CMD [ "python", "main.py" ]
+CMD [ "python", "/app/bin/receptiontool" ]

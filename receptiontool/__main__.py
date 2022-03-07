@@ -2,9 +2,9 @@
 
 from __future__ import annotations
 
-from expaql.api import ExpaQuery
-from expaql.formaters import OpportunityApplicationFormatter
-from config import IgvToolConfig
+from receptiontool.expaql.api import ExpaQuery
+from receptiontool.expaql.formaters import OpportunityApplicationFormatter
+from receptiontool.config import IgvToolConfig
 from gql.transport.requests import log as gql_logger
 
 import logging
@@ -21,14 +21,14 @@ gql_logger.setLevel(logging.WARNING)
 expaql: ExpaQuery | None = None
 
 
-def main() -> None:
+def check_for_updates() -> None:
     global expaql
 
     with open(config.token_file, "r") as f:
         refresh_token = f.read().strip()
 
     expaql = ExpaQuery(
-        config.expa_client_id, config.expa_client_secret, refresh_token
+        config.expa.client_id, config.expa.client_secret, refresh_token
     )
     for x in expaql.get_applications():
         formatter = OpportunityApplicationFormatter(x)
@@ -43,9 +43,10 @@ def exit_handler() -> None:
             f.write(expaql.get_refresh_token())
 
 
-if __name__ == "__main__":
+def entrypoint() -> None:
+    logging.info("Starting receptiontool")
     atexit.register(exit_handler)
     try:
-        main()
+        check_for_updates()
     except Exception as e:
         logging.fatal(e, exc_info=True)
