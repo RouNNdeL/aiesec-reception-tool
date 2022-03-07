@@ -19,13 +19,11 @@ class TrelloConn:
         self.token = token
         self.board_id = board_id
 
-    def add_new_card(self, formatter_obj, list_name=None, client=None):
-        info = formatter_obj.name_and_id()
+    def add_new_card(self, info, card_description, list_name=None, client=None):
         card_name = info[0]
         card_id = info[1]
         if card_already_in_trello(card_id):
             return
-        card_description = formatter_obj.format_markdown()
         if client is None:
             client = TrelloClient(self.api_key, self.token)
         board = client.get_board(self.board_id)
@@ -50,7 +48,3 @@ class TrelloConn:
         for trello_list in lists:
             cards.extend(trello_list.list_cards())
         return cards
-
-
-if __name__ == "__main__":
-    print("FINISH")

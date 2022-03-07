@@ -35,8 +35,7 @@ def check_for_updates() -> None:
     trello = TrelloConn(config.trello_api_key, config.trello_token, config.trello_board_id)
     for x in expaql.get_applications():
         formatter = OpportunityApplicationFormatter(x)
-        # print(formatter.format_markdown())
-        trello.add_new_card(formatter)
+        trello.add_new_card(formatter.name_and_id(), formatter.format_markdown())
 
 
 def exit_handler() -> None:
