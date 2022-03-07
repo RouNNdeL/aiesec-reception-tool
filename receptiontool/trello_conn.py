@@ -1,16 +1,17 @@
 from trello import TrelloClient
-import requests
+import logging
+
+from receptiontool.expaql.formaters import OpportunityApplicationFormatter
 
 
-def card_already_in_trello(card_id):
-    with open("trello_cards") as file:
-        lines = file.readlines()
-    if f"{card_id}\n" in lines:
-        return True
-    else:
-        with open('trello_cards', 'a') as file:
-            file.write(f'{card_id}\n')
-        return False
+def load_already_added_ids():
+    try:
+        with open("trello_cards") as file:
+            lines = file.readlines()
+        return lines
+    except FileNotFoundError:
+        logging.info("File with cards ids does not exist, assuming that no cards are in trello")
+        return []
 
 
 class TrelloConn:
@@ -18,33 +19,40 @@ class TrelloConn:
         self.api_key = api_key
         self.token = token
         self.board_id = board_id
+        self.list_of_ids = load_already_added_ids()
 
-    def add_new_card(self, info, card_description, list_name=None, client=None):
+    def add_new_card(self, info, card_description, selected_list):
         card_name = info[0]
         card_id = info[1]
-        if card_already_in_trello(card_id):
+
+        if self.card_already_in_trello(card_id):
             return
-        if client is None:
-            client = TrelloClient(self.api_key, self.token)
+
+        selected_list.add_card(card_name, card_description)
+
+    def add_list_of_cards(self, applications, list_name=None):
+        client = TrelloClient(self.api_key, self.token)
         board = client.get_board(self.board_id)
         lists = board.all_lists()
+
         selected_list = None
         for trello_list in lists:
             # if None return first, unless it is archived
             if (list_name is None and not trello_list.closed) or trello_list.name == list_name:
                 selected_list = trello_list
                 break
-        if selected_list is not None:
-            selected_list.add_card(card_name, card_description)
-        else:
-            print(f"No list found with a given name: {list_name}")
 
-    def get_card_ids(self, client=None):
-        if client is None:
-            client = TrelloClient(self.api_key, self.token)
-        board = client.get_board(self.board_id)
-        lists = board.all_lists()
-        cards = []
-        for trello_list in lists:
-            cards.extend(trello_list.list_cards())
-        return cards
+        if selected_list is None:
+            raise Exception(f"No list found with a given name: {list_name}")
+
+        for application in applications:
+            formatter = OpportunityApplicationFormatter(application)
+            self.add_new_card(formatter.name_and_id(), formatter.format_markdown(), selected_list)
+
+    def card_already_in_trello(self, card_id):
+        if f"{card_id}\n" in self.list_of_ids:
+            return True
+        else:
+            with open('trello_cards', 'a') as file:
+                file.write(f'{card_id}\n')
+            return False

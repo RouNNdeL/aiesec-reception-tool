@@ -26,8 +26,15 @@ class ExpaConfig(BaseModel):
     client_secret: str
 
 
+class TrelloConfig(BaseModel):
+    api_key: str
+    token: str
+    board_id: str
+
+
 class IgvToolConfig(BaseSettings):
     expa: ExpaConfig
+    trello: TrelloConfig
     token_file: str = ".token"
     log_level: str = "INFO"
 
@@ -38,10 +45,10 @@ class IgvToolConfig(BaseSettings):
 
         @classmethod
         def customise_sources(
-            cls,
-            init_settings: SettingsSourceCallable,
-            env_settings: SettingsSourceCallable,
-            file_secret_settings: SettingsSourceCallable,
+                cls,
+                init_settings: SettingsSourceCallable,
+                env_settings: SettingsSourceCallable,
+                file_secret_settings: SettingsSourceCallable,
         ) -> tuple[SettingsSourceCallable, ...]:
             return (
                 init_settings,
