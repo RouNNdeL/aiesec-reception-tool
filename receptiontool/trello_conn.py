@@ -12,7 +12,7 @@ from receptiontool.expaql.models import OpportunityApplication
 def load_already_added_ids() -> list:
     try:
         with open("trello_cards") as file:
-            lines = file.readlines()
+            lines = file.read().splitlines()
         return lines
     except FileNotFoundError:
         logging.info("File with cards ids does not exist, assuming that no cards are in trello")
@@ -53,9 +53,9 @@ class TrelloConn:
             self.add_new_card(application.person.full_name, application.id, formatter.format_markdown(), selected_list)
 
     def card_already_in_trello(self, card_id: int) -> bool:
-        if f"{card_id}\n" in self.list_of_ids:
+        if card_id in self.list_of_ids:
             return True
         else:
-            with open('trello_cards', 'a') as file:
-                file.write(f'{card_id}\n')
+            with open("trello_cards", "a") as file:
+                file.write(f"{card_id}\n")
             return False
