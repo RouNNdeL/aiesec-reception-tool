@@ -45,7 +45,7 @@ jobs:
         python -m pip install --upgrade pip
         pip install -r requirements.txt -r requirements_test.txt
     - name: Run black
-      run: black .
+      run: black --check .
   lint-isort:
     name: Check isort
     runs-on: ubuntu-latest
@@ -61,7 +61,7 @@ jobs:
         python -m pip install --upgrade pip
         pip install -r requirements.txt -r requirements_test.txt
     - name: Run isort
-      run: isort .
+      run: isort --check-only --diff . 
   mypy:
     name: Check mypy
     runs-on: ubuntu-latest
