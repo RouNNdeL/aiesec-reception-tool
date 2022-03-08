@@ -31,7 +31,8 @@ def check_for_updates() -> None:
         config.expa.client_id, config.expa.client_secret, refresh_token
     )
 
-    trello = TrelloConn(config.trello.api_key, config.trello.token, config.trello.board_id)
+    trello = TrelloConn(config.trello.api_key, config.trello.token, config.trello.board_id,
+                        config.trello.cards_filename)
     trello.add_list_of_cards(applications=expaql.get_applications())
 
 

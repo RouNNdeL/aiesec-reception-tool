@@ -30,6 +30,7 @@ class TrelloConfig(BaseModel):
     api_key: str
     token: str
     board_id: str
+    cards_filename: str
 
 
 class IgvToolConfig(BaseSettings):

@@ -7,3 +7,4 @@ trello:
   api_key:
   token:
   board_id:
+  cards_filename:

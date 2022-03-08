@@ -9,28 +9,20 @@ from receptiontool.expaql.formaters import OpportunityApplicationFormatter
 from receptiontool.expaql.models import OpportunityApplication
 
 
-def load_already_added_ids() -> list:
-    try:
-        with open("trello_cards") as file:
-            lines = file.read().splitlines()
-        return lines
-    except FileNotFoundError:
-        logging.info("File with cards ids does not exist, assuming that no cards are in trello")
-        return []
-
-
 class TrelloConn:
-    def __init__(self, api_key: str, token: str, board_id: str):
+    def __init__(self, api_key: str, token: str, board_id: str, cards_filename: str):
         self.api_key = api_key
         self.token = token
         self.board_id = board_id
-        self.list_of_ids = load_already_added_ids()
+        self.cards_filename = cards_filename
+        self.list_of_ids = self.load_already_added_ids()
 
     def add_new_card(self, card_name: str, card_id: int, card_description: str,
                      selected_list: TrelloList) -> None:
-        if self.card_already_in_trello(card_id):
+        if card_id in self.list_of_ids:
             return
 
+        self.add_card_id_to_list_and_file(card_id)
         selected_list.add_card(card_name, card_description)
 
     def add_list_of_cards(self, applications: List[OpportunityApplication], list_name: str | None = None) -> None:
@@ -52,10 +44,16 @@ class TrelloConn:
             formatter = OpportunityApplicationFormatter(application)
             self.add_new_card(application.person.full_name, application.id, formatter.format_markdown(), selected_list)
 
-    def card_already_in_trello(self, card_id: int) -> bool:
-        if card_id in self.list_of_ids:
-            return True
-        else:
-            with open("trello_cards", "a") as file:
-                file.write(f"{card_id}\n")
-            return False
+    def add_card_id_to_list_and_file(self, card_id: int) -> None:
+        with open(self.cards_filename, "a") as file:
+            file.write(f"{card_id}\n")
+        self.list_of_ids.append(card_id)
+
+    def load_already_added_ids(self) -> List:
+        try:
+            with open(self.cards_filename) as file:
+                lines = file.read().splitlines()
+            return lines
+        except FileNotFoundError:
+            logging.warning("File with cards ids does not exist, assuming that no cards are in trello")
+            return []
