@@ -1,9 +1,9 @@
 from __future__ import annotations
 
+import logging
 from typing import List
 
-from trello import TrelloClient, List as TrelloList
-import logging
+from trello import List as TrelloList, TrelloClient
 
 from receptiontool.expaql.formaters import OpportunityApplicationFormatter
 from receptiontool.expaql.models import OpportunityApplication
@@ -17,15 +17,22 @@ class TrelloConn:
         self.cards_filename = cards_filename
         self.list_of_ids = self.load_already_added_ids()
 
-    def add_new_card(self, card_name: str, card_id: int, card_description: str,
-                     selected_list: TrelloList) -> None:
+    def add_new_card(
+        self,
+        card_name: str,
+        card_id: int,
+        card_description: str,
+        selected_list: TrelloList,
+    ) -> None:
         if card_id in self.list_of_ids:
             return
 
         self.add_card_id_to_list_and_file(card_id)
         selected_list.add_card(card_name, card_description)
 
-    def add_list_of_cards(self, applications: List[OpportunityApplication], list_name: str | None = None) -> None:
+    def add_list_of_cards(
+        self, applications: List[OpportunityApplication], list_name: str | None = None
+    ) -> None:
         client = TrelloClient(self.api_key, self.token)
         board = client.get_board(self.board_id)
         lists = board.all_lists()
@@ -33,7 +40,9 @@ class TrelloConn:
         selected_list = None
         for trello_list in lists:
             # if None return first, unless it is archived
-            if (list_name is None and not trello_list.closed) or trello_list.name == list_name:
+            if (
+                list_name is None and not trello_list.closed
+            ) or trello_list.name == list_name:
                 selected_list = trello_list
                 break
 
@@ -42,7 +51,12 @@ class TrelloConn:
 
         for application in applications:
             formatter = OpportunityApplicationFormatter(application)
-            self.add_new_card(application.person.full_name, application.id, formatter.format_markdown(), selected_list)
+            self.add_new_card(
+                application.person.full_name,
+                application.id,
+                formatter.format_markdown(),
+                selected_list,
+            )
 
     def add_card_id_to_list_and_file(self, card_id: int) -> None:
         with open(self.cards_filename, "a") as file:
@@ -55,5 +69,7 @@ class TrelloConn:
                 lines = file.read().splitlines()
             return lines
         except FileNotFoundError:
-            logging.warning("File with cards ids does not exist, assuming that no cards are in trello")
+            logging.warning(
+                "File with cards ids does not exist, assuming that no cards are in trello"
+            )
             return []

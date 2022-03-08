@@ -4,11 +4,12 @@ from __future__ import annotations
 
 import atexit
 import logging
+
 from gql.transport.requests import log as gql_logger
-from receptiontool.trello_conn import TrelloConn
 
 from receptiontool.config import IgvToolConfig
 from receptiontool.expaql.api import ExpaQuery
+from receptiontool.trello_conn import TrelloConn
 
 config = IgvToolConfig()
 logging.basicConfig(
@@ -27,12 +28,14 @@ def check_for_updates() -> None:
     with open(config.token_file, "r") as f:
         refresh_token = f.read().strip()
 
-    expaql = ExpaQuery(
-        config.expa.client_id, config.expa.client_secret, refresh_token
-    )
+    expaql = ExpaQuery(config.expa.client_id, config.expa.client_secret, refresh_token)
 
-    trello = TrelloConn(config.trello.api_key, config.trello.token, config.trello.board_id,
-                        config.trello.cards_filename)
+    trello = TrelloConn(
+        config.trello.api_key,
+        config.trello.token,
+        config.trello.board_id,
+        config.trello.cards_filename,
+    )
     trello.add_list_of_cards(applications=expaql.get_applications())
 
 
