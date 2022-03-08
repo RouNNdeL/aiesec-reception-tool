@@ -3,3 +3,8 @@ log_level: "INFO"
 expa:
   client_id:
   client_secret:
+trello:
+  api_key:
+  token:
+  board_id:
+  cards_filename:
