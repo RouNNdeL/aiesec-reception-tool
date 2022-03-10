@@ -174,8 +174,9 @@ class ExpaQuery:
     def get_applications_by_ids(self, ids: List[int]) -> List[OpportunityApplication]:
         self.__check_token()
 
-        return list(filter(lambda it: it.opportunity.id in ids, self.get_applications()))
-
+        return list(
+            filter(lambda it: it.opportunity.id in ids, self.get_applications())
+        )
 
     def get_schema(self, typename: str) -> GqlSchema:
         self.__check_token()
