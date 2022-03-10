@@ -1,5 +1,5 @@
 import os
-from typing import Any, Dict, Final
+from typing import Any, Dict, Final, List
 
 from pydantic import BaseSettings
 from pydantic.env_settings import SettingsSourceCallable
@@ -24,6 +24,7 @@ def yml_config_setting(settings: BaseSettings) -> Dict[str, Any]:
 class ExpaConfig(BaseModel):
     client_id: str
     client_secret: str
+    opportunities: List[int]
 
 
 class TrelloConfig(BaseModel):

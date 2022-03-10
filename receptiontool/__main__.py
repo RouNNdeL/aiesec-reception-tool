@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import atexit
 import logging
+from typing import List
 
 from gql.transport.requests import log as gql_logger
 
@@ -29,14 +30,13 @@ def check_for_updates() -> None:
         refresh_token = f.read().strip()
 
     expaql = ExpaQuery(config.expa.client_id, config.expa.client_secret, refresh_token)
-
     trello = TrelloConn(
         config.trello.api_key,
         config.trello.token,
         config.trello.board_id,
         config.trello.cards_filename,
     )
-    trello.add_list_of_cards(applications=expaql.get_applications())
+    trello.add_list_of_cards(applications=expaql.get_applications_by_ids(config.expa.opportunities))
 
 
 def exit_handler() -> None:
