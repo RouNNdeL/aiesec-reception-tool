@@ -3,5 +3,5 @@ services:
   app:
     volumes:
       - ./.token:/app/.token
+      - ./config-dev.yaml:/app/config.yaml
     build: .
-    env_file: ./.env
