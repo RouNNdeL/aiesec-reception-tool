@@ -35,9 +35,7 @@ def check_for_updates() -> None:
         config.trello.board_id,
         config.trello.cards_filename,
     )
-    trello.add_list_of_cards(
-        applications=expaql.get_applications_by_ids(config.expa.opportunities)
-    )
+    trello.add_list_of_cards(applications=expaql.get_applications())
 
 
 def exit_handler() -> None:

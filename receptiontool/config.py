@@ -34,9 +34,16 @@ class TrelloConfig(BaseModel):
     cards_filename: str
 
 
+class DiscordConfig(BaseModel):
+    dc_token: str
+    dc_channel_id: int
+    dc_messages_filename: str
+
+
 class IgvToolConfig(BaseSettings):
     expa: ExpaConfig
     trello: TrelloConfig
+    discord: DiscordConfig
     token_file: str = ".token"
     log_level: str = "INFO"
 
