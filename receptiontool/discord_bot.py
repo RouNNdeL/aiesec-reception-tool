@@ -23,7 +23,7 @@ config = IgvToolConfig()
 
 
 class MyClient(discord.Client):
-    def __init__(self, *args: str, **kwargs: int) -> None:
+    def __init__(self, *args: Any, **kwargs: Any) -> None:
         super().__init__(*args, **kwargs)
         self.send_new_applications.start()
 
@@ -35,7 +35,9 @@ class MyClient(discord.Client):
 
     @tasks.loop(seconds=300)
     async def send_new_applications(self) -> None:
-        channel = self.get_channel(config.discord.dc_channel_id)
+        channel: Any = self.get_channel(config.discord.dc_channel_id)
+        if channel.category == discord.TextChannel.category:
+            raise Exception("Channel is not a TextChannel")
 
         # get applications from db
         expaql = connect_to_expaql()
