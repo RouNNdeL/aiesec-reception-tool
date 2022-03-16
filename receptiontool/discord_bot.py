@@ -1,13 +1,13 @@
 from __future__ import annotations
 
+from typing import Any, Dict
+
 import discord
 from discord.ext import tasks
 
 from receptiontool.config import IgvToolConfig
 from receptiontool.expaql.api import ExpaQuery
 from receptiontool.expaql.formaters import OpportunityApplicationFormatter
-from typing import Dict, Any
-
 
 max_discord_message_length = 1500
 person_to_emoji_dict = {
@@ -69,7 +69,7 @@ class MyClient(discord.Client):
         await self.wait_until_ready()
 
     async def on_raw_reaction_add(
-            self, payload: discord.RawReactionActionEvent
+        self, payload: discord.RawReactionActionEvent
     ) -> None:
         if payload.user_id == self.user.id:
             return
@@ -82,7 +82,7 @@ class MyClient(discord.Client):
         # if it's, add assigment to person
 
     async def on_raw_reaction_remove(
-            self, payload: discord.RawReactionActionEvent
+        self, payload: discord.RawReactionActionEvent
     ) -> None:
         if payload.user_id == self.user.id:
             return
