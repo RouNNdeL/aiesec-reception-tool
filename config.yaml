@@ -9,3 +9,7 @@ trello:
   token:
   board_id:
   cards_filename:
+discord:
+  dc_token:
+  dc_channel_id:
+  dc_messages_filename:
