@@ -197,7 +197,9 @@ class ExpaQuery:
             """
             )
 
-            result = self.__gql_client.execute(query, variable_values={"page": page})["allOpportunityApplication"]
+            result = self.__gql_client.execute(query, variable_values={"page": page})[
+                "allOpportunityApplication"
+            ]
             opps += result["data"]
             pages = result["paging"]["total_pages"]
 
