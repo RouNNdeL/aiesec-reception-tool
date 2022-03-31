@@ -168,31 +168,45 @@ class ExpaQuery:
     def get_applications(self) -> List[OpportunityApplication]:
         self.__check_token()
 
-        query = gql(
-            """
-            query ApplicationsQuery {
-              allOpportunityApplication {
-                ...ApplicationList
-                __typename
-              }
-            }
+        opps = []
+        page = 1
 
-            fragment ApplicationList on OpportunityApplicationList {
-                data {
-                      """
-            + OpportunityApplication.get_query()
-            + """
+        while True:
+            query = gql(
+                """
+                query ApplicationsQuery($page: Int) {
+                  allOpportunityApplication(
+                    page: $page,
+                    per_page: 100
+                  ) {
+                    ...ApplicationList
+                    __typename
+                  }
                 }
-            }
-        """
-        )
 
-        return [
-            OpportunityApplication(**it)
-            for it in self.__gql_client.execute(query)["allOpportunityApplication"][
-                "data"
-            ]
-        ]
+                fragment ApplicationList on OpportunityApplicationList {
+                    data {
+                          """
+                + OpportunityApplication.get_query()
+                + """
+                    }
+                    paging {
+                        total_pages
+                    }
+                }
+            """
+            )
+
+            result = self.__gql_client.execute(query, variable_values={"page": page})["allOpportunityApplication"]
+            opps += result["data"]
+            pages = result["paging"]["total_pages"]
+
+            if page >= pages:
+                break
+
+            page += 1
+
+        return [OpportunityApplication(**it) for it in opps]
 
     def get_applications_by_ids(self, ids: List[int]) -> List[OpportunityApplication]:
         self.__check_token()

@@ -41,6 +41,7 @@ class ApplicationStatus(str, Enum):
     REALIZED = "realized"
     FINISHED = "finished"
     COMPLETED = "completed"
+    APPROVAL_BROKEN = "approval_broken"
 
 
 class ContactInfo(BaseModel, extra=Extra.forbid):
@@ -382,6 +383,10 @@ class OpportunityApplication(BaseModel, extra=Extra.forbid):
         assert isinstance(v["url"], str)
 
         return v["url"]
+
+    @validator("standards", pre=True, each_item=True)
+    def flatten_constant(cls: OpportunityApplication, v: Any) -> str:
+        return flatten_name(v)
 
     def get_cv(self) -> Optional[str]:
         if self.cv is not None:
