@@ -3,5 +3,6 @@ services:
   app:
     volumes:
       - ./.token:/app/.token
+      - ./.data:/app/.data
       - ./config-dev.yaml:/app/config.yaml
     build: .

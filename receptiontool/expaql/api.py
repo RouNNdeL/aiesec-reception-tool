@@ -3,7 +3,8 @@ from __future__ import annotations
 import base64
 from datetime import datetime, timedelta
 from http import HTTPStatus
-from typing import Any, List
+import logging
+from typing import Any, Callable, List, Optional
 
 from gql import Client, gql
 from gql.transport.requests import RequestsHTTPTransport
@@ -43,12 +44,33 @@ class TokenRefreshResponse(BaseModel):
 
 class ExpaQuery:
     __gql_client: Client
-    __refresh_token: str
     __token_expire: datetime
     __client_id: str
     __client_secret: str
+    refresh_token_callback: Optional[Callable[[str], None]]
 
-    def __init__(self, client_id: str, client_secret: str, initial_refresh_token: str):
+    @property
+    def __refresh_token(self) -> str:
+        return self.___refresh_token
+
+    @__refresh_token.setter
+    def __refresh_token(self, value: str) -> None:
+        self.___refresh_token = value
+        logging.debug("Settings new token")
+        if self.refresh_token_callback is not None:
+            self.refresh_token_callback(value)
+
+    @__refresh_token.deleter
+    def __refresh_token(self) -> None:
+        del self.___refresh_token
+
+    def __init__(
+        self,
+        client_id: str,
+        client_secret: str,
+        initial_refresh_token: str,
+        refresh_token_callback: Optional[Callable[[str], None]] = None,
+    ):
         token_len = len(initial_refresh_token)
         if token_len != 64:
             raise ValueError(f"Invalid token length, expected 64 got {token_len}")
@@ -65,6 +87,7 @@ class ExpaQuery:
                 "Invalid client_secret length, expected 64 got {client_secret_len}"
             )
 
+        self.refresh_token_callback = refresh_token_callback
         self.__refresh_token = initial_refresh_token
         self.__client_id = client_id
         self.__client_secret = client_secret
@@ -145,38 +168,52 @@ class ExpaQuery:
     def get_applications(self) -> List[OpportunityApplication]:
         self.__check_token()
 
-        query = gql(
-            """
-            query ApplicationsQuery {
-              allOpportunityApplication {
-                ...ApplicationList
-                __typename
-              }
-            }
+        opps = []
+        page = 1
 
-            fragment ApplicationList on OpportunityApplicationList {
-                data {
-                      """
-            + OpportunityApplication.get_query()
-            + """
+        while True:
+            query = gql(
+                """
+                query ApplicationsQuery($page: Int) {
+                  allOpportunityApplication(
+                    page: $page,
+                    per_page: 100
+                  ) {
+                    ...ApplicationList
+                    __typename
+                  }
                 }
-            }
-        """
-        )
 
-        return [
-            OpportunityApplication(**it)
-            for it in self.__gql_client.execute(query)["allOpportunityApplication"][
-                "data"
+                fragment ApplicationList on OpportunityApplicationList {
+                    data {
+                          """
+                + OpportunityApplication.get_query()
+                + """
+                    }
+                    paging {
+                        total_pages
+                    }
+                }
+            """
+            )
+
+            result = self.__gql_client.execute(query, variable_values={"page": page})[
+                "allOpportunityApplication"
             ]
-        ]
+            opps += result["data"]
+            pages = result["paging"]["total_pages"]
+
+            if page >= pages:
+                break
+
+            page += 1
+
+        return [OpportunityApplication(**it) for it in opps]
 
     def get_applications_by_ids(self, ids: List[int]) -> List[OpportunityApplication]:
         self.__check_token()
 
-        return list(
-            filter(lambda it: it.opportunity.id in ids, self.get_applications())
-        )
+        return [it for it in self.get_applications() if it.opportunity.id in ids]
 
     def get_schema(self, typename: str) -> GqlSchema:
         self.__check_token()

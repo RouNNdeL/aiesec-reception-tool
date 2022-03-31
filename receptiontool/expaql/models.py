@@ -4,6 +4,7 @@ from datetime import datetime
 from enum import Enum
 import re
 from typing import Any, Dict, List, Optional, Set
+from urllib import parse
 
 from pydantic import BaseModel, Extra, Field, validator
 
@@ -41,6 +42,7 @@ class ApplicationStatus(str, Enum):
     REALIZED = "realized"
     FINISHED = "finished"
     COMPLETED = "completed"
+    APPROVAL_BROKEN = "approval_broken"
 
 
 class ContactInfo(BaseModel, extra=Extra.forbid):
@@ -59,8 +61,17 @@ class ContactInfo(BaseModel, extra=Extra.forbid):
 
         return None
 
-    def format_phone_number(self) -> str:
-        return f"{self.country_code} {self.phone}"
+    def format_phone_number(self) -> Optional[str]:
+        country_code = self.country_code
+        phone_number = self.phone
+
+        if country_code is None:
+            return phone_number
+
+        if not country_code.startswith("+"):
+            country_code = "+" + country_code
+
+        return f"{country_code} {phone_number}"
 
     def whatsapp_url(self) -> str:
         return f"https://wa.me/{self.country_code}{self.phone}"
@@ -383,10 +394,24 @@ class OpportunityApplication(BaseModel, extra=Extra.forbid):
 
         return v["url"]
 
-    def get_cv(self) -> Optional[str]:
+    @validator("standards", pre=True, each_item=True)
+    def flatten_constant(cls: OpportunityApplication, v: Any) -> str:
+        return flatten_name(v)
+
+    def get_cv(self, safe: bool = False) -> str:
         if self.cv is not None:
-            return self.cv
-        return self.person.cv_url
+            cv = self.cv
+        else:
+            cv = self.person.cv_url
+
+        if not safe:
+            return cv
+
+        # Safe option means all special characters are urlencoded
+        parsed = parse.urlparse(cv)
+        fixed = parsed._replace(path=parse.quote(parse.unquote(parsed.path), "/"))
+
+        return parse.urlunparse(fixed)
 
     def expa_url(self) -> str:
         return f"https://expa.aiesec.org/applications/{self.id}"

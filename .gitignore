@@ -153,5 +153,6 @@ cython_debug/
 
 # Project specific
 .token
+.data
 config.yaml
 config-dev.yaml

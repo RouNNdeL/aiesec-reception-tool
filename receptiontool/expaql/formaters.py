@@ -1,14 +1,11 @@
+from typing import Any, Dict, Optional
+
 from .models import OpportunityApplication
 
 
-class OpportunityApplicationFormatter:
-    __opportunity_application: OpportunityApplication
-
-    def __init__(self, oportunity_application: OpportunityApplication):
-        self.__opportunity_application = oportunity_application
-
-    def format_markdown(self) -> str:
-        app = self.__opportunity_application
+class OpAppFormatter:
+    @staticmethod
+    def format_markdown(app: OpportunityApplication) -> str:
         person = app.person
         opportunity = app.opportunity
 
@@ -88,3 +85,51 @@ class OpportunityApplicationFormatter:
 [Application]({app.expa_url()})
 [Oportunity]({opportunity.expa_url()})
         """
+
+    @staticmethod
+    def format_discord_embed(
+        app: OpportunityApplication,
+        url: Optional[str] = None,
+        title: Optional[str] = None,
+    ) -> Dict[str, Any]:
+        _title = "A new application has just been submitted"
+        if title is not None:
+            _title = title
+
+        fields = []
+        if app.person.contact_detail is not None:
+            phone_number = app.person.contact_detail.format_phone_number()
+            whatsapp_url = app.person.contact_detail.whatsapp_url()
+
+            if phone_number is not None:
+                phone_md = f"[{phone_number}]({whatsapp_url})"
+                fields.append({"name": "Phone number", "value": phone_md})
+
+        if len(app.person.profile.nationalities) > 0:
+            nationalities = ", ".join(app.person.profile.nationalities)
+            fields.append({"name": "Nationalities", "value": nationalities})
+
+        if len(app.person.profile.languages) > 0:
+            languages = ", ".join(app.person.profile.languages)
+            fields.append({"name": "Languages", "value": languages})
+
+        cv = app.get_cv(safe=True)
+        if cv is not None:
+            cv_md = f"[Click here]({cv})"
+            fields.append({"name": "Resume", "value": cv_md})
+
+        embed = {
+            "title": _title,
+            "description": f"New application for [*{app.opportunity.title}*]({app.opportunity.expa_url()})",
+            "timestamp": app.created_at.isoformat(),
+            "url": url,
+            "author": {
+                "name": app.person.full_name,
+                "url": app.expa_url(),
+                "icon_url": app.person.profile_photo,
+            },
+            "fields": fields,
+            "footer": {"text": "Application date"},
+        }
+
+        return embed

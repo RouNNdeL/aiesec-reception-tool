@@ -1,75 +1,52 @@
 from __future__ import annotations
 
-import logging
-from typing import List
+from typing import Callable, List, Optional
 
-from trello import List as TrelloList, TrelloClient
+from trello import Board, Card, List as TrelloList, TrelloClient
 
-from receptiontool.expaql.formaters import OpportunityApplicationFormatter
+from receptiontool.expaql.formaters import OpAppFormatter
 from receptiontool.expaql.models import OpportunityApplication
 
 
 class TrelloConn:
-    def __init__(self, api_key: str, token: str, board_id: str, cards_filename: str):
-        self.api_key = api_key
-        self.token = token
-        self.board_id = board_id
-        self.cards_filename = cards_filename
-        self.list_of_ids = self.load_already_added_ids()
+    __client: TrelloClient
+    __board: Board
+    new_card_callback: Optional[Callable[[OpportunityApplication, Card], None]]
+
+    def __init__(self, api_key: str, token: str, board_id: str):
+        self.__client = TrelloClient(api_key, token)
+        self.__board = self.__client.get_board(board_id)
+        self.new_card_callback = None
+
+    def get_list_by_name(self, name: str) -> TrelloList:
+        for trello_list in self.__board.all_lists():
+            if trello_list.name == name:
+                return trello_list
+
+        raise Exception(f"List '{name}' not found in Trello")
+
+    def get_first_list(self) -> TrelloList:
+        for trello_list in self.__board.all_lists():
+            if not trello_list.closed:
+                return trello_list
+
+        raise Exception("No lists in Trello")
 
     def add_new_card(
         self,
-        card_name: str,
-        card_id: int,
-        card_description: str,
-        selected_list: TrelloList,
+        expa_application: OpportunityApplication,
+        trello_list: TrelloList,
     ) -> None:
-        if card_id in self.list_of_ids:
-            return
+        card_name = expa_application.person.full_name
+        card_description = OpAppFormatter.format_markdown(expa_application)
 
-        self.add_card_id_to_list_and_file(card_id)
-        selected_list.add_card(card_name, card_description)
+        card = trello_list.add_card(card_name, card_description)
 
-    def add_list_of_cards(
-        self, applications: List[OpportunityApplication], list_name: str | None = None
+        if self.new_card_callback is not None:
+            self.new_card_callback(expa_application, card)
+
+    def add_new_cards(
+        self, expa_applications: List[OpportunityApplication], trello_list: TrelloList
     ) -> None:
-        client = TrelloClient(self.api_key, self.token)
-        board = client.get_board(self.board_id)
-        lists = board.all_lists()
-
-        selected_list = None
-        for trello_list in lists:
-            # if None return first, unless it is archived
-            if (
-                list_name is None and not trello_list.closed
-            ) or trello_list.name == list_name:
-                selected_list = trello_list
-                break
-
-        if selected_list is None:
-            raise Exception(f"No list found with a given name: {list_name}")
-
-        for application in applications:
-            formatter = OpportunityApplicationFormatter(application)
-            self.add_new_card(
-                application.person.full_name,
-                application.id,
-                formatter.format_markdown(),
-                selected_list,
-            )
-
-    def add_card_id_to_list_and_file(self, card_id: int) -> None:
-        with open(self.cards_filename, "a") as file:
-            file.write(f"{card_id}\n")
-        self.list_of_ids.append(card_id)
-
-    def load_already_added_ids(self) -> List:
-        try:
-            with open(self.cards_filename) as file:
-                lines = file.read().splitlines()
-            return lines
-        except FileNotFoundError:
-            logging.warning(
-                "File with cards ids does not exist, assuming that no cards are in trello"
-            )
-            return []
+        for expa_application in expa_applications:
+            self.add_new_card(expa_application, trello_list)

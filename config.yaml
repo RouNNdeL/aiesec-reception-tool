@@ -9,3 +9,5 @@ trello:
   token:
   board_id:
   cards_filename:
+discord:
+  webhook_url:
