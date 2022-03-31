@@ -61,8 +61,17 @@ class ContactInfo(BaseModel, extra=Extra.forbid):
 
         return None
 
-    def format_phone_number(self) -> str:
-        return f"{self.country_code} {self.phone}"
+    def format_phone_number(self) -> Optional[str]:
+        country_code = self.country_code
+        phone_number = self.phone
+
+        if country_code is None:
+            return phone_number
+
+        if not country_code.startswith("+"):
+            country_code = "+" + country_code
+
+        return f"{country_code} {phone_number}"
 
     def whatsapp_url(self) -> str:
         return f"https://wa.me/{self.country_code}{self.phone}"

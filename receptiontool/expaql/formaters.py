@@ -99,13 +99,15 @@ class OpAppFormatter:
         phone_number = None
         if app.person.contact_detail is not None:
             _phone_number = app.person.contact_detail.format_phone_number()
-            if len(_phone_number) > 1:
+            if _phone_number is not None and len(_phone_number) > 1:
                 phone_number = _phone_number
 
         fields = []
 
         if phone_number is not None:
-            fields.append({"name": "Phone number", "value": phone_number})
+            whatsapp_url = app.person.contact_detail.whatsapp_url()
+            phone_md = f"[{phone_number}]({whatsapp_url})"
+            fields.append({"name": "Phone number", "value": phone_md})
 
         if len(app.person.profile.nationalities) > 0:
             nationalities = ", ".join(app.person.profile.nationalities)
