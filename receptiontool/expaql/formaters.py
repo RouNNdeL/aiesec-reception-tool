@@ -96,13 +96,31 @@ class OpAppFormatter:
         if title is not None:
             _title = title
 
-        phone_number = "*Not provided*"
+        phone_number = None
         if app.person.contact_detail is not None:
             _phone_number = app.person.contact_detail.format_phone_number()
             if len(_phone_number) > 1:
                 phone_number = _phone_number
 
-        return {
+        fields = []
+
+        if phone_number is not None:
+            fields.append({"name": "Phone number", "value": phone_number})
+
+        if len(app.person.profile.nationalities) > 0:
+            nationalities = ", ".join(app.person.profile.nationalities)
+            fields.append({"name": "Nationalities", "value": nationalities})
+
+        if len(app.person.profile.languages) > 0:
+            languages = ", ".join(app.person.profile.languages)
+            fields.append({"name": "Languages", "value": languages})
+
+        cv = app.get_cv(safe=True)
+        if cv is not None:
+            cv_md = f"[Click here]({cv})"
+            fields.append({"name": "Resume", "value": cv_md})
+
+        embed = {
             "title": _title,
             "description": f"New application for [*{app.opportunity.title}*]({app.opportunity.expa_url()})",
             "timestamp": app.created_at.isoformat(),
@@ -112,16 +130,8 @@ class OpAppFormatter:
                 "url": app.expa_url(),
                 "icon_url": app.person.profile_photo,
             },
-            "fields": [
-                {
-                    "name": "Phone number",
-                    "value": phone_number,
-                },
-                {
-                    "name": "Nationalities",
-                    "value": ", ".join(app.person.profile.nationalities),
-                },
-                {"name": "Resume", "value": f"[Click here]({app.get_cv()})"},
-            ],
+            "fields": fields,
             "footer": {"text": "Application date"},
         }
+
+        return embed

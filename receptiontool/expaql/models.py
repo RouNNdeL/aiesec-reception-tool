@@ -4,6 +4,7 @@ from datetime import datetime
 from enum import Enum
 import re
 from typing import Any, Dict, List, Optional, Set
+from urllib import parse
 
 from pydantic import BaseModel, Extra, Field, validator
 
@@ -388,10 +389,20 @@ class OpportunityApplication(BaseModel, extra=Extra.forbid):
     def flatten_constant(cls: OpportunityApplication, v: Any) -> str:
         return flatten_name(v)
 
-    def get_cv(self) -> Optional[str]:
+    def get_cv(self, safe: bool = False) -> str:
         if self.cv is not None:
-            return self.cv
-        return self.person.cv_url
+            cv = self.cv
+        else:
+            cv = self.person.cv_url
+
+        if not safe:
+            return cv
+
+        # Safe option means all special characters are urlencoded
+        parsed = parse.urlparse(cv)
+        fixed = parsed._replace(path=parse.quote(parse.unquote(parsed.path), "/"))
+
+        return parse.urlunparse(fixed)
 
     def expa_url(self) -> str:
         return f"https://expa.aiesec.org/applications/{self.id}"
