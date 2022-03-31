@@ -2,13 +2,16 @@
 
 from __future__ import annotations
 
-import atexit
 import logging
 
 from gql.transport.requests import log as gql_logger
+import requests
+from trello.card import Card
 
 from receptiontool.config import IgvToolConfig
 from receptiontool.expaql.api import ExpaQuery
+from receptiontool.expaql.formaters import OpAppFormatter
+from receptiontool.expaql.models import OpportunityApplication
 from receptiontool.trello_conn import TrelloConn
 
 config = IgvToolConfig()
@@ -19,38 +22,64 @@ logging.basicConfig(
 )
 gql_logger.setLevel(logging.WARNING)
 
-expaql: ExpaQuery | None = None
+
+def refresh_token_callback(refres_token: str) -> None:
+    logging.debug("Writing new token")
+    with open(config.token_file, "w") as f:
+        f.write(refres_token)
+
+
+def new_card_callback(app: OpportunityApplication, trello_card: Card) -> None:
+    with open(config.data_file, "a") as f:
+        f.write(f"{app.id}\n")
+
+    embed = OpAppFormatter.format_discord_embed(app, trello_card.url)
+    data = {"embeds": [embed]}
+    res = requests.post(config.discord.webhook_url, json=data)
+
+    if not res.ok:
+        logging.fatal(
+            f"Unable to send Discord webhook message: HTTP{res.status_code} '{res.text}'"
+        )
 
 
 def check_for_updates() -> None:
-    global expaql
-
     with open(config.token_file, "r") as f:
         refresh_token = f.read().strip()
+    with open(config.data_file, "r") as f:
+        ignored_apps = {int(it) for it in f.read().splitlines()}
 
-    expaql = ExpaQuery(config.expa.client_id, config.expa.client_secret, refresh_token)
+    logging.info(f"Loaded {len(ignored_apps)} ids from the ignored apps file")
+
+    expaql = ExpaQuery(
+        config.expa.client_id,
+        config.expa.client_secret,
+        refresh_token,
+        refresh_token_callback,
+    )
     trello = TrelloConn(
         config.trello.api_key,
         config.trello.token,
         config.trello.board_id,
-        config.trello.cards_filename,
     )
-    trello.add_list_of_cards(
-        applications=expaql.get_applications_by_ids(config.expa.opportunities)
-    )
+    trello.new_card_callback = new_card_callback
 
+    new_apps = expaql.get_applications_by_ids(config.expa.opportunities)
+    logging.info(f"Fetched {len(new_apps)} from EXPA")
 
-def exit_handler() -> None:
-    global expaql
+    filtered_apps = [app for app in new_apps if app.id not in ignored_apps]
 
-    if expaql is not None:
-        with open(config.token_file, "w") as f:
-            f.write(expaql.get_refresh_token())
+    if config.trello.list_name is not None:
+        trello_list = trello.get_list_by_name(config.trello.list_name)
+    else:
+        trello_list = trello.get_first_list()
+
+    logging.info(f"Adding {len(filtered_apps)} to Trello")
+    trello.add_new_cards(filtered_apps, trello_list)
 
 
 def entrypoint() -> None:
     logging.info("Starting receptiontool")
-    atexit.register(exit_handler)
     try:
         check_for_updates()
     except Exception as e:

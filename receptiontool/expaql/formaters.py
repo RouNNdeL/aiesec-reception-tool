@@ -1,14 +1,11 @@
+from typing import Any, Dict, Optional
+
 from .models import OpportunityApplication
 
 
-class OpportunityApplicationFormatter:
-    __opportunity_application: OpportunityApplication
-
-    def __init__(self, oportunity_application: OpportunityApplication):
-        self.__opportunity_application = oportunity_application
-
-    def format_markdown(self) -> str:
-        app = self.__opportunity_application
+class OpAppFormatter:
+    @staticmethod
+    def format_markdown(app: OpportunityApplication) -> str:
         person = app.person
         opportunity = app.opportunity
 
@@ -88,3 +85,43 @@ class OpportunityApplicationFormatter:
 [Application]({app.expa_url()})
 [Oportunity]({opportunity.expa_url()})
         """
+
+    @staticmethod
+    def format_discord_embed(
+        app: OpportunityApplication,
+        url: Optional[str] = None,
+        title: Optional[str] = None,
+    ) -> Dict[str, Any]:
+        _title = "A new application has just been submitted"
+        if title is not None:
+            _title = title
+
+        phone_number = "*Not provided*"
+        if app.person.contact_detail is not None:
+            _phone_number = app.person.contact_detail.format_phone_number()
+            if len(_phone_number) > 1:
+                phone_number = _phone_number
+
+        return {
+            "title": _title,
+            "description": f"New application for [*{app.opportunity.title}*]({app.opportunity.expa_url()})",
+            "timestamp": app.created_at.isoformat(),
+            "url": url,
+            "author": {
+                "name": app.person.full_name,
+                "url": app.expa_url(),
+                "icon_url": app.person.profile_photo,
+            },
+            "fields": [
+                {
+                    "name": "Phone number",
+                    "value": phone_number,
+                },
+                {
+                    "name": "Nationalities",
+                    "value": ", ".join(app.person.profile.nationalities),
+                },
+                {"name": "Resume", "value": f"[Click here]({app.get_cv()})"},
+            ],
+            "footer": {"text": "Application date"},
+        }

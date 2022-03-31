@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 import os
-from typing import Any, Dict, Final, List
+from typing import Any, Dict, Final, List, Optional
 
 from pydantic import BaseSettings
 from pydantic.env_settings import SettingsSourceCallable
@@ -31,13 +33,19 @@ class TrelloConfig(BaseModel):
     api_key: str
     token: str
     board_id: str
-    cards_filename: str
+    list_name: Optional[str] = None
+
+
+class DiscordConfig(BaseModel):
+    webhook_url: str
 
 
 class IgvToolConfig(BaseSettings):
     expa: ExpaConfig
     trello: TrelloConfig
+    discord: DiscordConfig
     token_file: str = ".token"
+    data_file: str = ".data"
     log_level: str = "INFO"
 
     class Config:
