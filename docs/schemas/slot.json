@@ -1,0 +1,61 @@
+{
+    "name": "Slot",
+    "fields": [
+        {
+            "name": "applications_close_date",
+            "type": "Date"
+        },
+        {
+            "name": "available_openings",
+            "type": "Int"
+        },
+        {
+            "name": "created_at",
+            "type": "DateTime"
+        },
+        {
+            "name": "creator",
+            "type": "Person"
+        },
+        {
+            "name": "end_date",
+            "type": "Date"
+        },
+        {
+            "name": "id",
+            "type": "NON_NULL"
+        },
+        {
+            "name": "openings",
+            "type": "Int"
+        },
+        {
+            "name": "opportunity_applications_count",
+            "type": "Int"
+        },
+        {
+            "name": "original_applications_close_date",
+            "type": "Date"
+        },
+        {
+            "name": "permissions",
+            "type": "SlotPermissionType"
+        },
+        {
+            "name": "start_date",
+            "type": "Date"
+        },
+        {
+            "name": "status",
+            "type": "String"
+        },
+        {
+            "name": "title",
+            "type": "String"
+        },
+        {
+            "name": "updated_at",
+            "type": "DateTime"
+        }
+    ]
+}
