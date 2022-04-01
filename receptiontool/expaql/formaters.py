@@ -73,6 +73,10 @@ class OpAppFormatter:
 {nationalities}
 
 ## Application detail
+
+### Home LC
+{person.home_lc.name.capitalize()}, {person.home_mc.name}
+
 ### CV
 
 [Click here]({app.get_cv()})

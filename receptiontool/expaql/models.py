@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from datetime import datetime
+from datetime import date, datetime
 from enum import Enum
 import re
 from typing import Any, Dict, List, Optional, Set
@@ -158,16 +158,21 @@ class Office(BaseModel, extra=Extra.forbid):
         return f"{self.full_name}{parent}"
 
     @staticmethod
-    def get_query() -> str:
-        return """
+    def get_query(include_parent: bool = True) -> str:
+        parent = ""
+        if include_parent:
+            parent = """
+                parent {
+                  id
+                  name
+                  full_name
+                }
+            """
+        return f"""
             id
             name
             full_name
-            parent {
-              id
-              name
-              full_name
-            }
+            {parent}
         """
 
 
@@ -301,19 +306,11 @@ class Person(BaseModel, extra=Extra.forbid):
     email: str
     cv_url: str
     gender: Gender
-    home_lc: str
-    home_mc: str
+    home_lc: Office
+    home_mc: Office
     profile_photo: str
     status: str
     profile: PersonProfile = Field(alias="person_profile")
-
-    @validator("home_mc", "home_lc", pre=True)
-    def office_name(cls: Any, v: Any) -> Optional[str]:
-        assert isinstance(v, dict)
-        assert "name" in v
-        assert isinstance(v["name"], str)
-
-        return v["name"]
 
     @validator("gender", pre=True)
     def fix_gender_case(cls: Any, v: Any) -> Optional[str]:
@@ -340,25 +337,21 @@ class Person(BaseModel, extra=Extra.forbid):
             id
             full_name
             contact_detail {
-                """
-            + ContactInfo.get_query()
-            + """
+                """ + ContactInfo.get_query() + """
             }
             email
             cv_url
             gender
             home_lc {
-                name
+                """ + Office.get_query(False) +  """
             }
             home_mc {
-                name
+                """ + Office.get_query(False) + """
             }
             profile_photo
             status
             person_profile {
-            """
-            + PersonProfile.get_query()
-            + """
+                """ + PersonProfile.get_query() + """
             }
         """
         )
@@ -375,6 +368,20 @@ class ApplicationMetaType(BaseModel, extra=Extra.forbid):
             vd_blog_url
         """
 
+class Slot(BaseModel, extra=Extra.forbid):
+    id: int
+    title: str
+    start_date: date
+    end_date: date
+
+    @staticmethod
+    def get_query() -> str:
+        return """
+            id
+            title
+            start_date
+            end_date
+        """
 
 class OpportunityApplication(BaseModel, extra=Extra.forbid):
     id: int
@@ -386,6 +393,7 @@ class OpportunityApplication(BaseModel, extra=Extra.forbid):
     person: Person
     cv: Optional[str]
     standards: List[str]
+    slot: Slot
     status: ApplicationStatus
     meta: ApplicationMetaType
 
@@ -446,6 +454,9 @@ class OpportunityApplication(BaseModel, extra=Extra.forbid):
             }
             meta {
                 gip_answer
+            }
+            slot {
+                """ + Slot.get_query() + """
             }
             standards {
                 constant_name

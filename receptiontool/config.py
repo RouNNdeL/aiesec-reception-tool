@@ -27,6 +27,7 @@ class ExpaConfig(BaseModel):
     client_id: str
     client_secret: str
     opportunities: List[int]
+    partner_lcs: List[int]
 
 
 class TrelloConfig(BaseModel):

@@ -4,6 +4,7 @@ expa:
   client_id:
   client_secret:
   opportunities:
+  partner_lcs:
 trello:
   api_key:
   token:
