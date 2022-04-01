@@ -44,7 +44,10 @@ def new_card_callback(app: OpportunityApplication, trello_card: Card) -> None:
             f"Unable to send Discord webhook message: HTTP{res.status_code} '{res.text}'"
         )
 
-def trello_label_callback(app: OpportunityApplication, board_labels: List[Label]) -> List[Label]:
+
+def trello_label_callback(
+    app: OpportunityApplication, board_labels: List[Label]
+) -> List[Label]:
     labels = []
     for label in board_labels:
         name = label.name.strip().lower()
@@ -54,7 +57,6 @@ def trello_label_callback(app: OpportunityApplication, board_labels: List[Label]
             labels.append(label)
 
     return labels
-
 
 
 def check_for_updates() -> None:

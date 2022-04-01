@@ -337,21 +337,29 @@ class Person(BaseModel, extra=Extra.forbid):
             id
             full_name
             contact_detail {
-                """ + ContactInfo.get_query() + """
+                """
+            + ContactInfo.get_query()
+            + """
             }
             email
             cv_url
             gender
             home_lc {
-                """ + Office.get_query(False) +  """
+                """
+            + Office.get_query(False)
+            + """
             }
             home_mc {
-                """ + Office.get_query(False) + """
+                """
+            + Office.get_query(False)
+            + """
             }
             profile_photo
             status
             person_profile {
-                """ + PersonProfile.get_query() + """
+                """
+            + PersonProfile.get_query()
+            + """
             }
         """
         )
@@ -368,6 +376,7 @@ class ApplicationMetaType(BaseModel, extra=Extra.forbid):
             vd_blog_url
         """
 
+
 class Slot(BaseModel, extra=Extra.forbid):
     id: int
     title: str
@@ -382,6 +391,7 @@ class Slot(BaseModel, extra=Extra.forbid):
             start_date
             end_date
         """
+
 
 class OpportunityApplication(BaseModel, extra=Extra.forbid):
     id: int
@@ -456,7 +466,9 @@ class OpportunityApplication(BaseModel, extra=Extra.forbid):
                 gip_answer
             }
             slot {
-                """ + Slot.get_query() + """
+                """
+            + Slot.get_query()
+            + """
             }
             standards {
                 constant_name

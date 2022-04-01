@@ -2,9 +2,8 @@ from __future__ import annotations
 
 from datetime import timedelta
 from typing import Callable, List, Optional
-from pydantic.types import OptionalInt
 
-from trello import Board, Card, List as TrelloList, TrelloClient, Label, label
+from trello import Board, Card, Label, List as TrelloList, TrelloClient
 
 from receptiontool.expaql.formaters import OpAppFormatter
 from receptiontool.expaql.models import OpportunityApplication
@@ -14,7 +13,9 @@ class TrelloConn:
     __client: TrelloClient
     __board: Board
     new_card_callback: Optional[Callable[[OpportunityApplication, Card], None]]
-    label_callback: Optional[Callable[[OpportunityApplication, List[Label]], List[Label]]]
+    label_callback: Optional[
+        Callable[[OpportunityApplication, List[Label]], List[Label]]
+    ]
 
     def __init__(self, api_key: str, token: str, board_id: str):
         self.__client = TrelloClient(api_key, token)
@@ -48,9 +49,10 @@ class TrelloConn:
         card.set_start(expa_application.created_at)
         card.set_due(expa_application.created_at + timedelta(days=1))
 
-
         if self.label_callback is not None:
-            for label in self.label_callback(expa_application, self.__board.get_labels()):
+            for label in self.label_callback(
+                expa_application, self.__board.get_labels()
+            ):
                 card.add_label(label)
 
         if self.new_card_callback is not None:
