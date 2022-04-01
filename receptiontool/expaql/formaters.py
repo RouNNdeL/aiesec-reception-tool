@@ -118,10 +118,7 @@ class OpAppFormatter:
             cv_md = f"[Click here]({cv})"
             fields.append({"name": "Resume", "value": cv_md})
 
-        author = {
-            "name": app.person.full_name,
-            "url": app.expa_url()
-        }
+        author = {"name": app.person.full_name, "url": app.expa_url()}
 
         if app.person.profile_photo.endswith(("png", "jpg")):
             author["icon_url"] = app.person.profile_photo
@@ -135,6 +132,5 @@ class OpAppFormatter:
             "fields": fields,
             "footer": {"text": "Application date"},
         }
-
 
         return embed
