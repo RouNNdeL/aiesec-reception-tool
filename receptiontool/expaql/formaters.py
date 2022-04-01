@@ -118,16 +118,17 @@ class OpAppFormatter:
             cv_md = f"[Click here]({cv})"
             fields.append({"name": "Resume", "value": cv_md})
 
+        author = {"name": app.person.full_name, "url": app.expa_url()}
+
+        if app.person.profile_photo.endswith(("png", "jpg")):
+            author["icon_url"] = app.person.profile_photo
+
         embed = {
             "title": _title,
             "description": f"New application for [*{app.opportunity.title}*]({app.opportunity.expa_url()})",
             "timestamp": app.created_at.isoformat(),
             "url": url,
-            "author": {
-                "name": app.person.full_name,
-                "url": app.expa_url(),
-                "icon_url": app.person.profile_photo,
-            },
+            "author": author,
             "fields": fields,
             "footer": {"text": "Application date"},
         }
