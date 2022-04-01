@@ -1,4 +1,5 @@
 from __future__ import annotations
+from datetime import timedelta
 
 from typing import Callable, List, Optional
 
@@ -41,6 +42,8 @@ class TrelloConn:
         card_description = OpAppFormatter.format_markdown(expa_application)
 
         card = trello_list.add_card(card_name, card_description)
+        card.set_start(expa_application.created_at)
+        card.set_due(expa_application.created_at + timedelta(days=1))
 
         if self.new_card_callback is not None:
             self.new_card_callback(expa_application, card)

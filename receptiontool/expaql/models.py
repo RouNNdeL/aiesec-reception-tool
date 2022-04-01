@@ -321,6 +321,12 @@ class Person(BaseModel, extra=Extra.forbid):
 
         return v.lower()
 
+    @validator("full_name", pre=True)
+    def capitalize_names(cls: Any, v: Any) -> str:
+        assert isinstance(v, str)
+
+        return v.title()
+
     def __str__(self) -> str:
         return f"{self.full_name}"
 
