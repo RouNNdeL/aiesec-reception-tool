@@ -330,6 +330,9 @@ class Person(BaseModel, extra=Extra.forbid):
     def __repr__(self) -> str:
         return self.__str__()
 
+    def format_lc(self) -> str:
+        return f"{self.home_lc.name.capitalize()}, {self.home_mc.name}"
+
     @staticmethod
     def get_query() -> str:
         return (
