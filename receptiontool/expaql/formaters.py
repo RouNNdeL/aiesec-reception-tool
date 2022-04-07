@@ -75,7 +75,7 @@ class OpAppFormatter:
 ## Application detail
 
 ### Home LC
-{person.home_lc.name.capitalize()}, {person.home_mc.name}
+{app.person.format_lc()}
 
 ### CV
 
@@ -108,6 +108,8 @@ class OpAppFormatter:
             if phone_number is not None:
                 phone_md = f"[{phone_number}]({whatsapp_url})"
                 fields.append({"name": "Phone number", "value": phone_md})
+
+        fields.append({"name": "LC", "value": app.person.format_lc()})
 
         if len(app.person.profile.nationalities) > 0:
             nationalities = ", ".join(app.person.profile.nationalities)

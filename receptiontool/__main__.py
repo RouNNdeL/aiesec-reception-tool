@@ -14,7 +14,7 @@ from receptiontool.config import IgvToolConfig
 from receptiontool.expaql.api import ExpaQuery
 from receptiontool.expaql.formaters import OpAppFormatter
 from receptiontool.expaql.models import OpportunityApplication
-from receptiontool.trello_conn import TrelloConn
+from receptiontool.trello import TrelloConn
 
 config = IgvToolConfig()
 logging.basicConfig(
