@@ -53,7 +53,7 @@ def trello_label_callback(
         name = label.name.strip().lower()
         if name == "partner lc" and app.person.home_lc.id in config.expa.partner_lcs:
             labels.append(label)
-        elif name == app.slot.title.strip().lower():
+        elif name == app.opportunity.organisation.name.strip().lower():
             labels.append(label)
 
     return labels
