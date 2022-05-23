@@ -42,6 +42,7 @@ class ApplicationStatus(str, Enum):
     REALIZED = "realized"
     FINISHED = "finished"
     COMPLETED = "completed"
+    MATCHED = "matched"
     APPROVAL_BROKEN = "approval_broken"
 
 
